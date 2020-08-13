@@ -20,9 +20,9 @@
                   <Text layoutX="27.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Projektname" />
                </children>
             </Pane>
-            <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="120.0" text="Info" />
-            <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="120.0" text="+ Aufgabe" wrapText="true" />
-            <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="120.0" text="Archivieren" />
+            <Button fx:id="infoButton" mnemonicParsing="false"  prefHeight="100.0" prefWidth="120.0" text="Info" />
+            <Button fx:id="addTaskButton" mnemonicParsing="false"  prefHeight="100.0" prefWidth="120.0" text="+ Aufgabe" wrapText="true" />
+            <Button fx:id="archiveButton" mnemonicParsing="false"  prefHeight="100.0" prefWidth="120.0" text="Archivieren" />
          </children>
       </HBox>
       <BorderPane prefHeight="200.0" prefWidth="200.0">

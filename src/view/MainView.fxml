@@ -5,16 +5,15 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.VBox?>
 
-<SplitPane dividerPositions="0.15" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainViewController">
+
+<SplitPane dividerPositions="0.15" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <items>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <Button fx:id="createProjectButton" mnemonicParsing="false" onAction="#onCreateProjectButtonEvent" prefHeight="50.0" prefWidth="100.0" text="Projekt anlegen" textAlignment="CENTER" wrapText="true" />
-            <Button fx:id="teamsButton" mnemonicParsing="false" onAction="#onTeamsButtonEvent" prefHeight="50.0" prefWidth="100.0" text="Teams" textAlignment="CENTER" />
-            <Button fx:id="developersButton" mnemonicParsing="false" onAction="#onDevelopersButtonEvent" prefHeight="50.0" prefWidth="100.0" text="Entwickler" textAlignment="CENTER" />
-            <Button fx:id="showStatisticsButton" mnemonicParsing="false" onAction="#onShowStatisticsButtonEvent" prefHeight="50.0" prefWidth="100.0" text="Statistiken anzeigen" textAlignment="CENTER" wrapText="true" />
-            <Button fx:id="exportPDFButton" mnemonicParsing="false" onAction="#onExportPDFButtonEvent" prefHeight="50.0" prefWidth="100.0" text="PDF exportieren" textAlignment="CENTER" wrapText="true" />
-            <Button fx:id="exitButton" mnemonicParsing="false" onAction="#onExitButtonEvent" prefHeight="50.0" prefWidth="100.0" text="Beenden" textAlignment="CENTER" />
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Projekt anlegen" textAlignment="CENTER" wrapText="true" />
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Teams" textAlignment="CENTER" />
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Entwickler" textAlignment="CENTER" />
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Beenden" textAlignment="CENTER" />
          </children>
       </VBox>
       <ScrollPane prefHeight="200.0" prefWidth="298.0" />
