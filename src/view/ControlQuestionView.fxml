@@ -7,8 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="139.0" prefWidth="211.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ControlQuestionViewController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="139.0" prefWidth="212.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ControlQuestionViewController">
    <children>
       <Pane prefHeight="37.0" prefWidth="211.0" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sind Sie sich sicher?" textAlignment="CENTER" wrappingWidth="211.13671875">
@@ -18,14 +17,14 @@
       </Text>
       <HBox prefHeight="75.0" prefWidth="211.0">
          <children>
-            <Pane prefHeight="93.0" prefWidth="104.0">
+            <Pane prefHeight="75.0" prefWidth="106.0">
                <children>
-                  <Button fx:id="continueButton" layoutX="40.0" layoutY="34.0" mnemonicParsing="false" onAction="#onContinueButtonEvent" prefWidth="50.0" text="Ja" />
+                  <Button fx:id="continueButton" layoutX="28.0" layoutY="34.0" mnemonicParsing="false" onMouseClicked="#onContinueButtonClick" prefWidth="50.0" text="Ja" textAlignment="CENTER" />
                </children>
             </Pane>
-            <Pane prefHeight="93.0" prefWidth="74.0">
+            <Pane prefHeight="75.0" prefWidth="106.0">
                <children>
-                  <Button fx:id="cancelButton" layoutX="25.0" layoutY="34.0" mnemonicParsing="false" onAction="#onCancelButtonEvent" prefWidth="50.0" text="Nein" />
+                  <Button fx:id="cancelButton" cancelButton="true" defaultButton="true" layoutX="28.0" layoutY="34.0" mnemonicParsing="false" onMouseClicked="#onCancelButtonClick" prefWidth="50.0" text="Nein" textAlignment="CENTER" />
                </children>
             </Pane>
          </children>
