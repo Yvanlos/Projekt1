@@ -1,11 +1,11 @@
 package view;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 public class NewDeveloperViewController {
 
@@ -13,7 +13,7 @@ public class NewDeveloperViewController {
     private TextField nameInputField;
 
     @FXML
-    private ChoiceBox<?> developerTeamChoiceBox;
+    private ComboBox<?> developerTeamComboBox;
 
     @FXML
     private Button fileChooserButton;
@@ -22,23 +22,23 @@ public class NewDeveloperViewController {
     private ImageView selectedImage;
 
     @FXML
-    private Button cancelButton;
-
-    @FXML
     private Button saveButton;
 
     @FXML
-    void onCancelButtonEvent(ActionEvent event) {
+    private Button cancelButton;
+
+    @FXML
+    void onCancelButtonEvent(MouseEvent event) {
 
     }
 
     @FXML
-    void onFileChooserButtonEvent(ActionEvent event) {
+    void onFileChooserButtonEvent(MouseEvent event) {
 
     }
 
     @FXML
-    void onSaveButtonEvent(ActionEvent event) {
+    void onSaveButtonEvent(MouseEvent event) {
 
     }
 
