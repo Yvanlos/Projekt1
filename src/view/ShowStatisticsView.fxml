@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Text?>
+
+<SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <items>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Statistiken" />
+      <SplitPane prefHeight="160.0" prefWidth="200.0">
+        <items>
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+                     <items>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Min." />
+                        <ScrollPane prefHeight="200.0" prefWidth="200.0" />
+                     </items>
+                  </SplitPane>
+                  <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" GridPane.columnIndex="1">
+                     <items>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Max." />
+                        <ScrollPane prefHeight="200.0" prefWidth="200.0" />
+                     </items>
+                  </SplitPane>
+                  <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" GridPane.columnIndex="2">
+                     <items>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Avg." />
+                        <ScrollPane prefHeight="200.0" prefWidth="200.0" />
+                     </items>
+                  </SplitPane>
+               </children>
+            </GridPane>
+        </items>
+      </SplitPane>
+   </items>
+</SplitPane>
