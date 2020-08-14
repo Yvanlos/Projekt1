@@ -1,8 +1,8 @@
 package view;
 
-import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 
 public class KanBanViewController {
 
@@ -16,17 +16,18 @@ public class KanBanViewController {
     private Button archiveButton;
 
     @FXML
-    void onAddTaskButtonEvent(ActionEvent event) {
+    void onAddTaskButtonMouseClick(MouseEvent event) {
 
     }
 
     @FXML
-    void onArchiveButtonEvent(ActionEvent event) {
+    void onArchiveButtonMouseClick(MouseEvent event) {
 
     }
 
     @FXML
-    void onInfoButtonEvent(ActionEvent event) {
+    void onInfoButtonMouseClick(MouseEvent event) {
 
     }
+
 }
