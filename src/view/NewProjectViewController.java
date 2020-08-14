@@ -1,10 +1,7 @@
 package view;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 public class NewProjectViewController {
@@ -16,7 +13,7 @@ public class NewProjectViewController {
     private TextField nameInputField;
 
     @FXML
-    private TextField descriptionInputField;
+    private TextArea descriptionInputField;
 
     @FXML
     private ComboBox<?> teamInputField;
