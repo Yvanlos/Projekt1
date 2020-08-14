@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
-// Was würden dann <s,t> hier oben bei javafx.scene.control.Tablecolumn<s ,t>   s und t werden ?
 
 public class pdfViewController {
 
