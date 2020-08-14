@@ -5,18 +5,21 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="300.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainViewController">
    <left>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Projekt anlegen" textAlignment="CENTER" wrapText="true" />
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Teams" textAlignment="CENTER" />
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Entwickler" textAlignment="CENTER" />
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Beenden" textAlignment="CENTER" />
+            <Button fx:id="createProjectButton" mnemonicParsing="false" onAction="#onCreateProjectButtonEvent" prefHeight="50.0" prefWidth="100.0" text="Projekt anlegen" textAlignment="CENTER" wrapText="true" />
+            <Button fx:id="teamsButton" mnemonicParsing="false" onAction="#onTeamsButtonEvent" prefHeight="50.0" prefWidth="100.0" text="Teams" textAlignment="CENTER" />
+            <Button fx:id="developersButton" mnemonicParsing="false" onAction="#onDevelopersButtonEvent" prefHeight="50.0" prefWidth="100.0" text="Entwickler" textAlignment="CENTER" />
+            <Button fx:id="showStatisticsButton" mnemonicParsing="false" onAction="#onShowStatisticsButtonEvent" prefHeight="50.0" prefWidth="100.0" text="Statistiken anzeigen" textAlignment="CENTER" wrapText="true" />
+            <Button fx:id="exportPDFButton" mnemonicParsing="false" onAction="#onExportPDFButtonEvent" prefHeight="50.0" prefWidth="100.0" text="PDF exportieren" textAlignment="CENTER" wrapText="true" />
+            <Button fx:id="exitButton" mnemonicParsing="false" onAction="#onExitButtonEvent" prefHeight="50.0" prefWidth="100.0" text="Beenden" textAlignment="CENTER" />
          </children>
       </VBox>
+
    </left>
    <right>
-      <ScrollPane prefHeight="200.0" prefWidth="298.0" BorderPane.alignment="CENTER" />
+      <ScrollPane prefHeight="200.0" prefWidth="350.0" BorderPane.alignment="CENTER" />
    </right>
 </BorderPane>
