@@ -1,8 +1,8 @@
 package view;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 
 public class MainViewController {
 
@@ -25,32 +25,32 @@ public class MainViewController {
     private Button exitButton;
 
     @FXML
-    void onCreateProjectButtonEvent(ActionEvent event) {
+    void onCreateProjectButtonClick(MouseEvent event) {
 
     }
 
     @FXML
-    void onDevelopersButtonEvent(ActionEvent event) {
+    void onDevelopersButtonClick(MouseEvent event) {
 
     }
 
     @FXML
-    void onExitButtonEvent(ActionEvent event) {
+    void onExitButtonClick(MouseEvent event) {
 
     }
 
     @FXML
-    void onExportPDFButtonEvent(ActionEvent event) {
+    void onExportPDFButtonClick(MouseEvent event) {
 
     }
 
     @FXML
-    void onShowStatisticsButtonEvent(ActionEvent event) {
+    void onShowStatisticsButtonClick(MouseEvent event) {
 
     }
 
     @FXML
-    void onTeamsButtonEvent(ActionEvent event) {
+    void onTeamsButtonClick(MouseEvent event) {
 
     }
 

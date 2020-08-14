@@ -9,12 +9,12 @@
    <left>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <Button fx:id="createProjectButton" mnemonicParsing="false" onAction="#onCreateProjectButtonEvent" prefHeight="50.0" prefWidth="100.0" text="Projekt anlegen" textAlignment="CENTER" wrapText="true" />
-            <Button fx:id="teamsButton" mnemonicParsing="false" onAction="#onTeamsButtonEvent" prefHeight="50.0" prefWidth="100.0" text="Teams" textAlignment="CENTER" />
-            <Button fx:id="developersButton" mnemonicParsing="false" onAction="#onDevelopersButtonEvent" prefHeight="50.0" prefWidth="100.0" text="Entwickler" textAlignment="CENTER" />
-            <Button fx:id="showStatisticsButton" mnemonicParsing="false" onAction="#onShowStatisticsButtonEvent" prefHeight="50.0" prefWidth="100.0" text="Statistiken anzeigen" textAlignment="CENTER" wrapText="true" />
-            <Button fx:id="exportPDFButton" mnemonicParsing="false" onAction="#onExportPDFButtonEvent" prefHeight="50.0" prefWidth="100.0" text="PDF exportieren" textAlignment="CENTER" wrapText="true" />
-            <Button fx:id="exitButton" mnemonicParsing="false" onAction="#onExitButtonEvent" prefHeight="50.0" prefWidth="100.0" text="Beenden" textAlignment="CENTER" />
+            <Button fx:id="createProjectButton" mnemonicParsing="false" onMouseClicked="#onCreateProjectButtonClick" prefHeight="50.0" prefWidth="100.0" text="Projekt anlegen" textAlignment="CENTER" wrapText="true" />
+            <Button fx:id="teamsButton" mnemonicParsing="false" onMouseClicked="#onTeamsButtonClick" prefHeight="50.0" prefWidth="100.0" text="Teams" textAlignment="CENTER" />
+            <Button fx:id="developersButton" mnemonicParsing="false" onMouseClicked="#onDevelopersButtonClick" prefHeight="50.0" prefWidth="100.0" text="Entwickler" textAlignment="CENTER" />
+            <Button fx:id="showStatisticsButton" mnemonicParsing="false" onMouseClicked="#onShowStatisticsButtonClick" prefHeight="50.0" prefWidth="100.0" text="Statistiken anzeigen" textAlignment="CENTER" wrapText="true" />
+            <Button fx:id="exportPDFButton" mnemonicParsing="false" onMouseClicked="#onExportPDFButtonClick" prefHeight="50.0" prefWidth="100.0" text="PDF exportieren" textAlignment="CENTER" wrapText="true" />
+            <Button fx:id="exitButton" mnemonicParsing="false" onMouseClicked="#onExitButtonClick" prefHeight="50.0" prefWidth="100.0" text="Beenden" textAlignment="CENTER" />
          </children>
       </VBox>
 
