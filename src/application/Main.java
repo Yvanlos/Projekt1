@@ -16,7 +16,6 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			//dies ist ein Kommentar
-			dies funktioniert nicht
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
