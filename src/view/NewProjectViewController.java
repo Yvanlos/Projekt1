@@ -1,10 +1,11 @@
 package view;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 
 public class NewProjectViewController {
 
@@ -15,10 +16,10 @@ public class NewProjectViewController {
     private TextField nameInputField;
 
     @FXML
-    private TextField teamInputField;
+    private TextField descriptionInputField;
 
     @FXML
-    private TextField descriptionInputField;
+    private ComboBox<?> teamInputField;
 
     @FXML
     private Button confirmButton;
@@ -27,12 +28,12 @@ public class NewProjectViewController {
     private Button cancelButton;
 
     @FXML
-    void onCancelButtonEvent(ActionEvent event) {
+    void onCancelButtonClick(MouseEvent event) {
 
     }
 
     @FXML
-    void onConfirmButtonEvent(ActionEvent event) {
+    void onConfirmButtonClick(MouseEvent event) {
 
     }
 
