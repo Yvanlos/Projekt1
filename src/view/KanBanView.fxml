@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -11,13 +11,14 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<SplitPane dividerPositions="0.1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.KanBanViewController">
-   <items>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.KanBanViewController">
+   <top>
+      <HBox prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="200.0" prefWidth="120.0">
+            <Pane prefHeight="60.0" prefWidth="120.0">
                <children>
-                  <Text layoutX="27.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Projektname" />
+                  <Label alignment="CENTER" layoutX="7.0" layoutY="6.0" text="Projektname" textAlignment="CENTER" />
                </children>
             </Pane>
             <Button fx:id="infoButton" mnemonicParsing="false" onMouseClicked="#onInfoButtonMouseClick" prefHeight="100.0" prefWidth="120.0" text="Info" />
@@ -25,12 +26,14 @@
             <Button fx:id="archiveButton" mnemonicParsing="false" onMouseClicked="#onArchiveButtonMouseClick" prefHeight="100.0" prefWidth="120.0" text="Archivieren" />
          </children>
       </HBox>
-      <BorderPane prefHeight="200.0" prefWidth="200.0">
+   </top>
+   <center>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <left>
-            <ScrollPane prefHeight="279.0" prefWidth="120.0" BorderPane.alignment="CENTER" />
+            <ScrollPane fx:id="newTaskPane" prefHeight="279.0" prefWidth="120.0" BorderPane.alignment="CENTER" />
          </left>
          <right>
-            <ScrollPane prefHeight="200.0" prefWidth="120.0" BorderPane.alignment="CENTER" />
+            <ScrollPane fx:id="taskFinishedPane" prefHeight="200.0" prefWidth="120.0" BorderPane.alignment="CENTER" />
          </right>
          <center>
             <GridPane BorderPane.alignment="CENTER">
@@ -44,66 +47,54 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <SplitPane dividerPositions="0.13" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
-                     <items>
-                        <Pane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <Text layoutX="27.0" layoutY="11.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bearbeitung" />
-                           </children>
-                        </Pane>
-                        <ScrollPane prefHeight="200.0" prefWidth="200.0" />
-                     </items>
-                  </SplitPane>
-                  <SplitPane dividerPositions="0.13" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" GridPane.columnIndex="1">
-                     <items>
-                        <Pane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <Text layoutX="27.0" layoutY="11.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bearbeitung" />
-                           </children>
-                        </Pane>
-                        <ScrollPane prefHeight="200.0" prefWidth="200.0" />
-                     </items>
-                  </SplitPane>
-                  <SplitPane dividerPositions="0.13" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" GridPane.columnIndex="2">
-                     <items>
-                        <Pane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <Text layoutX="27.0" layoutY="11.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bearbeitung" />
-                           </children>
-                        </Pane>
-                        <ScrollPane prefHeight="200.0" prefWidth="200.0" />
-                     </items>
-                  </SplitPane>
-                  <SplitPane dividerPositions="0.13" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" GridPane.rowIndex="1">
-                     <items>
-                        <Pane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <Text layoutX="27.0" layoutY="11.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Erledigt" />
-                           </children>
-                        </Pane>
-                        <ScrollPane prefHeight="200.0" prefWidth="200.0" />
-                     </items>
-                  </SplitPane>
-                  <SplitPane dividerPositions="0.13" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <items>
-                        <Pane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <Text layoutX="27.0" layoutY="11.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Erledigt" />
-                           </children>
-                        </Pane>
-                        <ScrollPane prefHeight="200.0" prefWidth="200.0" />
-                     </items>
-                  </SplitPane>
-                  <SplitPane dividerPositions="0.13" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                     <items>
-                        <Pane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <Text layoutX="27.0" layoutY="11.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Erledigt" />
-                           </children>
-                        </Pane>
-                        <ScrollPane prefHeight="200.0" prefWidth="200.0" />
-                     </items>
-                  </SplitPane>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <center>
+                        <ScrollPane fx:id="analysisProcessPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                     </center>
+                     <top>
+                        <Label text="Bearbeitung" BorderPane.alignment="CENTER" />
+                     </top>
+                  </BorderPane>
+                  <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                     <center>
+                        <ScrollPane fx:id="implementationProcessPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                     </center>
+                     <top>
+                        <Label text="Bearbeitung" BorderPane.alignment="CENTER" />
+                     </top>
+                  </BorderPane>
+                  <BorderPane layoutX="130.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+                     <center>
+                        <ScrollPane fx:id="testProcessPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                     </center>
+                     <top>
+                        <Label text="Bearbeitung" BorderPane.alignment="CENTER" />
+                     </top>
+                  </BorderPane>
+                  <BorderPane layoutX="249.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                     <center>
+                        <ScrollPane fx:id="analysisFinishedPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                     </center>
+                     <top>
+                        <Label text="Erledigt" BorderPane.alignment="CENTER" />
+                     </top>
+                  </BorderPane>
+                  <BorderPane layoutX="10.0" layoutY="143.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <center>
+                        <ScrollPane fx:id="implementationFinishedPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                     </center>
+                     <top>
+                        <Label text="Erledigt" BorderPane.alignment="CENTER" />
+                     </top>
+                  </BorderPane>
+                  <BorderPane layoutX="130.0" layoutY="143.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <center>
+                        <ScrollPane fx:id="testFinishedPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                     </center>
+                     <top>
+                        <Label text="Erledigt" BorderPane.alignment="CENTER" />
+                     </top>
+                  </BorderPane>
                </children>
             </GridPane>
          </center>
@@ -138,18 +129,16 @@
                </children>
             </HBox>
          </top>
-         <bottom>
-            <SplitPane dividerPositions="0.2" prefHeight="70.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <items>
-                  <Pane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <Text layoutX="10.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nicht zugewiesen:" />
-                     </children>
-                  </Pane>
-                  <ScrollPane prefHeight="200.0" prefWidth="200.0" />
-               </items>
-            </SplitPane>
-         </bottom>
       </BorderPane>
-   </items>
-</SplitPane>
+   </center>
+   <bottom>
+      <BorderPane prefHeight="60.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <center>
+            <HBox fx:id="unassignedList" prefHeight="60.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </center>
+         <left>
+            <Label text="Nicht zugewiesen:" BorderPane.alignment="CENTER" />
+         </left>
+      </BorderPane>
+   </bottom>
+</BorderPane>
