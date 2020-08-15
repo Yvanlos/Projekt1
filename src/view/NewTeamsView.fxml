@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.NewTeamsViewController">
+   <children>
+      <Pane prefHeight="498.0" prefWidth="600.0">
+         <children>
+            <GridPane layoutX="-2.0" layoutY="7.0" prefHeight="279.0" prefWidth="600.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="144.4000244140625" minWidth="2.7999815940856934" prefWidth="23.00001220703125" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="297.2000184059143" minWidth="10.0" prefWidth="172.59998779296876" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="388.80001831054693" minWidth="10.0" prefWidth="382.400048828125" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="111.2000122070313" minWidth="10.0" prefWidth="22.399951171875045" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="160.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="35.7366943359375" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Neues Team Anlegen" underline="true" GridPane.columnIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Anzahl der Entwikler" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Projekt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Beschreibung" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="nameInputField" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <TextField fx:id="numberInputField" prefHeight="26.0" prefWidth="368.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <TextField fx:id="descriptionInputField" prefHeight="154.0" prefWidth="383.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <ComboBox fx:id="projectInputField" prefHeight="26.0" prefWidth="247.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+               </children>
+            </GridPane>
+            <HBox layoutX="-14.0" layoutY="330.0" prefHeight="100.0" prefWidth="623.0">
+               <children>
+                  <Pane prefHeight="100.0" prefWidth="623.0">
+                     <children>
+                        <Button fx:id="cancelButton" layoutX="535.0" layoutY="25.0" mnemonicParsing="false" onAction="#onCancelButtonEvent" text="Abbrechen" />
+                        <Button fx:id="confirmButton" layoutX="441.0" layoutY="25.0" mnemonicParsing="false" onAction="#onConfirmButtonEvent" text="Bestätigen" />
+                     </children>
+                  </Pane>
+               </children>
+            </HBox>
+         </children>
+      </Pane>
+   </children>
+</VBox>
