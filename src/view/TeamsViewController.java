@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 
 public class TeamsViewController {
 
@@ -14,7 +15,7 @@ public class TeamsViewController {
     private Button addTeamButton;
 
     @FXML
-    void addTeamButtonEvent(ActionEvent event) {
+    void onAddTeamButtonClick(MouseEvent event) {
 
     }
 }
