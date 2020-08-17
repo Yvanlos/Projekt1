@@ -1,5 +1,5 @@
 <p>
-    <a href="https://sopra-ci.cs.tu-dortmund.de/group06/project1/Projekt%201-all.jar"><img alt="Pipeline" src="https://sopra-gitlab.cs.tu-dortmund.de/sopra20C/gruppe06/projekt1/badges/master/pipeline.svg" /></a>
+    <a href="https://sopra-ci.cs.tu-dortmund.de/group06/project1/Projekt1-shadow.zip"><img alt="Pipeline" src="https://sopra-gitlab.cs.tu-dortmund.de/sopra20C/gruppe06/projekt1/badges/master/pipeline.svg" /></a>
     <a href="https://sopra-ci.cs.tu-dortmund.de/group06/project1/coverage/"><img alt="Coverage" src="https://sopra-ci.cs.tu-dortmund.de/group06/project1/coverage.svg" /></a>
 	<a href="https://sopra.cs.tu-dortmund.de/bin/pmd.py?XXY=20C&GROUPNUMBER=6&PROJECT=1"><img alt="Pmd" src="https://sopra-ci.cs.tu-dortmund.de/group06/project1/pmd.svg" /></a>
 	<a href="https://sopra-ci.cs.tu-dortmund.de/group06/project1/test/"><img alt="JUnit" src="https://sopra-ci.cs.tu-dortmund.de/group06/project1/junit.svg" /></a>
