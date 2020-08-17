@@ -6,12 +6,12 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="180.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.TeamsViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.TeamsViewController">
    <center>
       <ListView fx:id="teamListView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
    <bottom>
-      <Button fx:id="addTeamButton" mnemonicParsing="false" onMouseClicked="#onAddTeamButtonClick" prefWidth="180.0" text="Team hinzuügen" textAlignment="CENTER" BorderPane.alignment="CENTER" />
+      <Button fx:id="addTeamButton" mnemonicParsing="false" onMouseClicked="#onAddTeamButtonClick" prefWidth="300.0" text="Team hinzuügen" textAlignment="CENTER" BorderPane.alignment="CENTER" />
    </bottom>
    <top>
       <Label text="Teams" textAlignment="CENTER" BorderPane.alignment="CENTER">
