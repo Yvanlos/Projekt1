@@ -1,60 +1,52 @@
 package view;
 
-import javafx.fxml.FXML;
+
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.TableColumn;
-// Was würden dann <s,t> hier oben bei javafx.scene.control.Tablecolumn<s ,t>   s und t werden ?
+import javafx.scene.control.skin.SplitMenuButtonSkin;
 
 public class pdfViewController {
 
-    @FXML
-    private CheckBox checkbox ;
+   @FXML
+   private Button export;
 
-    @FXML
-    private TableColumn columnNew ;
+   @FXML
+   private Button cancel;
 
-    @FXML
-    private TableColumn columnAnalyse ;
+   @FXML
+   private CheckBox allTafeln;
 
-    @FXML
-    private TableColumn columnImpl ;
+   @FXML
+   private CheckBox einTafel;
 
-    @FXML
-    private TableColumn columnAbgesch ;
+   @FXML
+   private SplitMenuButtonSkin tafelAuswahl;
 
-    @FXML
-    private Button projektName ;
+   @FXML
+   void theAllTafelnEvent (ActionEvent event){
 
-    @FXML
-    void theProjektName(ActionEvent event) {
+   }
 
-    };
+   @FXML
+   void theEinTafelEvent (ActionEvent event){
 
-    @FXML
-    void theCheckbox(ActionEvent event){
+   }
 
-    }
+   @FXML
+   void theTafelAuswahl(ActionEvent event){
 
-    @FXML
-    void theColumnNew(ActionEvent event){
+   }
 
-    }
+   @FXML
+   void theExportEvent (ActionEvent event){
 
-    @FXML
-    void theColumnAnalyse(ActionEvent event){
+   }
 
-    }
+   @FXML
+   void theCancelEvent (ActionEvent event){
 
-    @FXML
-    void theColumnImplement(ActionEvent event){
-
-    }
-
-    @FXML
-    void theColumnAbgeschloßen(ActionEvent event){
-
-    }
+   }
 
 }
