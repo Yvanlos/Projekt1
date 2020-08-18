@@ -6,7 +6,7 @@ import java.lang.UnsupportedOperationException;
 public class IOController {
 
     /**
- 	 * 
+ 	 * Reference to the VirtualKanbanController, that every controller has
  	 */
     private VirtualKanbanController virtualKanbanController;
 
@@ -15,8 +15,8 @@ public class IOController {
 
     /**
  	 *
- 	 * TODO: create JavaDoc. 
- 	 * @throws UnsupportedOperation Exception
+ 	 * loads the last state of the Program after launching VirtualKanban
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void load() throws UnsupportedOperationException {
@@ -25,8 +25,8 @@ public class IOController {
 
     /**
  	 *
- 	 * TODO: create JavaDoc. 
- 	 * @throws UnsupportedOperation Exception
+ 	 * saves the current state of the program when it gets closed
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void save() throws UnsupportedOperationException {
@@ -35,8 +35,8 @@ public class IOController {
 
     /**
  	 *
- 	 * TODO: create JavaDoc. 
- 	 * @throws UnsupportedOperation Exception
+ 	 * creates an PDF-File from all existing projects
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void exportPdf() throws UnsupportedOperationException {
@@ -45,9 +45,9 @@ public class IOController {
 
     /**
  	 *
- 	 * TODO: create JavaDoc. 
- 	 * @param project
- 	 * @throws UnsupportedOperation Exception
+ 	 * creates an PDF-File from the selected project
+ 	 * @param project the selected project
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void exportPdf(Project project) throws UnsupportedOperationException {
