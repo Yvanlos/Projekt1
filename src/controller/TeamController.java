@@ -6,17 +6,18 @@ import java.lang.UnsupportedOperationException;
 public class TeamController {
 
     /**
- 	 * 
+ 	 * The VirtualKanbanController object.
  	 */
     private VirtualKanbanController virtualKanbanController;
 
     public TeamController(VirtualKanbanController virtualKanbanController) {
+    	
     }
 
     /**
- 	 *
- 	 * TODO: create JavaDoc. 
- 	 * @param name
+ 	 * Creates a new team.
+ 	 * 
+ 	 * @param name The name of the new team.
  	 * @throws UnsupportedOperation Exception
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
@@ -25,9 +26,9 @@ public class TeamController {
     }
 
     /**
- 	 *
- 	 * TODO: create JavaDoc. 
- 	 * @param team
+ 	 * Deletes an existing team.
+ 	 * 
+ 	 * @param team The team to be deleted.
  	 * @throws UnsupportedOperation Exception
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
