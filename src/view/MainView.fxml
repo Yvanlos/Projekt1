@@ -5,21 +5,21 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="300.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainViewController">
+<BorderPane prefHeight="900.0" prefWidth="1700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainViewController">
    <left>
-      <VBox prefHeight="200.0" prefWidth="100.0">
+      <VBox prefHeight="200.0" prefWidth="150.0">
          <children>
-            <Button fx:id="createProjectButton" mnemonicParsing="false" onMouseClicked="#onCreateProjectButtonClick" prefHeight="50.0" prefWidth="100.0" text="Projekt anlegen" textAlignment="CENTER" wrapText="true" />
-            <Button fx:id="teamsButton" mnemonicParsing="false" onMouseClicked="#onTeamsButtonClick" prefHeight="50.0" prefWidth="100.0" text="Teams" textAlignment="CENTER" />
-            <Button fx:id="developersButton" mnemonicParsing="false" onMouseClicked="#onDevelopersButtonClick" prefHeight="50.0" prefWidth="100.0" text="Entwickler" textAlignment="CENTER" />
-            <Button fx:id="showStatisticsButton" mnemonicParsing="false" onMouseClicked="#onShowStatisticsButtonClick" prefHeight="50.0" prefWidth="100.0" text="Statistiken anzeigen" textAlignment="CENTER" wrapText="true" />
-            <Button fx:id="exportPDFButton" mnemonicParsing="false" onMouseClicked="#onExportPDFButtonClick" prefHeight="50.0" prefWidth="100.0" text="PDF exportieren" textAlignment="CENTER" wrapText="true" />
-            <Button fx:id="exitButton" mnemonicParsing="false" onMouseClicked="#onExitButtonClick" prefHeight="50.0" prefWidth="100.0" text="Beenden" textAlignment="CENTER" />
+            <Button fx:id="createProjectButton" mnemonicParsing="false" onMouseClicked="#onCreateProjectButtonClick" prefHeight="150.0" prefWidth="150.0" text="Projekt anlegen" textAlignment="CENTER" wrapText="true" />
+            <Button fx:id="teamsButton" mnemonicParsing="false" onMouseClicked="#onTeamsButtonClick" prefHeight="150.0" prefWidth="150.0" text="Teams" textAlignment="CENTER" />
+            <Button fx:id="developersButton" mnemonicParsing="false" onMouseClicked="#onDevelopersButtonClick" prefHeight="150.0" prefWidth="150.0" text="Entwickler" textAlignment="CENTER" />
+            <Button fx:id="showStatisticsButton" mnemonicParsing="false" onMouseClicked="#onShowStatisticsButtonClick" prefHeight="150.0" prefWidth="150.0" text="Statistiken anzeigen" textAlignment="CENTER" wrapText="true" />
+            <Button fx:id="exportPDFButton" mnemonicParsing="false" onMouseClicked="#onExportPDFButtonClick" prefHeight="150.0" prefWidth="150.0" text="PDF exportieren" textAlignment="CENTER" wrapText="true" />
+            <Button fx:id="exitButton" mnemonicParsing="false" onMouseClicked="#onExitButtonClick" prefHeight="150.0" prefWidth="150.0" text="Beenden" textAlignment="CENTER" />
          </children>
       </VBox>
 
    </left>
-   <right>
-      <ScrollPane prefHeight="200.0" prefWidth="350.0" BorderPane.alignment="CENTER" />
-   </right>
+   <center>
+      <ScrollPane prefHeight="1000.0" prefWidth="1600.0" BorderPane.alignment="CENTER" />
+   </center>
 </BorderPane>

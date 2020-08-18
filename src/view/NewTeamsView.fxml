@@ -12,15 +12,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.NewTeamsViewController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.NewTeamsViewController">
    <children>
-      <Pane prefHeight="498.0" prefWidth="600.0">
+      <Pane prefHeight="498.0" prefWidth="500.0">
          <children>
-            <GridPane layoutX="-2.0" layoutY="7.0" prefHeight="313.0" prefWidth="600.0">
+            <GridPane layoutY="14.0" prefHeight="562.0" prefWidth="900.0">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="144.4000244140625" minWidth="2.7999815940856934" prefWidth="23.00001220703125" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="297.2000184059143" minWidth="10.0" prefWidth="172.59998779296876" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="388.80001831054693" minWidth="10.0" prefWidth="382.400048828125" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="111.19999237060546" minWidth="10.0" prefWidth="22.19999809265137" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="398.0" minWidth="10.0" prefWidth="167.60001220703126" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="649.600030517578" minWidth="10.0" prefWidth="643.1999877929688" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="111.2000122070313" minWidth="10.0" prefWidth="22.399951171875045" />
               </columnConstraints>
               <rowConstraints>
@@ -28,37 +28,47 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="160.0" valignment="TOP" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="300.0" valignment="TOP" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="35.7366943359375" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Neues Team Anlegen" underline="true" GridPane.columnIndex="1">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="60.536712646484375" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Anzahl der Entwikler" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Projekt" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Beschreibung" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <TextField fx:id="nameInputField" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <TextField fx:id="numberInputField" prefHeight="26.0" prefWidth="368.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <TextField fx:id="descriptionInputField" prefHeight="162.0" prefWidth="383.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                  <ComboBox fx:id="projectInputField" prefHeight="26.0" prefWidth="247.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Entwikler" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-                  <ComboBox prefHeight="26.0" prefWidth="386.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Neues Team Anlegen" underline="true" GridPane.columnIndex="1">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Anzahl der Entwikler" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Projekt" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Beschreibung" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="nameInputField" prefHeight="36.0" prefWidth="650.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                  <TextField fx:id="numberInputField" prefHeight="38.0" prefWidth="650.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <TextField fx:id="descriptionInputField" prefHeight="329.0" prefWidth="650.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <ComboBox fx:id="projectInputField" prefHeight="34.0" prefWidth="326.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                </children>
             </GridPane>
-            <HBox layoutX="-14.0" layoutY="330.0" prefHeight="100.0" prefWidth="623.0">
-               <children>
-                  <Pane prefHeight="74.0" prefWidth="623.0">
-                     <children>
-                        <Button fx:id="cancelButton" cancelButton="true" layoutX="515.0" layoutY="25.0" mnemonicParsing="false" onMouseClicked="#onCancelButtonEvent" text="Abbrechen" />
-                        <Button fx:id="confirmButton" defaultButton="true" layoutX="418.0" layoutY="25.0" mnemonicParsing="false" onMouseClicked="#onConfirmButtonEvent" text="Bestätigen" />
-                     </children>
-                  </Pane>
-               </children>
-            </HBox>
+         </children>
+      </Pane>
+      <HBox prefHeight="100.0" prefWidth="623.0" />
+      <Pane prefHeight="106.0" prefWidth="900.0">
+         <children>
+            <Button fx:id="cancelButton" cancelButton="true" layoutX="792.0" layoutY="67.0" mnemonicParsing="false" onMouseClicked="#onCancelButtonEvent" text="Abbrechen" />
+            <Button fx:id="confirmButton" defaultButton="true" layoutX="676.0" layoutY="67.0" mnemonicParsing="false" onMouseClicked="#onConfirmButtonEvent" text="Bestätigen" />
          </children>
       </Pane>
    </children>
