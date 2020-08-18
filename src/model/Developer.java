@@ -2,25 +2,52 @@ package model;
 
 import java.net.URI;
 import java.util.Collection;
+import java.lang.UnsupportedOperationException;
 
 public class Developer {
 
-	private String name;
+    /**
+ 	 * 
+ 	 */
+    private String name;
 
-	private URI picture;
+    /**
+ 	 * 
+ 	 */
+    private URI picture;
 
-	private boolean atWork;
+    /**
+ 	 * 
+ 	 */
+    private boolean atWork;
 
-	private Collection<CompletedStage> completedStage;
+    /**
+ 	 * 
+ 	 */
+    private Collection<CompletedStage> completedStage;
 
-	private CompletedStage currentTaskStage;
+    /**
+ 	 * 
+ 	 */
+    private CompletedStage currentTaskStage;
 
-	public void addCompletedStage() {
+    /**
+ 	 *
+ 	 * TODO: create JavaDoc. 
+ 	 * @throws UnsupportedOperation Exception
+ 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
+ 	 */
+    public void addCompletedStage() throws UnsupportedOperationException {
+        throw new UnsupportedOperationException("Not Yet Implemented!");
+    }
 
-	}
-
-	public void cancelTask() {
-
-	}
-
+    /**
+ 	 *
+ 	 * TODO: create JavaDoc. 
+ 	 * @throws UnsupportedOperation Exception
+ 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
+ 	 */
+    public void cancelTask() throws UnsupportedOperationException {
+        throw new UnsupportedOperationException("Not Yet Implemented!");
+    }
 }

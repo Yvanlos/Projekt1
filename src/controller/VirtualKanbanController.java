@@ -1,25 +1,45 @@
 package controller;
 
 import model.VirtualKanban;
+import java.lang.UnsupportedOperationException;
 
 public class VirtualKanbanController {
 
-	private ProjectController projectController;
+    /**
+ 	 * 
+ 	 */
+    private ProjectController projectController;
 
-	private TaskController taskController;
+    /**
+ 	 * 
+ 	 */
+    private TaskController taskController;
 
-	private DeveloperController developerController;
+    /**
+ 	 * 
+ 	 */
+    private DeveloperController developerController;
 
-	private TeamController teamController;
+    /**
+ 	 * 
+ 	 */
+    private TeamController teamController;
 
-	private IOController iOController;
+    /**
+ 	 * 
+ 	 */
+    private IOController iOController;
 
-	private VirtualKanban virtualKanban;
+    /**
+ 	 * 
+ 	 */
+    private VirtualKanban virtualKanban;
 
-	private StatisticController statisticController;
+    /**
+ 	 * 
+ 	 */
+    private StatisticController statisticController;
 
-	public VirtualKanbanController() {
-
-	}
-
+    public VirtualKanbanController() {
+    }
 }
