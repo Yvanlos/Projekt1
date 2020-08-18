@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.lang.UnsupportedOperationException;
 
+/**
+ * This class models a project with a deadline, an assigned team and a number of tasks in different stages.
+ */
 public class Project {
 
     /**
