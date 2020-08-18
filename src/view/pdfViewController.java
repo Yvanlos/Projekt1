@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.skin.SplitMenuButtonSkin;
+import javafx.scene.input.MouseEvent;
 
 public class pdfViewController {
 
@@ -16,36 +17,36 @@ public class pdfViewController {
    private Button cancel;
 
    @FXML
-   private CheckBox allTafeln;
+   private CheckBox allTable;
 
    @FXML
-   private CheckBox einTafel;
+   private CheckBox oneTable;
 
    @FXML
-   private SplitMenuButtonSkin tafelAuswahl;
+   private SplitMenuButtonSkin chooseTable;
 
    @FXML
-   void theAllTafelnEvent (ActionEvent event){
+   void theAllTabelEvent (ActionEvent event){
 
    }
 
    @FXML
-   void theEinTafelEvent (ActionEvent event){
+   void theOneTablelEvent (ActionEvent event){
 
    }
 
    @FXML
-   void theTafelAuswahl(ActionEvent event){
+   void theChooseTableEvent(ActionEvent event){
 
    }
 
    @FXML
-   void theExportEvent (ActionEvent event){
+   void theExportEvent(MouseEvent event){
 
    }
 
    @FXML
-   void theCancelEvent (ActionEvent event){
+   void theCancelEvent(MouseEvent event){
 
    }
 
