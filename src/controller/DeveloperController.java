@@ -8,7 +8,7 @@ import java.lang.UnsupportedOperationException;
 public class DeveloperController {
 
     /**
- 	 * 
+ 	 * the virtualKanbanController which knows and is known by every other controller
  	 */
     private VirtualKanbanController virtualKanbanController;
 
@@ -16,12 +16,12 @@ public class DeveloperController {
     }
 
     /**
- 	 *
- 	 * TODO: create JavaDoc. 
- 	 * @param team
- 	 * @param name
- 	 * @param picture
- 	 * @throws UnsupportedOperation Exception
+ 	 * creates a developer which is then assigned to a team
+	 *
+ 	 * @param team the team for which the developer is created
+ 	 * @param name the name of the developer
+ 	 * @param picture a picture of the devloper
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void createDeveloper(Team team, String name, URI picture) throws UnsupportedOperationException {
@@ -29,10 +29,10 @@ public class DeveloperController {
     }
 
     /**
- 	 *
- 	 * TODO: create JavaDoc. 
- 	 * @param developer
- 	 * @throws UnsupportedOperation Exception
+ 	 * deletes a developer and removes him from his team
+	 *
+ 	 * @param developer developer which should be deleted
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void deleteDeveloper(Developer developer) throws UnsupportedOperationException {
@@ -40,11 +40,11 @@ public class DeveloperController {
     }
 
     /**
+ 	 * removes the developer from his current and adds him to the new team
  	 *
- 	 * TODO: create JavaDoc. 
- 	 * @param developer
- 	 * @param newTeam
- 	 * @throws UnsupportedOperation Exception
+ 	 * @param developer teh developer who is changing the team
+ 	 * @param newTeam the team, which the developer is changing to
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void changeTeam(Developer developer, Team newTeam) throws UnsupportedOperationException {
