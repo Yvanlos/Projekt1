@@ -2,7 +2,7 @@ package model;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Iterator;
+import java.util.Collections;
 import java.util.NoSuchElementException;
 
 /**
@@ -46,7 +46,7 @@ public class Project {
     private Collection<StageList> stageList;
 
 	/**
-	 * Constructs a new project with a name, a description, a deadline and an assigned team.
+	 * Constructs a new project with a name, a description, a deadline, an assigned team and empty stage lists.
 	 * @param name name of the project
 	 * @param description description of the project
 	 * @param deadline deadline of the project
@@ -59,6 +59,15 @@ public class Project {
 		this.team = team;
 		setReadOnly(false);
 		startDate = LocalDateTime.now();
+		Collection<Task> task = Collections.<Task>emptyList(); //other ways to initialize a collection?
+		stageList.add(new StageList(task, Stage.NEW));
+		stageList.add(new StageList(task, Stage.ANALYSE_IN_PROGRESS));
+		stageList.add(new StageList(task, Stage.ANALYSE_FINISHED));
+		stageList.add(new StageList(task, Stage.IMPLEMENTATION_IN_PROGRESS));
+		stageList.add(new StageList(task, Stage.IMPLEMENTATION_FINISHED));
+		stageList.add(new StageList(task, Stage.TEST_IN_PROGRESS));
+		stageList.add(new StageList(task, Stage.TEST_FINISHED));
+		stageList.add(new StageList(task, Stage.COMPLETED));
 	}
 
 	/**
@@ -95,14 +104,9 @@ public class Project {
  	 * @throws NoSuchElementException if the task is not found in any stage list
  	 */
     public StageList getStageFromTask(Task task) throws NoSuchElementException {
-		Iterator<StageList> it = stageList.iterator();
-		StageList stage;
-		Collection<Task> tasks;
-		while(it.hasNext()){
-			stage = it.next();
-			tasks = stage.getTask();
-			if (tasks.contains(task)){
-				return stage;
+    	for (StageList list : stageList){
+			if (list.getTask().contains(task)){
+				return list;
 			}
 		}
 		throw new NoSuchElementException("Task could not be found in any StageList.");
@@ -116,12 +120,8 @@ public class Project {
  	 * @throws NoSuchElementException if the current stage is already the last stage
  	 */
     public StageList getNextStage(StageList stageList) throws NoSuchElementException {
-		Stage stage = stageList.getStage();
-		Iterator<StageList> it = this.stageList.iterator();//is collection of StageLists ordered?
-		StageList list;
-		while(it.hasNext()){
-			list = it.next();
-			if(list.getStage() == stageList.getStage().next()){
+		for (StageList list : this.stageList){
+			if (list.getStage() == stageList.getStage().next()){
 				return list;
 			}
 		}
@@ -136,12 +136,8 @@ public class Project {
  	 * @throws NoSuchElementException if the current stage is the first stage
  	 */
     public StageList getPreviousStage(StageList stageList) throws NoSuchElementException {
-		Stage stage = stageList.getStage();
-		Iterator<StageList> it = this.stageList.iterator();//is collection of StageLists ordered?
-		StageList list;
-		while(it.hasNext()){
-			list = it.next();
-			if(list.getStage() == stageList.getStage().previous()){
+		for (StageList list : this.stageList){
+			if (list.getStage() == stageList.getStage().previous()){
 				return list;
 			}
 		}
