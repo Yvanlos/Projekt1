@@ -15,9 +15,11 @@ public class StatisticController {
     }
 
     /**
- 	 *
+ 	 * shows the statistics of a project
+	 *
  	 * TODO: create JavaDoc. 
  	 * @param project
+	 * 					project, of which the statistics are shown
  	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
@@ -26,9 +28,11 @@ public class StatisticController {
     }
 
     /**
- 	 *
+ 	 * shows the statistics of a team
+	 *
  	 * TODO: create JavaDoc. 
  	 * @param team
+	 * 				team, of which the statistics are shown
  	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
@@ -37,7 +41,8 @@ public class StatisticController {
     }
 
     /**
- 	 *
+ 	 *	shows a ranking of all developers, ordered by the number of tasks completed within the last seven days
+	 *
  	 * TODO: create JavaDoc. 
  	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
