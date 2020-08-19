@@ -17,4 +17,10 @@ public class VirtualKanban {
 
     public VirtualKanban() {
     }
+
+    //TODO: implement missing getter/setter
+    //added so other things compile
+    public Collection<Project> getProject() {
+        return project;
+    }
 }
