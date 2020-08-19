@@ -93,13 +93,12 @@ public class Project {
  	 *
  	 * @param task the task that belongs to the associated StageList
  	 * @return StageList the StageList the task belongs to
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, falls die Methode noch nicht implementiert ist.
+ 	 * @throws NoSuchElementException if the task is not found in any stage list
  	 */
     public StageList getStageFromTask(Task task) throws NoSuchElementException {
 		Iterator<StageList> it = stageList.iterator();
-		StageList stage = null;
-		Collection<Task> tasks = null;
+		StageList stage;
+		Collection<Task> tasks;
 		while(it.hasNext()){
 			stage = it.next();
 			tasks = stage.getTask();
@@ -115,12 +114,19 @@ public class Project {
  	 *
  	 * @param stageList the current StageList
  	 * @return StageList the following StageList
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, falls die Methode noch nicht implementiert ist.
+ 	 * @throws NoSuchElementException if the current stage is already the last stage
  	 */
-    public StageList getNextStage(StageList stageList) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
-        //TODO
+    public StageList getNextStage(StageList stageList) throws NoSuchElementException {
+		Stage stage = stageList.getStage();
+		Iterator<StageList> it = this.stageList.iterator();//is collection of StageLists ordered?
+		StageList list;
+		while(it.hasNext()){
+			list = it.next();
+			if(list.getStage() == stageList.getStage().next()){
+				return list;
+			}
+		}
+		throw new NoSuchElementException("There is no next stage.");
     }
 
     /**
@@ -128,12 +134,19 @@ public class Project {
  	 *
  	 * @param stageList the current StageList
  	 * @return StageList the previous StageList
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, falls die Methode noch nicht implementiert ist.
+ 	 * @throws NoSuchElementException if the current stage is the first stage
  	 */
-    public StageList getPreviousStage(StageList stageList) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
-        //TODO
+    public StageList getPreviousStage(StageList stageList) throws NoSuchElementException {
+		Stage stage = stageList.getStage();
+		Iterator<StageList> it = this.stageList.iterator();//is collection of StageLists ordered?
+		StageList list;
+		while(it.hasNext()){
+			list = it.next();
+			if(list.getStage() == stageList.getStage().previous()){
+				return list;
+			}
+		}
+		throw new NoSuchElementException("There is no previous stage.");
     }
 
 	/**
