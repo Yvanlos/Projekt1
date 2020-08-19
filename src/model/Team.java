@@ -6,19 +6,21 @@ import java.lang.UnsupportedOperationException;
 public class Team {
 
     /**
- 	 * 
+ 	 * unique name of the team
  	 */
     private String name;
 
     /**
- 	 * 
+ 	 * list of developers in the team
  	 */
     private Collection<Developer> developer;
 
     /**
- 	 *
+ 	 *	adds a developer to the team
+	 *
  	 * TODO: create JavaDoc. 
  	 * @param developer
+	 * 					developer, which is added to the team
  	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
@@ -27,9 +29,11 @@ public class Team {
     }
 
     /**
- 	 *
+ 	 * removes a developer from the team
+	 *
  	 * TODO: create JavaDoc. 
  	 * @param developer
+	 * 					developer, which is removed from the team
  	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
