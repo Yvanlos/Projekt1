@@ -19,7 +19,7 @@ public class Team {
  	 *
  	 * TODO: create JavaDoc. 
  	 * @param developer
- 	 * @throws UnsupportedOperation Exception
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void addDeveloper(Developer developer) throws UnsupportedOperationException {
@@ -30,7 +30,7 @@ public class Team {
  	 *
  	 * TODO: create JavaDoc. 
  	 * @param developer
- 	 * @throws UnsupportedOperation Exception
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void removeDeveloper(Developer developer) throws UnsupportedOperationException {

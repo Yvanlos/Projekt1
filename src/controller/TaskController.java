@@ -22,7 +22,7 @@ public class TaskController {
  	 * TODO: create JavaDoc. 
  	 * @param project
  	 * @param task
- 	 * @throws UnsupportedOperation Exception
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void deleteTask(Project project, Task task) throws UnsupportedOperationException {
@@ -36,7 +36,7 @@ public class TaskController {
  	 * @param name
  	 * @param description
  	 * @param deadline
- 	 * @throws UnsupportedOperation Exception
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void addTask(Project project, String name, String description, LocalDateTime deadline) throws UnsupportedOperationException {
@@ -48,7 +48,7 @@ public class TaskController {
  	 * TODO: create JavaDoc. 
  	 * @param task
  	 * @param note
- 	 * @throws UnsupportedOperation Exception
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void addNote(Task task, Note note) throws UnsupportedOperationException {
@@ -61,7 +61,7 @@ public class TaskController {
  	 * @param task
  	 * @param project
  	 * @param developer
- 	 * @throws UnsupportedOperation Exception
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void startTask(Task task, Project project, Developer developer) throws UnsupportedOperationException {
@@ -73,7 +73,7 @@ public class TaskController {
  	 * TODO: create JavaDoc. 
  	 * @param task
  	 * @param project
- 	 * @throws UnsupportedOperation Exception
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void finishTask(Task task, Project project) throws UnsupportedOperationException {
@@ -85,7 +85,7 @@ public class TaskController {
  	 * TODO: create JavaDoc. 
  	 * @param task
  	 * @param project
- 	 * @throws UnsupportedOperation Exception
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void dropTask(Task task, Project project) throws UnsupportedOperationException {
@@ -96,7 +96,7 @@ public class TaskController {
  	 *
  	 * TODO: create JavaDoc. 
  	 * @param task
- 	 * @throws UnsupportedOperation Exception
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void showNotes(Task task) throws UnsupportedOperationException {

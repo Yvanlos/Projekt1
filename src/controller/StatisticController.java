@@ -18,7 +18,7 @@ public class StatisticController {
  	 *
  	 * TODO: create JavaDoc. 
  	 * @param project
- 	 * @throws UnsupportedOperation Exception
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void showStats(Project project) throws UnsupportedOperationException {
@@ -29,7 +29,7 @@ public class StatisticController {
  	 *
  	 * TODO: create JavaDoc. 
  	 * @param team
- 	 * @throws UnsupportedOperation Exception
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void showStats(Team team) throws UnsupportedOperationException {
@@ -39,7 +39,7 @@ public class StatisticController {
     /**
  	 *
  	 * TODO: create JavaDoc. 
- 	 * @throws UnsupportedOperation Exception
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void showRanking() throws UnsupportedOperationException {

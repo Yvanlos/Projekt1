@@ -11,11 +11,7 @@ public class SampleModel {
      * This method intentionally violates PMD rules.
      * @param i The integer to return.
      * @return Returns the value of parameter i.
-     *
- 	 * TODO: create JavaDoc. 
- 	 * @param i
- 	 * @return int
- 	 * @throws UnsupportedOperation Exception
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public int a(int i) throws UnsupportedOperationException {

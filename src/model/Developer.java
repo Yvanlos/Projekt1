@@ -36,7 +36,7 @@ public class Developer {
  	 * and adds the currentTaskStage to the completedStage list.
  	 * Then sets atWork to false.
  	 * 
- 	 * @throws UnsupportedOperation Exception
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void addCompletedStage() throws UnsupportedOperationException {
@@ -46,7 +46,7 @@ public class Developer {
     /**
  	 * Drop the <b>currentTaskStage</b> and set <b>atWork</b> to false.
  	 * 
- 	 * @throws UnsupportedOperation Exception
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void cancelTask() throws UnsupportedOperationException {

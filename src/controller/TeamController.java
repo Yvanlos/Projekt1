@@ -18,7 +18,7 @@ public class TeamController {
  	 * Creates a new team.
  	 * 
  	 * @param name The name of the new team.
- 	 * @throws UnsupportedOperation Exception
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void createTeam(String name) throws UnsupportedOperationException {
@@ -29,7 +29,7 @@ public class TeamController {
  	 * Deletes an existing team.
  	 * 
  	 * @param team The team to be deleted.
- 	 * @throws UnsupportedOperation Exception
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void deleteTeam(Team team) throws UnsupportedOperationException {
