@@ -42,4 +42,8 @@ public class VirtualKanbanController {
 
     public VirtualKanbanController() {
     }
+
+    public VirtualKanban getVirtualKanban() {
+        return virtualKanban;
+    }
 }

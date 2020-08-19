@@ -1,9 +1,9 @@
 package controller;
 
-import model.Project;
-import model.Team;
+import model.*;
+
 import java.time.LocalDateTime;
-import java.lang.UnsupportedOperationException;
+import java.util.Collection;
 
 /**
  * This class allows it to create, remove and archive projects
@@ -16,6 +16,7 @@ public class ProjectController {
     private VirtualKanbanController virtualKanbanController;
 
     public ProjectController(VirtualKanbanController virtualKanbanController) {
+    	this.virtualKanbanController = virtualKanbanController;
     }
 
     /**
@@ -26,32 +27,61 @@ public class ProjectController {
  	 * @param team the team assigned to the project
  	 * @param description a description of the project
  	 * @return Project the newly created project
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, falls die Methode noch nicht implementiert ist.
+ 	 * @throws IllegalArgumentException if a project with the same name already exists or if the name is empty
  	 */
-    public Project createProject(String name, LocalDateTime deadline, Team team, String description) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+    public Project createProject(String name, LocalDateTime deadline, Team team, String description) throws IllegalArgumentException {
+        if (name != null){
+			for (Project project : virtualKanbanController.getVirtualKanban().getProject()) {
+				if (project.getName().equals(name)) {
+					throw new IllegalArgumentException("There is already a project called: " + name + ".");
+				}
+			}
+			return new Project(name, description, deadline, team);
+		}
+		throw new IllegalArgumentException("The project must have a name!");
     }
 
     /**
  	 * Archives the specified project and releases the team which was assigned to the project
  	 *
  	 * @param project the project to be archived
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, falls die Methode noch nicht implementiert ist.
  	 */
-    public void archiveProject(Project project) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+    public void archiveProject(Project project) {
+		Collection<Task> tasksAnalysis = null;
+		Collection<Task> tasksImplementation = null;
+		Collection<Task> tasksTests = null;
+		for (StageList list : project.getStageList()){
+			if(list.getStage()== Stage.ANALYSE_IN_PROGRESS){
+				tasksAnalysis = list.getTask();
+			}
+			if(list.getStage()==Stage.IMPLEMENTATION_IN_PROGRESS){
+				tasksImplementation = list.getTask();
+			}
+			if(list.getStage()==Stage.TEST_IN_PROGRESS){
+				tasksTests = list.getTask();
+			}
+		}
+		for (Task task: tasksAnalysis) {
+			project.moveTaskBackward(task);
+			task.getDeveloper().cancelTask();
+		}
+		for (Task task: tasksImplementation) {
+			project.moveTaskBackward(task);
+			task.getDeveloper().cancelTask();
+		}
+		for (Task task: tasksTests) {
+			project.moveTaskBackward(task);
+			task.getDeveloper().cancelTask();
+		}
+		project.setReadOnly(true);
     }
 
     /**
  	 * Deletes the specified project and releases the team which was assigned to the project
  	 *
  	 * @param project the project to be deleted
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, falls die Methode noch nicht implementiert ist.
  	 */
-    public void deleteProject(Project project) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+    public void deleteProject(Project project) {
+		virtualKanbanController.getVirtualKanban().getProject().remove(project);
     }
 }

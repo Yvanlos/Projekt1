@@ -1,51 +1,15 @@
 package model;
 
-import java.lang.UnsupportedOperationException;
-
 public enum Stage {
-    ;
+    NEW,
+    ANALYSE_IN_PROGRESS,
+    ANALYSE_FINISHED,
+    IMPLEMENTATION_IN_PROGRESS,
+    IMPLEMENTATION_FINISHED,
+    TEST_IN_PROGRESS,
+    TEST_FINISHED,COMPLETED;
 
-    /**
- 	 * 
- 	 */
-    private Stage NEW;
-
-    /**
- 	 * 
- 	 */
-    private Stage ANALYSE_IN_PROGRESS;
-
-    /**
- 	 * 
- 	 */
-    private Stage ANALYSE_FINISHED;
-
-    /**
- 	 * 
- 	 */
-    private Stage IMPLEMETNATION_IN_PROGRESS;
-
-    /**
- 	 * 
- 	 */
-    private Stage IMPLEMENTATION_FINISHED;
-
-    /**
- 	 * 
- 	 */
-    private Stage TEST_IN_PROGRESS;
-
-    /**
- 	 * 
- 	 */
-    private Stage TEST_FINISHED;
-
-    /**
- 	 * 
- 	 */
-    private Stage COMPLETED;
-
-    private static Stage[] stages = values();
+    private final static Stage[] stages = values();
 
     public Stage next(){
         if (this.ordinal() < stages.length){
