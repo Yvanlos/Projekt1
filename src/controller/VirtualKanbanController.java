@@ -1,44 +1,43 @@
 package controller;
 
 import model.VirtualKanban;
-import java.lang.UnsupportedOperationException;
 
 public class VirtualKanbanController {
 
     /**
  	 * Reference to the ProjectController, which can be used by other controllers, the GUI or the VirtualKanban-Class
  	 */
-    private ProjectController projectController;
+    private final ProjectController projectController;
 
     /**
  	 * Reference to the TaskController, which can be used by other controllers, the GUI or the VirtualKanban-Class
  	 */
-    private TaskController taskController;
+    private final TaskController taskController;
 
     /**
  	 * Reference to the DeveloperController, which can be used by other controllers, the GUI or the VirtualKanban-Class
  	 */
-    private DeveloperController developerController;
+    private final DeveloperController developerController;
 
     /**
  	 * Reference to the TeamController, which can be used by other controllers, the GUI or the VirtualKanban-Class
  	 */
-    private TeamController teamController;
+    private final TeamController teamController;
 
     /**
  	 * Reference to the IOController, which can be used by other controllers, the GUI or the VirtualKanban-Class
  	 */
-    private IOController iOController;
+    private final IOController iOController;
 
     /**
  	 * Reference to the VirtualKanban (Main-Class of model)
  	 */
-    private VirtualKanban virtualKanban;
+    private final VirtualKanban virtualKanban;
 
     /**
  	 * Reference to the StatisticController, which can be used by other controllers, the GUI or the VirtualKanban-Class
  	 */
-    private StatisticController statisticController;
+    private final StatisticController statisticController;
 
     /**
      * Constructor of the virtualKanbanController
