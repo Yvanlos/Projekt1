@@ -3,6 +3,8 @@ package model;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.lang.UnsupportedOperationException;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * This class models a project with a deadline, an assigned team and a number of tasks in different stages.
@@ -17,7 +19,7 @@ public class Project {
     /**
  	 * Time the project was started.
  	 */
-    private LocalDateTime startdate;
+    private final LocalDateTime startDate;
 
     /**
  	 * Description of the project.
@@ -56,6 +58,8 @@ public class Project {
 		this.description = description;
 		this.deadline = deadline;
 		this.team = team;
+		setReadOnly(false);
+		startDate = LocalDateTime.now();
 	}
 
 	/**
@@ -68,6 +72,7 @@ public class Project {
  	 */
     public void moveTaskForeward(Task task) throws UnsupportedOperationException {
         throw new UnsupportedOperationException("Not Yet Implemented!");
+        //TODO
     }
 
     /**
@@ -80,6 +85,7 @@ public class Project {
  	 */
     public void moveTaskBackward(Task task) throws UnsupportedOperationException {
         throw new UnsupportedOperationException("Not Yet Implemented!");
+        //TODO
     }
 
     /**
@@ -90,8 +96,18 @@ public class Project {
  	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, falls die Methode noch nicht implementiert ist.
  	 */
-    public StageList getStageFromTask(Task task) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+    public StageList getStageFromTask(Task task) throws NoSuchElementException {
+		Iterator<StageList> it = stageList.iterator();
+		StageList stage = null;
+		Collection<Task> tasks = null;
+		while(it.hasNext()){
+			stage = it.next();
+			tasks = stage.getTask();
+			if (tasks.contains(task)){
+				return stage;
+			}
+		}
+		throw new NoSuchElementException("Task could not be found in any StageList.");
     }
 
     /**
@@ -104,6 +120,7 @@ public class Project {
  	 */
     public StageList getNextStage(StageList stageList) throws UnsupportedOperationException {
         throw new UnsupportedOperationException("Not Yet Implemented!");
+        //TODO
     }
 
     /**
@@ -116,6 +133,7 @@ public class Project {
  	 */
     public StageList getPreviousStage(StageList stageList) throws UnsupportedOperationException {
         throw new UnsupportedOperationException("Not Yet Implemented!");
+        //TODO
     }
 
 	/**
@@ -130,8 +148,8 @@ public class Project {
 	 * Returns the start date of the project.
 	 * @return start date of the project
 	 */
-	public LocalDateTime getStartdate() {
-		return startdate;
+	public LocalDateTime getStartDate() {
+		return startDate;
 	}
 
 	/**
@@ -180,14 +198,6 @@ public class Project {
 	 */
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	/**
-	 * Replaces the start date of the project with the specified one.
-	 * @param startdate new start date of the project
-	 */
-	public void setStartdate(LocalDateTime startdate) {
-		this.startdate = startdate;
 	}
 
 	/**
