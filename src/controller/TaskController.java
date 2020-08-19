@@ -8,9 +8,25 @@ import java.time.LocalDateTime;
 import java.lang.UnsupportedOperationException;
 
 public class TaskController {
+	/**
+	 * get this VirtualKanbanController
+	 * @return virtualKanbanController
+	 */
+	public VirtualKanbanController getVirtualKanbanController() {
+		return virtualKanbanController;
+	}
 
-    /**
- 	 * 
+	/**
+	 * set this VirtualKanbanController to something else
+	 * @param virtualKanbanController virtualKanbanController to be change
+	 */
+
+	public void setVirtualKanbanController(VirtualKanbanController virtualKanbanController) {
+		this.virtualKanbanController = virtualKanbanController;
+	}
+
+	/**
+ 	 * The VirtualKanbanController object
  	 */
     private VirtualKanbanController virtualKanbanController;
 
@@ -18,10 +34,10 @@ public class TaskController {
     }
 
     /**
- 	 *
+ 	 * delete an existing task from a project
  	 * TODO: create JavaDoc. 
- 	 * @param project
- 	 * @param task
+ 	 * @param project The Project we delete the Task from
+ 	 * @param task The Task tu delete
  	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
@@ -30,12 +46,12 @@ public class TaskController {
     }
 
     /**
- 	 *
+ 	 * add a new task in a Project
  	 * TODO: create JavaDoc. 
- 	 * @param project
- 	 * @param name
- 	 * @param description
- 	 * @param deadline
+ 	 * @param project The Project where the task will be add
+ 	 * @param name the name of the Task
+ 	 * @param description The description of The Task
+ 	 * @param deadline the Time for The Task to be done
  	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
@@ -44,10 +60,10 @@ public class TaskController {
     }
 
     /**
- 	 *
+ 	 * add a new Note to an existing Task
  	 * TODO: create JavaDoc. 
- 	 * @param task
- 	 * @param note
+ 	 * @param task where the Note will be add
+ 	 * @param note to add
  	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
@@ -56,11 +72,11 @@ public class TaskController {
     }
 
     /**
- 	 *
+ 	 *  start a new Task
  	 * TODO: create JavaDoc. 
- 	 * @param task
- 	 * @param project
- 	 * @param developer
+ 	 * @param task to start
+ 	 * @param project The project where the Task  start
+ 	 * @param developer The developer who start the Task
  	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
@@ -69,10 +85,10 @@ public class TaskController {
     }
 
     /**
- 	 *
+ 	 *task to finish
  	 * TODO: create JavaDoc. 
- 	 * @param task
- 	 * @param project
+ 	 * @param task The task to be finish
+ 	 * @param project the Project of the Task
  	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
@@ -81,10 +97,10 @@ public class TaskController {
     }
 
     /**
- 	 *
+ 	 * drop The Task back
  	 * TODO: create JavaDoc. 
- 	 * @param task
- 	 * @param project
+ 	 * @param task The Task to be drop
+ 	 * @param project The Project of the Task
  	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
@@ -93,9 +109,9 @@ public class TaskController {
     }
 
     /**
- 	 *
+ 	 * show all notes from a Task
  	 * TODO: create JavaDoc. 
- 	 * @param task
+ 	 * @param task The task with Notes
  	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
