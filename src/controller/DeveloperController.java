@@ -12,10 +12,30 @@ public class DeveloperController {
  	 */
     private VirtualKanbanController virtualKanbanController;
 
-    public DeveloperController(VirtualKanbanController virtualKanbanController) {
+	/**
+	 * creates a DeveloperController and sets it VirtualKanbanController
+	 * @param virtualKanbanController the VirtualKanbanController
+	 */
+	public DeveloperController(VirtualKanbanController virtualKanbanController) {
     }
 
-    /**
+	/**
+	 * returns the virtualKanbanController
+	 * @return virtualKanbanController the requested controller
+	 */
+	public VirtualKanbanController getVirtualKanbanController() {
+		return virtualKanbanController;
+	}
+
+	/**
+	 * sets the virtualKanbanController
+	 * @param virtualKanbanController  the VirtualKanbanController
+	 */
+	public void setVirtualKanbanController(VirtualKanbanController virtualKanbanController) {
+		this.virtualKanbanController = virtualKanbanController;
+	}
+
+	/**
  	 * creates a developer which is then assigned to a team
 	 *
  	 * @param team the team for which the developer is created
