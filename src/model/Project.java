@@ -2,7 +2,6 @@ package model;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.lang.UnsupportedOperationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -67,12 +66,12 @@ public class Project {
 	 * If the task is already in the last stage nothing happens.
  	 *
  	 * @param task the task to be moved
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, falls die Methode noch nicht implementiert ist.
  	 */
-    public void moveTaskForeward(Task task) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
-        //TODO
+    public void moveTaskForeward(Task task) {
+		StageList currentList = getStageFromTask(task);
+		currentList.removeTask(task);
+		StageList nextList = getNextStage(currentList);
+		nextList.addTask(task);
     }
 
     /**
@@ -80,12 +79,12 @@ public class Project {
 	 * If the task is already in the first or last stage nothing happens.
  	 *
  	 * @param task the task to be moved
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, falls die Methode noch nicht implementiert ist.
- 	 */
-    public void moveTaskBackward(Task task) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
-        //TODO
+	 * */
+    public void moveTaskBackward(Task task){
+		StageList currentList = getStageFromTask(task);
+		currentList.removeTask(task);
+		StageList previousList = getPreviousStage(currentList);
+		previousList.addTask(task);
     }
 
     /**
