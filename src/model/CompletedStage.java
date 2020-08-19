@@ -33,6 +33,7 @@ public class CompletedStage {
 	public CompletedStage(Task task, Stage stage) {
 		this.task = task;
 		this.stage = stage;
+		this.startDate = LocalDateTime.now();
 	}
 
 	/**
@@ -54,11 +55,9 @@ public class CompletedStage {
 	/**
 	 * sets the CompletionDate to the actual date
 	 *
-	 * @throws UnsupportedOperationException
-	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist.
 	 */
-	public void setCompletionDate() throws UnsupportedOperationException {
-		throw new UnsupportedOperationException("Not Yet Implemented!");
+	public void setCompletionDate() {
+		this.completionDate = LocalDateTime.now();
 	}
 
 	/**
@@ -78,27 +77,9 @@ public class CompletedStage {
 	}
 
 	/**
-	 * sets the task
-	 * @param task the task which is or was in progress
+	 * returns the stage
+	 * @return the stage in which the developer worked on the task
 	 */
-	public void setTask(Task task) {
-		this.task = task;
-	}
-
-	/**
-	 * returns the Stage
-	 * @return stage the stage of Kanban in which the task was while the developer worked on it
-	 */
-	public Stage getStage() {
-		return stage;
-	}
-
-	/**
-	 * sets the stage
-	 * @param stage the stage of Kanban in which the task was while the developer worked on it
-	 */
-	public void setStage(Stage stage) {
-		this.stage = stage;
-	}
+	public Stage getStage() {return stage;}
 
 }
