@@ -49,11 +49,19 @@ public class Team {
         this.developers.remove(developer);
     }
 
+	/**
+	 * returns the name of the team
+	 * @return name of the team
+	 */
 	public String getName() {
 		return name;
 	}
 
-	public List<Developer> getDevelopers() {
+	/**
+	 *
+	 * @return
+	 */
+	public ArrayList<Developer> getDevelopers() {
 		return developers;
 	}
 
