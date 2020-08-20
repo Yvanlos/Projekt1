@@ -3,7 +3,7 @@ package controller;
 import model.*;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
+import java.util.ArrayList;
 
 /**
  * This class allows it to create, remove and archive projects
@@ -47,9 +47,9 @@ public class ProjectController {
  	 * @param project the project to be archived
  	 */
     public void archiveProject(Project project) {
-		Collection<Task> tasksAnalysis = null;
-		Collection<Task> tasksImplementation = null;
-		Collection<Task> tasksTests = null;
+		ArrayList<Task> tasksAnalysis = null;
+		ArrayList<Task> tasksImplementation = null;
+		ArrayList<Task> tasksTests = null;
 		for (StageList list : project.getStageList()){
 			if(list.getStage()== Stage.ANALYSE_IN_PROGRESS){
 				tasksAnalysis = list.getTask();
