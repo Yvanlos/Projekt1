@@ -40,7 +40,6 @@ public class Team {
     /**
  	 * removes a developer from the team
 	 *
- 	 *
  	 * @param developer
 	 * 					developer, which is removed from the team
  	 *
@@ -58,17 +57,27 @@ public class Team {
 	}
 
 	/**
-	 *
-	 * @return
+	 * returns an ArrayList of developers
+	 * @return ArrayList of developers
 	 */
 	public ArrayList<Developer> getDevelopers() {
 		return developers;
 	}
 
+	/**
+	 * sets the name of a team
+	 * @param name
+	 * 				new name of the team
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * sets a new ArrayList of developers
+	 * @param developers
+	 * 					new ArrayList of developers
+	 */
 	public void setDevelopers(ArrayList<Developer> developers) {
 		this.developers = developers;
 	}
