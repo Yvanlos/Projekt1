@@ -4,6 +4,7 @@ import model.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * This class allows it to create, remove and archive projects
@@ -63,6 +64,9 @@ public class ProjectController {
 				tasksTests = list.getTask();
 			}
 		}
+		//tasksAnalysis.forEach((task) -> task.getDeveloper().cancelTask());
+		//moveTaskBackward is not failsafe for removing in a loop
+		//TODO make the removing failsafe
 		for (Task task: tasksAnalysis) {
 			project.moveTaskBackward(task);
 			task.getDeveloper().cancelTask();
