@@ -42,14 +42,16 @@ public class TaskController {
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void deleteTask(Project project, Task task) throws UnsupportedOperationException {
-    	if(project.getStageList().contains(task)){
-			project.moveTaskBackward(task);
-			StageList taskList = project.getStageFromTask(task);
-			task.setDeveloper(null);
-			taskList.removeTask(task);
-		}else{
-			throw new UnsupportedOperationException("task do not found");
+		for(StageList list : project.getStageList()){
+			if(list.getTask().contains(task)){
+				project.moveTaskBackward(task);
+				StageList taskList = project.getStageFromTask(task);
+				task.setDeveloper(null);
+				taskList.removeTask(task);
+			}else{
+				throw new UnsupportedOperationException("task do not found");
 
+			}
 		}
     }
 
@@ -64,7 +66,16 @@ public class TaskController {
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void addTask(Project project, String name, String description, LocalDateTime deadline) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+    	Task t= new Task(name,description,deadline);
+		for(StageList list : project.getStageList())
+		{
+			if(list.getStage()== Stage.NEW && list.getTask().contains(t))
+			{
+				list.addTask(t);
+			}else{
+				throw new UnsupportedOperationException("Task already exist or Stage not found");
+			}
+		}
     }
 
     /**
@@ -76,7 +87,10 @@ public class TaskController {
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void addNote(Task task, Note note) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+    	if(!task.getNote().contains(note)){
+    		task.getNote().add(note);
+		}
+        throw new UnsupportedOperationException("Note already exist");
     }
 
     /**
@@ -89,7 +103,16 @@ public class TaskController {
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void startTask(Task task, Project project, Developer developer) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+    	if(!task.isInProgress())
+		{
+			task.setDeveloper(developer);
+			developer.setAtWork(true);
+			CompletedStage cs = new CompletedStage(task,Stage.NEW);
+			developer.setCurrentTaskStage(cs);
+			project.moveTaskForeward(task);
+		} else {
+			throw new UnsupportedOperationException("task already start");
+		}
     }
 
     /**
@@ -101,7 +124,14 @@ public class TaskController {
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void finishTask(Task task, Project project) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+    	if(task.isInProgress())
+		{
+			task.getDeveloper().addCompletedStage();
+			task.setDeveloper(null);
+			project.moveTaskForeward(task);
+		} else {
+			throw new UnsupportedOperationException("task can#t be finished");
+		}
     }
 
     /**
@@ -113,7 +143,14 @@ public class TaskController {
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void dropTask(Task task, Project project) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+    	if(task.isInProgress())
+		{
+			project.moveTaskBackward(task);
+			task.getDeveloper().setAtWork(false);
+			task.getDeveloper().setCurrentTaskStage(null);
+			task.setDeveloper(null);
+		}
+        throw new UnsupportedOperationException("the Task ist not in progress");
     }
 
     /**
@@ -124,6 +161,8 @@ public class TaskController {
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void showNotes(Task task) throws UnsupportedOperationException {
+    	ArrayList<Note> notesList = task.getNote();
+    	//notesList.toString();
         throw new UnsupportedOperationException("Not Yet Implemented!");
     }
 }

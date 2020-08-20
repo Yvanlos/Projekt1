@@ -44,6 +44,7 @@ public class ProjectControllerTest {
     @Test(expected = IllegalArgumentException.class)
     public void testCreateProjectUnsuccessfulAlreadyExisting() {
         pc.createProject("testName", LocalDateTime.now(), new Team("testTeam"), "testDescription");
+        pc.createProject("testName", LocalDateTime.now(), new Team("secondTeam"), "testDescription");
         pc.createProject("testName", LocalDateTime.now(), new Team("testTeam"), "testDescription");
     }
 
@@ -53,6 +54,26 @@ public class ProjectControllerTest {
     @Test
     public void testArchiveProject() {
         Project project = pc.createProject("testName", LocalDateTime.now(), new Team("testTeam"), "testDescription");
+        //works only if archiveProject is failsafe
+        //for (StageList list : project.getStageList()){
+        //    if(list.getStage()== Stage.ANALYSE_IN_PROGRESS){
+        //        Task task1 = new Task("name1", "description1", LocalDateTime.now());
+        //        list.addTask(task1);
+        //        task1.setDeveloper(new Developer("developer1",null));
+        //    }
+        //    if(list.getStage()==Stage.IMPLEMENTATION_IN_PROGRESS){
+        //        Task task2 = new Task("name2", "description2", LocalDateTime.now());
+        //        list.addTask(task2);
+        //        System.out.println(list.getTask().get(0).getName());
+        //        task2.setDeveloper(new Developer("developer2",null));
+        //    }
+        //    if(list.getStage()==Stage.TEST_IN_PROGRESS){
+        //        Task task3 = new Task("name3", "description3", LocalDateTime.now());
+        //        list.addTask(task3);
+        //        System.out.println(list.getTask().get(0).getName());
+        //        task3.setDeveloper(new Developer("developer3",null));
+        //    }
+        //}
         pc.archiveProject(project);
         for (StageList list : project.getStageList()){
             if(list.getStage()== Stage.ANALYSE_IN_PROGRESS){
