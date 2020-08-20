@@ -43,17 +43,15 @@ public class TaskController {
  	 */
     public void deleteTask(Project project, Task task) throws UnsupportedOperationException {
 		for(StageList list : project.getStageList()){
-			if(list.getTask().contains(task)){
-				project.moveTaskBackward(task);
+			if(list.getTask().contains(task)) {
 				StageList taskList = project.getStageFromTask(task);
 				task.setDeveloper(null);
 				taskList.removeTask(task);
-			}else{
-				throw new UnsupportedOperationException("task do not found");
-
+				return ;
 			}
-		}
-    }
+		}				throw new UnsupportedOperationException("task do not found");
+
+	}
 
     /**
  	 * add a new task in a Project
@@ -90,7 +88,9 @@ public class TaskController {
     	if(!task.getNote().contains(note)){
     		task.getNote().add(note);
 		}
-        throw new UnsupportedOperationException("Note already exist");
+    	else {
+			throw new UnsupportedOperationException("Note already exist");
+		}
     }
 
     /**
@@ -109,7 +109,7 @@ public class TaskController {
 			developer.setAtWork(true);
 			CompletedStage cs = new CompletedStage(task,Stage.NEW);
 			developer.setCurrentTaskStage(cs);
-			project.moveTaskForeward(task);
+			//project.moveTaskForeward(task);
 		} else {
 			throw new UnsupportedOperationException("task already start");
 		}
@@ -129,8 +129,9 @@ public class TaskController {
 			task.getDeveloper().addCompletedStage();
 			task.setDeveloper(null);
 			project.moveTaskForeward(task);
-		} else {
-			throw new UnsupportedOperationException("task can#t be finished");
+		}
+    	else {
+			throw new UnsupportedOperationException("task can't be finished");
 		}
     }
 
@@ -150,7 +151,10 @@ public class TaskController {
 			task.getDeveloper().setCurrentTaskStage(null);
 			task.setDeveloper(null);
 		}
-        throw new UnsupportedOperationException("the Task ist not in progress");
+    	else
+    		{
+			throw new UnsupportedOperationException("the Task ist not in progress");
+		}
     }
 
     /**
