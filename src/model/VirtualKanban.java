@@ -15,17 +15,40 @@ public class VirtualKanban {
  	 */
     private Collection<Team> team;
 
+    /***
+     *
+     */
     public VirtualKanban() {
     }
+
+    /***
+     *
+     * @return the all projects that are listed in this Collection
+     */
     public Collection<Project> getProject() {
         return project;
     }
+
+    /***
+     *
+     * @return return all teams listed  in this collection
+     */
     public Collection<Team> getTeam() {
         return team;
     }
+
+    /***
+     *
+     * @param project is the Project collection we are assotiating the our project Collection
+     */
     public void setProject(Collection<Project> project ){
         this.project = project ;
     }
+
+    /***
+     *
+     * @param team is the Team Collection that are going to be use in each project
+     */
     public void setTeam(Collection<Team> team) {
         this.team = team;
     }
