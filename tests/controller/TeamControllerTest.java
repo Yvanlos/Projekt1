@@ -34,8 +34,16 @@ public class TeamControllerTest {
 	public void testCreateTeam() {
 		TeamController teamController = virtualKanbanController.getTeamController();
 		teamController.createTeam("TestTeam");
+		
 		assertFalse(virtualKanbanController.getVirtualKanban().getTeam().isEmpty());
-		assertEquals(virtualKanbanController.getVirtualKanban().getTeam().get(0).getName() , "TestTeam");
+		
+		Team newTeam = virtualKanbanController.getVirtualKanban().getTeam().get(0);
+		
+		assertEquals(newTeam.getName() , "TestTeam");
+		
+		teamController.deleteTeam(newTeam);
+		
+		assertTrue(virtualKanbanController.getVirtualKanban().getTeam().isEmpty());
 	}
 	
 	/**
