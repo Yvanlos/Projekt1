@@ -80,4 +80,5 @@ public class Note {
     public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
+
 }
