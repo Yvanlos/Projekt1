@@ -89,8 +89,6 @@ public class DeveloperController {
 	 *
 	 * @param developer teh developer who is changing the team
 	 * @param newTeam the team, which the developer is changing to
-	 * @throws NoSuchElementException
-	 *	 	 	if the task could not be found in any project
 	 */
 	public void changeTeam(Developer developer, Team newTeam) {
 		if(developer.isAtWork()) {
