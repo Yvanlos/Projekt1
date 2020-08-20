@@ -17,10 +17,16 @@ public class VirtualKanban {
 
     public VirtualKanban() {
     }
-
-    //TODO: implement missing getter/setter
-    //added so other things compile
     public Collection<Project> getProject() {
         return project;
+    }
+    public Collection<Team> getTeam() {
+        return team;
+    }
+    public void setProject(Collection<Project> project ){
+        this.project = project ;
+    }
+    public void setTeam(Collection<Team> team) {
+        this.team = team;
     }
 }
