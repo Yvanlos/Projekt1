@@ -1,17 +1,25 @@
 package view;
 
+import com.sun.javafx.animation.KeyValueType;
 import controller.VirtualKanbanController;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.binding.IntegerBinding;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import model.Project;
+import javafx.scene.layout.VBox;
+import model.*;
 
 import java.lang.UnsupportedOperationException;
+import java.time.LocalDateTime;
 
 public class KanBanViewController extends BorderPane {
 
@@ -42,6 +50,9 @@ public class KanBanViewController extends BorderPane {
  	 */
     @FXML
     private ScrollPane newTaskPane;
+
+    @FXML
+    private VBox newStageBox;
 
     /**
  	 * 
@@ -118,6 +129,50 @@ public class KanBanViewController extends BorderPane {
     void initialize() {
         this.minWidthProperty().bind(stackPane.widthProperty());
         this.minHeightProperty().bind(stackPane.heightProperty());
+
+        Project project = virtualKanbanController.getVirtualKanban().getProject().get(0);
+        for (StageList list : project.getStageList()){
+            if (list.getStage() == Stage.NEW){
+                list.addTask(new Task("testName","testDescription",LocalDateTime.now()));
+            }
+        }
+
+        project.getStageList().forEach(stageList -> {
+            stageList.getTask().forEach(task -> {
+                MenuButton menuButton = new MenuButton();
+                menuButton.setText("Hier sollte Taskname stehen");
+                menuButton.getItems().add(new MenuItem("Aufgabe anfangen"));
+                menuButton.getItems().add(new MenuItem("Aufgabe zurücklegen"));
+                menuButton.getItems().add(new MenuItem("Aufgabe beenden"));
+                menuButton.getItems().add(new MenuItem("Aufgabe bearbeiten?"));
+                menuButton.getItems().add(new MenuItem("Kommentare anzeigen"));
+                menuButton.getItems().add(new MenuItem("Kommentar hinzufügen"));
+                //menuButton.getItems().get(0).setOnAction(event -> );
+                //menuButton.getItems().get(1).setOnAction(event -> );
+                //menuButton.getItems().get(2).setOnAction(event -> );
+                //menuButton.getItems().get(3).setOnAction(event -> );
+                //menuButton.getItems().get(4).setOnAction(event -> );
+                menuButton.getItems().get(5).setOnAction(event -> {
+                    NewCommentController newCommentController = new NewCommentController(virtualKanbanController);
+                    newCommentController.showView();
+                });
+                newStageBox.getChildren().add(menuButton);
+            });
+        });
+
+
+
+
+        //virtualKanbanController.getVirtualKanban().getProject().forEach(project -> {
+        //    Button projectButton = new Button(project.getName());
+        //    projectButton.setOnAction(evt -> {
+        //        KanBanViewController kanBanViewController = new KanBanViewController(stackPane, virtualKanbanController, project);
+        //        stackPane.getChildren().add(kanBanViewController);
+        //    });
+        //        showProjectPane.getChildren().add(projectButton);
+        //});
+
+
     }
 
     /**
