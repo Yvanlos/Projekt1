@@ -50,7 +50,7 @@ public class StageList {
 	 * Returns the collections of tasks.
 	 * @return collection of tasks
 	 */
-	public Collection<Task> getTask() {
+	public ArrayList<Task> getTask() {
 		return task;
 	}
 
