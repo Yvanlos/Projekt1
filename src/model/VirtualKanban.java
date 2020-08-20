@@ -24,26 +24,26 @@ public class VirtualKanban {
     /**
      * adds a new Team to the team list
      */
-    public void addTeam(Team t) {
-        team.add(t);
+    public void addTeam(Team team) {
+        this.team.add(team);
     }
     /**
      * removes a team from the team list, if its contained
      */
-    public void removeTeam(Team t) {
-        team.remove(t);
+    public void removeTeam(Team team) {
+        this.team.remove(team);
     }
     /**
      * adds a new project to the project list
      */
-    public void addProject(Project p) {
-        project.add(p);
+    public void addProject(Project project) {
+        this.project.add(project);
     }
     /**
      * removes a project from the project list, if its contained
      */
-    public void removeProject(Project p) {
-        project.remove(p);
+    public void removeProject(Project project) {
+        this.project.remove(project);
     }
     /**
      * Getter for the project list
