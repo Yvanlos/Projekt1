@@ -7,9 +7,15 @@ import java.net.URI;
 
 import static org.junit.Assert.*;
 
+
 public class TeamTest {
 
     private Team team;
+
+    /**
+     * sets up a clean testing environment before every test.
+     * @throws Exception gets thrown if setting up clean environment was unsuccessful
+     */
     @Before
     public void setUp() throws Exception {
         team=new Team("testTeam");
@@ -17,6 +23,9 @@ public class TeamTest {
 
     }
 
+    /**
+     * tests addDeveloper()
+     */
     @Test
     public void addDeveloper() {
         URI testPicture2=URI.create("test2");
@@ -24,6 +33,9 @@ public class TeamTest {
         team.addDeveloper(testDeveloper2);
     }
 
+    /**
+     * tests removeDeveloper
+     */
     @Test
     public void removeDeveloper() {
         URI testPicture1=URI.create("test1");
@@ -32,19 +44,5 @@ public class TeamTest {
         team.removeDeveloper(testDeveloper1);
     }
 
-    @Test
-    public void getName() {
-    }
 
-    @Test
-    public void getDevelopers() {
-    }
-
-    @Test
-    public void setName() {
-    }
-
-    @Test
-    public void setDevelopers() {
-    }
 }

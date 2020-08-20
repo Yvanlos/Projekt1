@@ -61,12 +61,16 @@ public class TaskTest {
 
     @Test
     public void testGetNote() {
-        assertEquals(new Note("test", "TestContent", LocalDateTime.now()),task.getNote());
+        Note not = new Note("test", "TestContent", LocalDateTime.now());
+        task.addNote(not);
+        assertEquals(not ,task.getNote());
     }
 
     @Test
     public void testGetDeveloper() {
-        assertEquals(new Developer("yo",URI.create("testURI")),task.getDeveloper());
+        Developer dev= new Developer("yo",URI.create("testURI"));
+        task.setDeveloper(dev);
+        assertEquals(dev,task.getDeveloper());
     }
 
     @Test
@@ -76,8 +80,10 @@ public class TaskTest {
     @Test
     public void isInProgress() {
         Developer dev = new Developer("TestIsAtWork", profilePicture);
+        task.setDeveloper(dev);
         dev.setAtWork(true);
         assertEquals(task.isInProgress(), true);
+        task.setDeveloper(null);
         dev.setAtWork(false);
         assertEquals(task.isInProgress(), false);
     }
