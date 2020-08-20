@@ -28,6 +28,20 @@ public class Main extends Application {
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.show();
+
+            Runtime.getRuntime().addShutdownHook(new Thread() {
+                public void run() {
+                    try {
+                        virtualKanbanController.getIOController().save();
+                    }
+                    catch (Exception exception) {
+                        System.out.println("Speichern fehlgeschlagen!");
+                        System.out.println(exception.toString());
+                    }
+                }
+            });
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
