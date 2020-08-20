@@ -12,16 +12,16 @@ public enum Stage {
     private final static Stage[] stages = values();
 
     public Stage next(){
-        if (this.ordinal() < stages.length){
+        if (this.ordinal() < stages.length-1){
             return stages[this.ordinal()+1];
         }
-        return this;
+        return null;
     }
 
     public Stage previous(){
         if (this.ordinal() > 0){
             return stages[this.ordinal()-1];
         }
-        return this;
+        return null;
     }
 }
