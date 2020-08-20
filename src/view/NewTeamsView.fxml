@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.NewTeamsViewController">
+<fx:root id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" type="VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane prefHeight="498.0" prefWidth="500.0">
          <children>
@@ -41,7 +41,7 @@
                         <Font size="24.0" />
                      </font>
                   </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Anzahl der Entwikler" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Anzahl der Entwickler" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -72,4 +72,4 @@
          </children>
       </Pane>
    </children>
-</VBox>
+</fx:root>

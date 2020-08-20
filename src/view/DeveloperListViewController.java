@@ -50,7 +50,7 @@ public class DeveloperListViewController {
     	    throw new RuntimeException(e);
     	}
 
-    	// TODO hier kann die View weiter initialisiert werden (äquivalent zu initialize-Methode bei Komponenten)
+    	// TODO hier kann die View weiter initialisiert werden (Ã¤quivalent zu initialize-Methode bei Komponenten)
 
     	// init Scene and Stage
     	Scene scene = new Scene(root);
@@ -70,7 +70,9 @@ public class DeveloperListViewController {
  	 */
     @FXML
     void onAddDeveloperButtonClicked(MouseEvent event) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+        NewDeveloperViewController newDeveloperViewController = new NewDeveloperViewController(virtualKanbanController);
+        newDeveloperViewController.showView();
+        //throw new UnsupportedOperationException("Not Yet Implemented!");
     }
     
     
