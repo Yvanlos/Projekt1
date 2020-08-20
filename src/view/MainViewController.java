@@ -3,9 +3,11 @@ package view;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.IntegerBinding;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
@@ -40,12 +42,11 @@ public class MainViewController extends BorderPane{
     @FXML
     private Button developersButton;
 
-    /**
- 	 * 
- 	 */
-    @FXML
-    private Button showStatisticsButton;
+	@FXML
+	private MenuItem showRankingButton;
 
+	@FXML
+	private MenuItem showStatisticButton;
     /**
  	 * 
  	 */
@@ -100,20 +101,14 @@ public class MainViewController extends BorderPane{
     		Button projectButton = new Button(project.getName());
     		projectButton.setOnAction(evt -> {
     			KanBanViewController kanBanViewController = new KanBanViewController(stackPane, virtualKanbanController, project);
-    			if(kanBanViewController == null){System.out.println("Controller Null");}else {System.out.println("Controller Not Null");}
-				if(stackPane== null){System.out.println("StackPane Null");}else {System.out.println("StackPane Not Null");}
-				if(stackPane.getChildren() == null){System.out.println("Children Null");}else {System.out.println("Children Not Null");}
-
     			stackPane.getChildren().add(kanBanViewController);
 			});
     		showProjectPane.getChildren().add(projectButton);
 		});
 
-
-
     	//Binding
-		//IntegerBinding sizeProperty = Bindings.size(stackPane.getChildren());
-		//BooleanBinding multipleElemsProperty = sizeProperty.greaterThan(1);
+		IntegerBinding sizeProperty = Bindings.size(stackPane.getChildren());
+		BooleanBinding multipleElemsProperty = sizeProperty.greaterThan(1);
 	}
     
 
@@ -177,9 +172,17 @@ public class MainViewController extends BorderPane{
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     @FXML
-    void onShowStatisticsButtonClick(MouseEvent event) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
-    }
+	void onShowRankingAction(ActionEvent event) {
+
+		RankingViewController rankingViewController = new RankingViewController(stackPane, virtualKanbanController);
+		stackPane.getChildren().add(rankingViewController);
+	}
+
+	@FXML
+	void onShowStatistikAction(ActionEvent event) {
+		ShowStatisticsViewController showStatisticsViewController = new ShowStatisticsViewController(stackPane, virtualKanbanController);
+		stackPane.getChildren().add(showStatisticsViewController);
+	}
 
     /**
  	 *

@@ -114,6 +114,12 @@ public class KanBanViewController extends BorderPane {
         }
     }
 
+    @FXML
+    void initialize() {
+        this.minWidthProperty().bind(stackPane.widthProperty());
+        this.minHeightProperty().bind(stackPane.heightProperty());
+    }
+
     /**
  	 *
  	 * TODO: create JavaDoc. 

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -20,7 +22,12 @@
                         <Button fx:id="createProjectButton" mnemonicParsing="false" onMouseClicked="#onCreateProjectButtonClick" prefHeight="150.0" prefWidth="150.0" text="Projekt anlegen" textAlignment="CENTER" wrapText="true" />
                         <Button fx:id="teamsButton" mnemonicParsing="false" onMouseClicked="#onTeamsButtonClick" prefHeight="150.0" prefWidth="150.0" text="Teams" textAlignment="CENTER" />
                         <Button fx:id="developersButton" mnemonicParsing="false" onMouseClicked="#onDevelopersButtonClick" prefHeight="150.0" prefWidth="150.0" text="Entwickler" textAlignment="CENTER" />
-                        <Button fx:id="showStatisticsButton" mnemonicParsing="false" onMouseClicked="#onShowStatisticsButtonClick" prefHeight="150.0" prefWidth="150.0" text="Statistiken anzeigen" textAlignment="CENTER" wrapText="true" />
+                        <MenuButton mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="            Statistiken">
+                          <items>
+                            <MenuItem fx:id="showRankingButton" mnemonicParsing="false" onAction="#onShowRankingAction" text="Ranking" />
+                            <MenuItem fx:id="showStatisticButton" mnemonicParsing="false" onAction="#onShowStatistikAction" text="Bearbeitungszeiten" />
+                          </items>
+                        </MenuButton>
                         <Button fx:id="exportPDFButton" mnemonicParsing="false" onMouseClicked="#onExportPDFButtonClick" prefHeight="150.0" prefWidth="150.0" text="PDF exportieren" textAlignment="CENTER" wrapText="true" />
                         <Button fx:id="exitButton" mnemonicParsing="false" onMouseClicked="#onExitButtonClick" prefHeight="150.0" prefWidth="150.0" text="Beenden" textAlignment="CENTER" />
                      </children>
