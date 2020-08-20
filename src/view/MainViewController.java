@@ -121,7 +121,9 @@ public class MainViewController extends BorderPane{
  	 */
     @FXML
     void onCreateProjectButtonClick(MouseEvent event) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+		NewProjectViewController newProjectViewController = new NewProjectViewController(virtualKanbanController);
+    	newProjectViewController.showView();
+    	//throw new UnsupportedOperationException("Not Yet Implemented!");
     }
 
     /**
@@ -136,7 +138,7 @@ public class MainViewController extends BorderPane{
     	//Show DeveloperListView
     	developerListViewController.showView();
     	
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+        //throw new UnsupportedOperationException("Not Yet Implemented!");
     }
 
     /**
