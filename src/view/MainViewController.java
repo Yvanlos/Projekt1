@@ -163,7 +163,8 @@ public class MainViewController extends BorderPane{
  	 */
     @FXML
     void onExportPDFButtonClick(MouseEvent event) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+		pdfViewController pdfViewController = new pdfViewController(virtualKanbanController);
+		stackPane.getChildren().add(pdfViewController);
     }
 
     /**
@@ -175,7 +176,6 @@ public class MainViewController extends BorderPane{
  	 */
     @FXML
 	void onShowRankingAction(ActionEvent event) {
-
 		RankingViewController rankingViewController = new RankingViewController(stackPane, virtualKanbanController);
 		stackPane.getChildren().add(rankingViewController);
 	}

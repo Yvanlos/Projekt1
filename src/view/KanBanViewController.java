@@ -23,84 +23,69 @@ import java.time.LocalDateTime;
 
 public class KanBanViewController extends BorderPane {
 
-    /**
- 	 * 
- 	 */
     @FXML
     private Button infoButton;
 
-    /**
- 	 * 
- 	 */
     @FXML
     private Button addTaskButton;
 
-    /**
- 	 * 
- 	 */
     @FXML
     private Button archiveButton;
 
     @FXML
     private Button returnButton;
 
-
-    /**
- 	 * 
- 	 */
     @FXML
     private ScrollPane newTaskPane;
 
     @FXML
     private VBox newStageBox;
 
-    /**
- 	 * 
- 	 */
     @FXML
     private ScrollPane taskFinishedPane;
 
-    /**
- 	 * 
- 	 */
+    @FXML
+    private VBox finishedStageBox;
+
     @FXML
     private ScrollPane analysisProcessPane;
 
-    /**
- 	 * 
- 	 */
+    @FXML
+    private VBox analysisInProgressBox;
+
     @FXML
     private ScrollPane implementationProcessPane;
 
-    /**
- 	 * 
- 	 */
+    @FXML
+    private VBox implementationInProgressBox;
+
     @FXML
     private ScrollPane testProcessPane;
 
-    /**
- 	 * 
- 	 */
+    @FXML
+    private VBox testInProgressBox;
+
     @FXML
     private ScrollPane analysisFinishedPane;
 
-    /**
- 	 * 
- 	 */
+    @FXML
+    private VBox analysisFinishedBox;
+
     @FXML
     private ScrollPane implementationFinishedPane;
 
-    /**
- 	 * 
- 	 */
+    @FXML
+    private VBox implementationFinishedBox;
+
     @FXML
     private ScrollPane testFinishedPane;
 
-    /**
- 	 * 
- 	 */
+    @FXML
+    private VBox testFinishedBox;
+
     @FXML
     private HBox unassignedList;
+
 
     @FXML
     private StackPane stackPane;
@@ -136,43 +121,68 @@ public class KanBanViewController extends BorderPane {
                 list.addTask(new Task("testName","testDescription",LocalDateTime.now()));
             }
         }
+        for (StageList list : project.getStageList()){
+            if (list.getStage() == Stage.IMPLEMENTATION_FINISHED){
+                list.addTask(new Task("testName1","testDescription1",LocalDateTime.now()));
+            }
+        }
+        for (StageList list : project.getStageList()){
+            if (list.getStage() == Stage.COMPLETED){
+                list.addTask(new Task("testName2","testDescription2",LocalDateTime.now()));
+            }
+        }
 
-        project.getStageList().forEach(stageList -> {
-            stageList.getTask().forEach(task -> {
-                MenuButton menuButton = new MenuButton();
-                menuButton.setText("Hier sollte Taskname stehen");
-                menuButton.getItems().add(new MenuItem("Aufgabe anfangen"));
-                menuButton.getItems().add(new MenuItem("Aufgabe zurücklegen"));
-                menuButton.getItems().add(new MenuItem("Aufgabe beenden"));
-                menuButton.getItems().add(new MenuItem("Aufgabe bearbeiten?"));
-                menuButton.getItems().add(new MenuItem("Kommentare anzeigen"));
-                menuButton.getItems().add(new MenuItem("Kommentar hinzufügen"));
-                //menuButton.getItems().get(0).setOnAction(event -> );
-                //menuButton.getItems().get(1).setOnAction(event -> );
-                //menuButton.getItems().get(2).setOnAction(event -> );
-                //menuButton.getItems().get(3).setOnAction(event -> );
-                //menuButton.getItems().get(4).setOnAction(event -> );
-                menuButton.getItems().get(5).setOnAction(event -> {
-                    NewCommentController newCommentController = new NewCommentController(virtualKanbanController);
-                    newCommentController.showView();
-                });
-                newStageBox.getChildren().add(menuButton);
+        StageList stageList = null;
+        for (StageList list : project.getStageList()){
+            if (list.getStage() == Stage.NEW){
+                stageList = list;
+            }
+        }
+
+        addTasksToStageBox(newStageBox, stageList);
+        stageList = project.getNextStage(stageList);
+        addTasksToStageBox(analysisInProgressBox,stageList);
+        stageList = project.getNextStage(stageList);
+        addTasksToStageBox(analysisFinishedBox,stageList);
+        stageList = project.getNextStage(stageList);
+        addTasksToStageBox(implementationInProgressBox,stageList);
+        stageList = project.getNextStage(stageList);
+        addTasksToStageBox(implementationFinishedBox,stageList);
+        stageList = project.getNextStage(stageList);
+        addTasksToStageBox(testInProgressBox,stageList);
+        stageList = project.getNextStage(stageList);
+        addTasksToStageBox(testFinishedBox,stageList);
+        stageList = project.getNextStage(stageList);
+        addTasksToStageBox(finishedStageBox,stageList);
+
+    }
+
+
+    public void addTasksToStageBox(VBox box, StageList stageList){
+        stageList.getTask().forEach(task -> {
+            MenuButton menuButton = new MenuButton();
+            menuButton.setText(task.getName()+"\n"+task.getDescription()+"\nDeadline: "+task.getDeadline());
+            menuButton.getItems().add(new MenuItem("Aufgabe anfangen"));
+            menuButton.getItems().add(new MenuItem("Aufgabe zuruecklegen"));
+            menuButton.getItems().add(new MenuItem("Aufgabe beenden"));
+            menuButton.getItems().add(new MenuItem("Aufgabe bearbeiten?"));
+            menuButton.getItems().add(new MenuItem("Kommentare anzeigen"));
+            menuButton.getItems().add(new MenuItem("Kommentar hinzufuegen"));
+            //TODO refresh if task is moved
+            //menuButton.getItems().get(0).setOnAction(event -> );
+            //menuButton.getItems().get(1).setOnAction(event -> );
+            //menuButton.getItems().get(2).setOnAction(event -> );
+            //menuButton.getItems().get(3).setOnAction(event -> );
+            menuButton.getItems().get(4).setOnAction(event -> {
+                ReadCommentController readCommentController = new ReadCommentController(virtualKanbanController);
+                readCommentController.showView();
             });
+            menuButton.getItems().get(5).setOnAction(event -> {
+                NewCommentController newCommentController = new NewCommentController(virtualKanbanController);
+                newCommentController.showView();
+            });
+            box.getChildren().add(menuButton);
         });
-
-
-
-
-        //virtualKanbanController.getVirtualKanban().getProject().forEach(project -> {
-        //    Button projectButton = new Button(project.getName());
-        //    projectButton.setOnAction(evt -> {
-        //        KanBanViewController kanBanViewController = new KanBanViewController(stackPane, virtualKanbanController, project);
-        //        stackPane.getChildren().add(kanBanViewController);
-        //    });
-        //        showProjectPane.getChildren().add(projectButton);
-        //});
-
-
     }
 
     /**
