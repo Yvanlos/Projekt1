@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
 
@@ -53,10 +54,10 @@ public class ProjectTest {
     }
 
     /**
-     * Tests the method getStageFromTask()
+     * Tests the method getStageFromTask() with an existing task
      */
     @Test
-    public void testGetStageFromTask() {
+    public void testGetStageFromTaskSuccessful() {
         Task task = new Task("testName","testDescription",LocalDateTime.now());
         for (StageList list : project.getStageList()){
             if (list.getStage() == Stage.NEW){
@@ -67,10 +68,19 @@ public class ProjectTest {
     }
 
     /**
-     * Tests the method getNextStage()
+     * Tests the method getStageFromTask() with an existing task
+     */
+    @Test(expected = NoSuchElementException.class)
+    public void testGetStageFromTaskUnsuccessful(){
+        Task task = new Task("testName","testDescription",LocalDateTime.now());
+        project.getStageFromTask(task);
+    }
+
+    /**
+     * Tests the method getNextStage() with a stage that has a next stage
      */
     @Test
-    public void testGetNextStage() {
+    public void testGetNextStageSuccessful() {
         for (StageList list : project.getStageList()){
             if (list.getStage() == Stage.NEW){
                 assertEquals(Stage.ANALYSE_IN_PROGRESS, project.getNextStage(list).getStage());
@@ -79,15 +89,31 @@ public class ProjectTest {
     }
 
     /**
-     * Tests the method getPreviousStage()
+     * Tests the method getNextStage() with a stage that doesn't have a next stage
+     */
+    @Test(expected = NoSuchElementException.class)
+    public void testGetNextStageUnsuccessful() {
+        project.getNextStage(new StageList(Stage.COMPLETED));
+    }
+
+    /**
+     * Tests the method getPreviousStage() with a stage that has a previous stage
      */
     @Test
-    public void testGetPreviousStage() {
+    public void testGetPreviousStageSuccessful() {
         for (StageList list : project.getStageList()){
             if (list.getStage() == Stage.ANALYSE_IN_PROGRESS){
                 assertEquals(Stage.NEW, project.getPreviousStage(list).getStage());
             }
         }
+    }
+
+    /**
+     * Tests the method getPreviousStage() with a stage that doesn't have a previous stage
+     */
+    @Test(expected = NoSuchElementException.class)
+    public void testGetPreviousStageUnsuccessful() {
+        project.getPreviousStage(new StageList(Stage.NEW));
     }
 
     /**
