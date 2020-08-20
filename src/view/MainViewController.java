@@ -49,7 +49,16 @@ public class MainViewController extends BorderPane{
     private Button exitButton;
     
     
+    /**
+     * The ViratualKanbanController object.
+     */
     private VirtualKanbanController virtualKanbanController;
+    
+    
+    /**
+     * A DeveloperListViewController object for showing the DeveloperListView
+     */
+    private DeveloperListViewController developerListViewController;
     
     
     public MainViewController(VirtualKanbanController virtualKanbanController){
@@ -63,6 +72,8 @@ public class MainViewController extends BorderPane{
     	} catch (Exception e) {
     	    throw new RuntimeException(e);
     	}
+    	
+    	developerListViewController = new DeveloperListViewController(virtualKanbanController);
     	
     	
     }
@@ -90,19 +101,23 @@ public class MainViewController extends BorderPane{
  	 */
     @FXML
     void onDevelopersButtonClick(MouseEvent event) throws UnsupportedOperationException {
+    	//Show DeveloperListView
+    	developerListViewController.showView();
+    	
         throw new UnsupportedOperationException("Not Yet Implemented!");
     }
 
     /**
- 	 *
- 	 * TODO: create JavaDoc. 
- 	 * @param event
- 	 * @throws UnsupportedOperation Exception
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
+ 	 * Executed when the exit button is clicked. Saves the current state and exits the program.
+ 	 * @param event the MouseEvent when the button is clicked.
  	 */
     @FXML
-    void onExitButtonClick(MouseEvent event) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+    void onExitButtonClick(MouseEvent event){
+        //TODO: Saving data
+    	
+    	
+    	
+    	System.exit(0);
     }
 
     /**
