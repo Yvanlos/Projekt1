@@ -195,6 +195,8 @@ public class MainViewController extends BorderPane{
  	 */
     @FXML
     void onTeamsButtonClick(MouseEvent event) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+        TeamsViewController TeamsViewController = new TeamsViewController(virtualKanbanController);
+        TeamsViewController.showView();
+    	//throw new UnsupportedOperationException("Not Yet Implemented!");
     }
 }
