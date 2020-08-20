@@ -1,7 +1,6 @@
 package controller;
 
-import model.Project;
-import model.Team;
+import model.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,13 +22,29 @@ public class ProjectControllerTest {
     }
 
     /**
-     * Tests the createProject() method
+     * Tests the createProject() method with a correct project
      */
     @Test
-    public void testCreateProject() {
+    public void testCreateProjectSuccessful() {
         Project project = pc.createProject("testName", LocalDateTime.now(), new Team("testTeam"), "testDescription");
-        //assertTrue(pc.getVirtualKanbanController().getVirtualKanban().getProject().contains(project));
-        //needs an implemented VirtualKanbanController
+        assertTrue(pc.getVirtualKanbanController().getVirtualKanban().getProject().contains(project));
+    }
+
+    /**
+     * Tests the createProject() method with a project without a name
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateProjectUnsuccessfulNull() {
+        pc.createProject(null, LocalDateTime.now(), new Team("testTeam"), "testDescription");
+    }
+
+    /**
+     * Tests the createProject() method with a project that has the same name as another project
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateProjectUnsuccessfulAlreadyExisting() {
+        pc.createProject("testName", LocalDateTime.now(), new Team("testTeam"), "testDescription");
+        pc.createProject("testName", LocalDateTime.now(), new Team("testTeam"), "testDescription");
     }
 
     /**
@@ -39,6 +54,20 @@ public class ProjectControllerTest {
     public void testArchiveProject() {
         Project project = pc.createProject("testName", LocalDateTime.now(), new Team("testTeam"), "testDescription");
         pc.archiveProject(project);
+        for (StageList list : project.getStageList()){
+            if(list.getStage()== Stage.ANALYSE_IN_PROGRESS){
+                assertTrue(list.getTask().isEmpty());
+            }
+            if(list.getStage()==Stage.IMPLEMENTATION_IN_PROGRESS){
+                assertTrue(list.getTask().isEmpty());
+            }
+            if(list.getStage()==Stage.TEST_IN_PROGRESS){
+                assertTrue(list.getTask().isEmpty());
+            }
+        }
+        for (Developer developer: project.getTeam().getDevelopers()){
+            assertFalse(developer.isAtWork());
+        }
         assertTrue(project.isReadOnly());
     }
 
@@ -49,7 +78,6 @@ public class ProjectControllerTest {
     public void testDeleteProject() {
         Project project = pc.createProject("testName", LocalDateTime.now(), new Team("testTeam"), "testDescription");
         pc.deleteProject(project);
-        //assertFalse(pc.getVirtualKanbanController().getVirtualKanban().getProject().contains(project));
-        //needs an implemented VirtualKanbanController
+        assertFalse(pc.getVirtualKanbanController().getVirtualKanban().getProject().contains(project));
     }
 }

@@ -36,7 +36,9 @@ public class ProjectController {
 					throw new IllegalArgumentException("There is already a project called: " + name + ".");
 				}
 			}
-			return new Project(name, description, deadline, team);
+			Project project = new Project(name, description, deadline, team);
+			virtualKanbanController.getVirtualKanban().addProject(project);
+			return project;
 		}
 		throw new IllegalArgumentException("The project must have a name!");
     }
@@ -84,4 +86,12 @@ public class ProjectController {
     public void deleteProject(Project project) {
 		virtualKanbanController.getVirtualKanban().getProject().remove(project);
     }
+
+	/**
+	 * Returns the VirtualKanban controller
+	 * @return VirtualKanban controller
+	 */
+	public VirtualKanbanController getVirtualKanbanController() {
+		return virtualKanbanController;
+	}
 }
