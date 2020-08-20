@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.lang.UnsupportedOperationException;
 import java.util.List;
@@ -17,9 +18,14 @@ public class Team {
     /**
  	 * list of developers in the team
  	 */
-    private List<Developer> developers;
+    private ArrayList<Developer> developers;
 
-    /**
+	public Team(String name) {
+		this.name = name;
+		this.developers = new ArrayList<Developer>();
+	}
+
+	/**
  	 *	adds a developer to the team
 	 *
  	 *
@@ -34,7 +40,6 @@ public class Team {
     /**
  	 * removes a developer from the team
 	 *
- 	 *
  	 * @param developer
 	 * 					developer, which is removed from the team
  	 *
@@ -43,19 +48,37 @@ public class Team {
         this.developers.remove(developer);
     }
 
+	/**
+	 * returns the name of the team
+	 * @return name of the team
+	 */
 	public String getName() {
 		return name;
 	}
 
-	public List<Developer> getDevelopers() {
+	/**
+	 * returns an ArrayList of developers
+	 * @return ArrayList of developers
+	 */
+	public ArrayList<Developer> getDevelopers() {
 		return developers;
 	}
 
+	/**
+	 * sets the name of a team
+	 * @param name
+	 * 				new name of the team
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public void setDevelopers(List<Developer> developers) {
+	/**
+	 * sets a new ArrayList of developers
+	 * @param developers
+	 * 					new ArrayList of developers
+	 */
+	public void setDevelopers(ArrayList<Developer> developers) {
 		this.developers = developers;
 	}
 }

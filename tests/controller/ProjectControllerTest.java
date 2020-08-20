@@ -27,7 +27,7 @@ public class ProjectControllerTest {
      */
     @Test
     public void testCreateProject() {
-        Project project = pc.createProject("testName", LocalDateTime.now(), new Team(), "testDescription");
+        Project project = pc.createProject("testName", LocalDateTime.now(), new Team("testTeam"), "testDescription");
         //assertTrue(pc.getVirtualKanbanController().getVirtualKanban().getProject().contains(project));
         //needs an implemented VirtualKanbanController
     }
@@ -37,7 +37,7 @@ public class ProjectControllerTest {
      */
     @Test
     public void testArchiveProject() {
-        Project project = pc.createProject("testName", LocalDateTime.now(), new Team(), "testDescription");
+        Project project = pc.createProject("testName", LocalDateTime.now(), new Team("testTeam"), "testDescription");
         pc.archiveProject(project);
         assertTrue(project.isReadOnly());
     }
@@ -47,7 +47,7 @@ public class ProjectControllerTest {
      */
     @Test
     public void testDeleteProject() {
-        Project project = pc.createProject("testName", LocalDateTime.now(), new Team(), "testDescription");
+        Project project = pc.createProject("testName", LocalDateTime.now(), new Team("testTeam"), "testDescription");
         pc.deleteProject(project);
         //assertFalse(pc.getVirtualKanbanController().getVirtualKanban().getProject().contains(project));
         //needs an implemented VirtualKanbanController

@@ -24,14 +24,14 @@ public class VirtualKanbanTest {
 
     @Test
     public void addAndGetProject() {
-        Project p = new Project("Test", "TestDescription", LocalDateTime.now(), new Team());
+        Project p = new Project("Test", "TestDescription", LocalDateTime.now(), new Team("testTeam"));
         testClass.addProject(p);
         assertSame(p, testClass.getProject().get(0));
     }
 
     @Test
     public void addAndGetTeam() {
-        Team t = new Team();
+        Team t = new Team("testTeam");
         t.setName("Test");
         testClass.addTeam(t);
         assertSame(t, testClass.getTeam().get(0));

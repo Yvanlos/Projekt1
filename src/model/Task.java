@@ -32,7 +32,7 @@ public class Task {
 	/**
 	 * Collection of the notes of the task
 	 */
-	private Collection<Note> notes;
+	private ArrayList<Note> notes;
 
 	/**
 	 * Developer which is assigned to the task
@@ -89,9 +89,9 @@ public class Task {
 
 	/**
 	 *
-	 * @return Collection<Note> the collection of notes attached to the task
+	 * @return the arrayList of notes attached to the task
 	 */
-	public Collection<Note> getNote() {
+	public ArrayList<Note> getNote() {
 		return notes;
 	}
 

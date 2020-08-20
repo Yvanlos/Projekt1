@@ -3,6 +3,7 @@ package model;
 import static org.junit.Assert.*;
 
 import java.net.URI;
+import java.time.LocalDateTime;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,34 +30,38 @@ public class DeveloperTest {
 		assertEquals(developer.getPicture(), profilePicture);
 	}
 
-//	/**
-//	 * Tests the method addCompletedStage(), getCompletedStageList()
-//	 */
-//	@Test
-//	public void testAddCompletedStage() {
-//		Developer dev = new Developer("TestCancelTask", profilePicture);
-//		
-//		CompletedStage stage1 = new CompletedStage();
-//		
-//		dev.setCurrentTaskStage(stage1);
-//		dev.addCompletedStage();
-//		
-//		assertEquals(dev.getCurrentTaskStage(), null);
-//		assertEquals(dev.isAtWork(), false);
-//		assertEquals(dev.getCompletedStageList().get(0), stage1);
-//	}
-//	
-//	/**
-//	 * Tests the method cancelTask()
-//	 */
-//	@Test
-//	public void testCancelTask() {
-//		Developer developer = new Developer("TestCancelTask", profilePicture);
-//		developer.setCurrentTaskStage(new CompletedStage());
-//		developer.cancelTask();
-//		assertEquals(developer.getCurrentTaskStage(), null);
-//		assertEquals(developer.isAtWork(), false);
-//	}
+	/**
+	 * Tests the method addCompletedStage(), getCompletedStageList()
+	 */
+	@Test
+	public void testAddCompletedStage() {
+		Developer dev = new Developer("TestCancelTask", profilePicture);
+		
+		CompletedStage stage1 = new CompletedStage(null, null);
+		
+		dev.setCurrentTaskStage(stage1);
+		dev.addCompletedStage();
+		
+		assertEquals(dev.getCurrentTaskStage(), null);
+		assertEquals(dev.isAtWork(), false);
+		assertEquals(dev.getCompletedStageList().get(0), stage1);
+	}
+	
+	/**
+	 * Tests the method cancelTask()
+	 */
+	@Test
+	public void testCancelTask() {
+		Developer developer = new Developer("TestCancelTask", profilePicture);
+		
+		Task testTask = new Task("TestTask", "this is a test task", LocalDateTime.now());
+		CompletedStage testStage = new CompletedStage(testTask, null);
+		
+		developer.setCurrentTaskStage(testStage);
+		developer.cancelTask();
+		assertEquals(developer.getCurrentTaskStage(), null);
+		assertEquals(developer.isAtWork(), false);
+	}
 	
 	
 	/**
@@ -90,15 +95,17 @@ public class DeveloperTest {
 		assertEquals(dev.getPicture(), URI.create("testURI"));
 	}
 
-//	/**
-//	 * Tests the method getCurrentTaskStage() and setCurrentTaskStage(CompletedStage)
-//	 */
-//	@Test
-//	public void testGetCurrentTaskStage() {
-//		Developer dev = new Developer("TestIsAtWork", profilePicture);
-//		CompletedStage stage = new CompletedStage();
-//		dev.setCurrentTaskStage(stage);
-//		assertEquals(dev.getCurrentTaskStage(), stage);
-//	}
+	/**
+	 * Tests the method getCurrentTaskStage() and setCurrentTaskStage(CompletedStage)
+	 */
+	@Test
+	public void testGetCurrentTaskStage() {
+		Developer dev = new Developer("TestIsAtWork", profilePicture);
+		
+		CompletedStage testStage = new CompletedStage(null, null);
+		
+		dev.setCurrentTaskStage(testStage);
+		assertEquals(dev.getCurrentTaskStage(), testStage);
+	}
 
 }

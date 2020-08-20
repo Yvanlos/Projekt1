@@ -19,7 +19,7 @@ public class ProjectTest {
      */
     @Before
     public void setUp() throws Exception {
-        project = new Project("testProject", "testDescription", LocalDateTime.now(),new Team());
+        project = new Project("testProject", "testDescription", LocalDateTime.now(),new Team("testTeam"));
     }
 
     /**
@@ -135,7 +135,7 @@ public class ProjectTest {
      */
     @Test
     public void testGetTeam() {
-        assertEquals(new Team(), project.getTeam());
+        assertEquals("testTeam", project.getTeam().getName());
     }
 
     /**
@@ -152,6 +152,7 @@ public class ProjectTest {
         stageList.add(new StageList(Stage.TEST_IN_PROGRESS));
         stageList.add(new StageList(Stage.TEST_FINISHED));
         stageList.add(new StageList(Stage.COMPLETED));
+        project.setStageList(stageList);
         assertEquals(stageList, project.getStageList());
     }
 
@@ -196,8 +197,8 @@ public class ProjectTest {
      */
     @Test
     public void testSetTeam() {
-        //project.setTeam(new Team("testTeam",null));
-        //assertEquals(new Team("testTeam",null), project.getTeam());
+        project.setTeam(new Team("analysisTeam"));
+        assertEquals("analysisTeam", project.getTeam().getName());
     }
 
     /**
