@@ -1,11 +1,16 @@
 package view;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+
 import java.lang.UnsupportedOperationException;
 
-public class MainViewController {
+import controller.VirtualKanbanController;
+
+public class MainViewController extends BorderPane{
 
     /**
  	 * 
@@ -42,6 +47,27 @@ public class MainViewController {
  	 */
     @FXML
     private Button exitButton;
+    
+    
+    private VirtualKanbanController virtualKanbanController;
+    
+    
+    public MainViewController(VirtualKanbanController virtualKanbanController){
+    	this.virtualKanbanController = virtualKanbanController;
+    	
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("MainView.fxml"));
+    	loader.setRoot(this);
+    	loader.setController(this);
+    	try {
+    	    loader.load();
+    	} catch (Exception e) {
+    	    throw new RuntimeException(e);
+    	}
+    	
+    	
+    }
+    
+    
 
     /**
  	 *

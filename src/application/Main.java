@@ -3,8 +3,13 @@ package application;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import view.MainViewController;
 import view.SampleViewController;
 import java.lang.UnsupportedOperationException;
+
+import controller.VirtualKanbanController;
+
+
 
 public class Main extends Application {
 
@@ -16,8 +21,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            SampleViewController sampleViewController = new SampleViewController();
-            Scene scene = new Scene(sampleViewController, 400, 200);
+        	VirtualKanbanController virtualKanbanController = new VirtualKanbanController();
+        	
+            MainViewController mainViewController = new MainViewController(virtualKanbanController);
+            Scene scene = new Scene(mainViewController, 1600, 800);
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.show();
