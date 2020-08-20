@@ -60,6 +60,16 @@ public class MainViewController extends BorderPane{
      */
     private DeveloperListViewController developerListViewController;
     
+    /**
+     * A TeamsViewController object for showing the TeamsView
+     */
+    private TeamsViewController teamsViewController;
+    
+    /**
+     * A TeamsViewController object for showing the TeamsView
+     */
+    private NewProjectViewController newProjectViewController;
+    
     
     public MainViewController(VirtualKanbanController virtualKanbanController){
     	this.virtualKanbanController = virtualKanbanController;
@@ -74,7 +84,8 @@ public class MainViewController extends BorderPane{
     	}
     	
     	developerListViewController = new DeveloperListViewController(virtualKanbanController);
-    	
+    	teamsViewController = new TeamsViewController(virtualKanbanController);
+    	newProjectViewController = new NewProjectViewController(virtualKanbanController);
     	
     }
     
@@ -82,22 +93,18 @@ public class MainViewController extends BorderPane{
 
     /**
  	 *
- 	 * TODO: create JavaDoc. 
- 	 * @param event
- 	 * @throws UnsupportedOperation Exception
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
+ 	 * Shows the NewProjectView when the button createProject is clicked.
+ 	 * @param event the mouse event.
  	 */
     @FXML
     void onCreateProjectButtonClick(MouseEvent event) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+        newProjectViewController.showView();
     }
 
     /**
  	 *
- 	 * TODO: create JavaDoc. 
- 	 * @param event
- 	 * @throws UnsupportedOperation Exception
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
+ 	 * Opens the DeveloperListView when the DeveloperButton is clicked.
+ 	 * @param event the click event
  	 */
     @FXML
     void onDevelopersButtonClick(MouseEvent event) throws UnsupportedOperationException {
@@ -145,14 +152,12 @@ public class MainViewController extends BorderPane{
     }
 
     /**
- 	 *
- 	 * TODO: create JavaDoc. 
- 	 * @param event
- 	 * @throws UnsupportedOperation Exception
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
+ 	 * Opens the TeamsView when the TeamButton is clicked.
+ 	 * 
+ 	 * @param event the click event
  	 */
     @FXML
     void onTeamsButtonClick(MouseEvent event) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+        teamsViewController.showView();
     }
 }

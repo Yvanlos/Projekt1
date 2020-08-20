@@ -37,6 +37,12 @@ public class DeveloperListViewController {
      * The Stage object that represents this view.
      */
     private Stage stage;
+    
+    
+    /**
+     * A NewDeveloperViewController object for showing the NewDeveloperView
+     */
+    private NewDeveloperViewController newDeveloperViewController;
 
     public DeveloperListViewController(VirtualKanbanController virtualKanbanController) {
     	this.virtualKanbanController = virtualKanbanController;
@@ -51,6 +57,8 @@ public class DeveloperListViewController {
     	}
 
     	// TODO hier kann die View weiter initialisiert werden (äquivalent zu initialize-Methode bei Komponenten)
+    	newDeveloperViewController = new NewDeveloperViewController(virtualKanbanController);
+    	
 
     	// init Scene and Stage
     	Scene scene = new Scene(root);
@@ -63,20 +71,18 @@ public class DeveloperListViewController {
     
     /**
  	 *
- 	 * TODO: create JavaDoc. 
- 	 * @param event
- 	 * @throws UnsupportedOperation Exception
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
+ 	 * Shows the NewDeveloperView when the button addDeveloper is clicked.
+ 	 * @param event the mouse event.
  	 */
     @FXML
-    void onAddDeveloperButtonClicked(MouseEvent event) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+    void onAddDeveloperButtonClicked(MouseEvent event){
+        newDeveloperViewController.showView();
     }
     
     
     /**
      * Closes this window.
-     * @param event
+     * @param event the mouse event.
      */
     @FXML
     void onExitButtonClicked(MouseEvent event) throws UnsupportedOperationException {
