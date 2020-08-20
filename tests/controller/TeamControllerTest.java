@@ -2,11 +2,13 @@ package controller;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import model.Project;
 import model.Team;
 
 public class TeamControllerTest {
@@ -41,9 +43,17 @@ public class TeamControllerTest {
 		
 		assertEquals(newTeam.getName() , "TestTeam");
 		
+		virtualKanbanController.getProjectController().createProject("Testname", LocalDateTime.now(), newTeam, "This is a test");
+		
+		Project testProject = virtualKanbanController.getVirtualKanban().getProject().get(0);
+		
+		virtualKanbanController.getProjectController().archiveProject(testProject);
+		
 		teamController.deleteTeam(newTeam);
 		
 		assertTrue(virtualKanbanController.getVirtualKanban().getTeam().isEmpty());
+		
+		assertTrue(testProject.getTeam() == null);
 	}
 	
 	/**

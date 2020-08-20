@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
+import model.Project;
 import model.Team;
 
 /**
@@ -42,11 +43,18 @@ public class TeamController {
  	 */
     public void deleteTeam(Team team) throws NoSuchElementException{
     	ArrayList<Team> teamList = virtualKanbanController.getVirtualKanban().getTeam();
+    	ArrayList<Project> projectList = virtualKanbanController.getVirtualKanban().getProject();
         if(teamList.contains(team)) {
+        	for(Project project : projectList) {
+        		if(project.getTeam().equals(team)) {
+        			project.setTeam(null);
+        		}
+        	}
         	teamList.remove(team);
         }
         else {
         	throw new NoSuchElementException("The team that should be deleted does not exist in teams.");
         }
     }
+    
 }
