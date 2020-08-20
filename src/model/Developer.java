@@ -1,8 +1,7 @@
 package model;
 
 import java.net.URI;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.ArrayList;
 
 public class Developer {
 
@@ -24,7 +23,7 @@ public class Developer {
     /**
  	 * List of all completed tasks.
  	 */
-    private List<CompletedStage> completedStageList;
+    private ArrayList<CompletedStage> completedStageList;
 
     /**
  	 * Currently assigned task.
@@ -41,7 +40,7 @@ public class Developer {
     public Developer(String name, URI picture) {
 		this.name = name;
 		this.picture = picture;
-		completedStageList = new LinkedList<CompletedStage>();
+		completedStageList = new ArrayList<CompletedStage>();
 	}
 
 	/**
@@ -106,7 +105,7 @@ public class Developer {
 	 * Returns a List of all CompletedStages completed by the developer
 	 * @return CompletedStage-List
 	 */
-	public List<CompletedStage> getCompletedStageList() {
+	public ArrayList<CompletedStage> getCompletedStageList() {
 		return completedStageList;
 	}
 
