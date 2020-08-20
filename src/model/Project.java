@@ -1,9 +1,7 @@
 package model;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 /**
  * This class models a project with a deadline, an assigned team and a number of tasks in different stages.
@@ -43,7 +41,7 @@ public class Project {
     /**
  	 * Collection of the eight stages a task can belong to.
  	 */
-    private Collection<StageList> stageList;
+    private ArrayList<StageList> stageList;
 
 	/**
 	 * Constructs a new project with a name, a description, a deadline, an assigned team and empty stage lists.
@@ -59,15 +57,15 @@ public class Project {
 		this.team = team;
 		setReadOnly(false);
 		startDate = LocalDateTime.now();
-		Collection<Task> task = Collections.<Task>emptyList(); //other ways to initialize a collection?
-		stageList.add(new StageList(task, Stage.NEW));
-		stageList.add(new StageList(task, Stage.ANALYSE_IN_PROGRESS));
-		stageList.add(new StageList(task, Stage.ANALYSE_FINISHED));
-		stageList.add(new StageList(task, Stage.IMPLEMENTATION_IN_PROGRESS));
-		stageList.add(new StageList(task, Stage.IMPLEMENTATION_FINISHED));
-		stageList.add(new StageList(task, Stage.TEST_IN_PROGRESS));
-		stageList.add(new StageList(task, Stage.TEST_FINISHED));
-		stageList.add(new StageList(task, Stage.COMPLETED));
+		stageList = new ArrayList<>(8);
+		stageList.add(new StageList(Stage.NEW));
+		stageList.add(new StageList(Stage.ANALYSE_IN_PROGRESS));
+		stageList.add(new StageList(Stage.ANALYSE_FINISHED));
+		stageList.add(new StageList(Stage.IMPLEMENTATION_IN_PROGRESS));
+		stageList.add(new StageList(Stage.IMPLEMENTATION_FINISHED));
+		stageList.add(new StageList(Stage.TEST_IN_PROGRESS));
+		stageList.add(new StageList(Stage.TEST_FINISHED));
+		stageList.add(new StageList(Stage.COMPLETED));
 	}
 
 	/**
@@ -196,7 +194,7 @@ public class Project {
 	 * Returns all stage lists of the project in a collection.
 	 * @return collection of the stage lists
 	 */
-	public Collection<StageList> getStageList() {
+	public ArrayList<StageList> getStageList() {
 		return stageList;
 	}
 
@@ -244,7 +242,7 @@ public class Project {
 	 * Replaces the collection of stage lists of the project with the specified collection.
 	 * @param stageList new stage lists of the project
 	 */
-	public void setStageList(Collection<StageList> stageList) {
+	public void setStageList(ArrayList<StageList> stageList) {
 		this.stageList = stageList;
 	}
 }

@@ -4,15 +4,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
 public class ProjectTest {
 
     Project project;
-    Collection<StageList> stageList;
+    ArrayList<StageList> stageList;
 
     /**
      * Sets up a clean testing environment before every test.
@@ -144,15 +143,15 @@ public class ProjectTest {
      */
     @Test
     public void testGetStageList() {
-        Collection<Task> task = Collections.<Task>emptyList(); //other ways to initialize a collection?
-        stageList.add(new StageList(task, Stage.NEW));
-        stageList.add(new StageList(task, Stage.ANALYSE_IN_PROGRESS));
-        stageList.add(new StageList(task, Stage.ANALYSE_FINISHED));
-        stageList.add(new StageList(task, Stage.IMPLEMENTATION_IN_PROGRESS));
-        stageList.add(new StageList(task, Stage.IMPLEMENTATION_FINISHED));
-        stageList.add(new StageList(task, Stage.TEST_IN_PROGRESS));
-        stageList.add(new StageList(task, Stage.TEST_FINISHED));
-        stageList.add(new StageList(task, Stage.COMPLETED));
+        stageList = new ArrayList<>(8);
+        stageList.add(new StageList(Stage.NEW));
+        stageList.add(new StageList(Stage.ANALYSE_IN_PROGRESS));
+        stageList.add(new StageList(Stage.ANALYSE_FINISHED));
+        stageList.add(new StageList(Stage.IMPLEMENTATION_IN_PROGRESS));
+        stageList.add(new StageList(Stage.IMPLEMENTATION_FINISHED));
+        stageList.add(new StageList(Stage.TEST_IN_PROGRESS));
+        stageList.add(new StageList(Stage.TEST_FINISHED));
+        stageList.add(new StageList(Stage.COMPLETED));
         assertEquals(stageList, project.getStageList());
     }
 
@@ -206,8 +205,8 @@ public class ProjectTest {
      */
     @Test
     public void testSetStageList(){
-        Collection<Task> task = Collections.<Task>emptyList();
-        stageList.add(new StageList(task, Stage.NEW));
+        stageList = new ArrayList<StageList>(8);
+        stageList.add(new StageList(Stage.NEW));
         project.setStageList(stageList);
         assertEquals(stageList, project.getStageList());
     }
