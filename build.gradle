@@ -22,6 +22,9 @@ repositories {
 dependencies {
     testImplementation 'junit:junit:4.12'
 
+    // https://mvnrepository.com/artifact/com.itextpdf/itextpdf
+    compile group: 'com.itextpdf', name: 'itextpdf', version: '5.5.13.1'
+
     // JavaFX for all (targeted) platforms
     //implementation "org.openjfx:javafx-base:11:win"
     //implementation "org.openjfx:javafx-graphics:11:win"
