@@ -1,11 +1,10 @@
 package controller;
 
-import model.Project;
-import model.Task;
-import model.Note;
-import model.Developer;
+import model.*;
+
 import java.time.LocalDateTime;
 import java.lang.UnsupportedOperationException;
+import java.util.ArrayList;
 
 public class TaskController {
 	/**
@@ -31,6 +30,7 @@ public class TaskController {
     private VirtualKanbanController virtualKanbanController;
 
     public TaskController(VirtualKanbanController VirtualKanbanController) {
+    	this.virtualKanbanController= VirtualKanbanController;
     }
 
     /**
@@ -42,7 +42,15 @@ public class TaskController {
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     public void deleteTask(Project project, Task task) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+    	if(project.getStageList().contains(task)){
+			project.moveTaskBackward(task);
+			StageList taskList = project.getStageFromTask(task);
+			task.setDeveloper(null);
+			taskList.removeTask(task);
+		}else{
+			throw new UnsupportedOperationException("task do not found");
+
+		}
     }
 
     /**
