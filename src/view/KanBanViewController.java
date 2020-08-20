@@ -194,7 +194,9 @@ public class KanBanViewController extends BorderPane {
  	 */
     @FXML
     void onAddTaskButtonMouseClick(MouseEvent event) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+        NewTaskViewController newTaskViewController = new NewTaskViewController(virtualKanbanController);
+        newTaskViewController.showView();
+        //throw new UnsupportedOperationException("Not Yet Implemented!");
     }
 
     /**
