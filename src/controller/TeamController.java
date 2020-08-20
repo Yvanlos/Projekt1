@@ -5,6 +5,10 @@ import java.util.NoSuchElementException;
 
 import model.Team;
 
+/**
+ * The Teamcontroller class is used for adding and deleting teams from the VirtualKanban class.
+ * 
+ */
 public class TeamController {
 
     /**
@@ -12,6 +16,10 @@ public class TeamController {
  	 */
     private VirtualKanbanController virtualKanbanController;
 
+    /**
+     * The TeamController constructor.
+     * @param virtualKanbanController
+     */
     public TeamController(VirtualKanbanController virtualKanbanController) {
     	this.virtualKanbanController = virtualKanbanController;
     }

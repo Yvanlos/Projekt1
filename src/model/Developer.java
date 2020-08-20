@@ -3,6 +3,10 @@ package model;
 import java.net.URI;
 import java.util.ArrayList;
 
+/**
+ * The Developer class that holds a name and a profile picture.
+ * 
+ */
 public class Developer {
 
     /**
