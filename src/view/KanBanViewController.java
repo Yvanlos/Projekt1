@@ -141,7 +141,9 @@ public class KanBanViewController extends BorderPane {
  	 */
     @FXML
     void onArchiveButtonMouseClick(MouseEvent event) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+        ControlQuestionViewController controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController);
+        controlQuestionViewController.showView();
+        //throw new UnsupportedOperationException("Not Yet Implemented!");
     }
 
     /**
