@@ -1,27 +1,25 @@
 package model;
 
-import java.util.Collection;
-import java.lang.UnsupportedOperationException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class VirtualKanban {
 
     /**
  	 * Collection of all existing projects in the entire Program
  	 */
-    private LinkedList<Project> project;
+    private ArrayList<Project> project;
 
     /**
  	 * Collection of all existing teams in the entire Program
  	 */
-    private LinkedList<Team> team;
+    private ArrayList<Team> team;
 
     /**
      * Constructor initialises team and project lists
      */
     public VirtualKanban() {
-        team = new LinkedList<Team>();
-        project = new LinkedList<Project>();
+        team = new ArrayList<>();
+        project = new ArrayList<>();
     }
     /**
      * adds a new Team to the team list
@@ -50,25 +48,25 @@ public class VirtualKanban {
     /**
      * Getter for the project list
      */
-    public LinkedList<Project> getProject() {
+    public ArrayList<Project> getProject() {
         return project;
     }
     /**
      * Getter form the team list
      */
-    public LinkedList<Team> getTeam() {
+    public ArrayList<Team> getTeam() {
         return team;
     }
     /**
      * Constructor initialises team and project lists
      */
-    public void setProject(LinkedList<Project> project ){
+    public void setProject(ArrayList<Project> project ){
         this.project = project ;
     }
     /**
      * Constructor initialises team and project lists
      */
-    public void setTeam(LinkedList<Team> team) {
+    public void setTeam(ArrayList<Team> team) {
         this.team = team;
     }
 }

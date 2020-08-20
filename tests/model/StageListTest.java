@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -14,14 +14,13 @@ public class StageListTest {
 
     @Before
     public void setUp() {
-        LinkedList<Task> c = new LinkedList<Task>();
-        testClass = new StageList(c, Stage.NEW);
+        testClass = new StageList(Stage.NEW);
     }
 
     @Test
     public void testConstructorAndGetStage() {
         assertEquals(Stage.NEW, testClass.getStage());
-        assertEquals(new LinkedList<Task>(), testClass.getTask());
+        assertEquals(new ArrayList<Task>(), testClass.getTask());
     }
 
     @Test
@@ -41,7 +40,7 @@ public class StageListTest {
 
     @Test
     public void testSetTask() {
-        LinkedList<Task> c = new LinkedList<Task>();
+        ArrayList<Task> c = new ArrayList<>();
         testClass.setTask(c);
         assertEquals(c, testClass.getTask());
     }

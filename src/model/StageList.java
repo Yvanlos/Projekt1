@@ -1,5 +1,7 @@
 package model;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -10,7 +12,7 @@ public class StageList {
     /**
  	 * The list of tasks that currently belong to this stage.
  	 */
-    private Collection<Task> task;
+    private ArrayList<Task> task;
 
     /**
  	 * The enum that defines the stage.
@@ -19,11 +21,10 @@ public class StageList {
 
 	/**
 	 * Constructs a stage list with the specified task collection and stage.
-	 * @param task the collections of tasks
 	 * @param stage the stage of the stage list
 	 */
-	public StageList(Collection<Task> task, Stage stage) {
-		this.task = task;
+	public StageList(Stage stage) {
+		this.task = new ArrayList<>();
 		this.stage = stage;
 	}
 
@@ -65,7 +66,7 @@ public class StageList {
 	 * Replaces the current collection of tasks with the specified collection.
 	 * @param task collection to be saved
 	 */
-	public void setTask(Collection<Task> task) {
+	public void setTask(ArrayList<Task> task) {
 		this.task = task;
 	}
 
