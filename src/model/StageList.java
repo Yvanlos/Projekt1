@@ -36,7 +36,7 @@ public class StageList {
  	 *	 	 	Diese Exception wird geworfen, falls die Methode noch nicht implementiert ist.
  	 */
     public void addTask(Task task) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+        this.task.add(task);
     }
 
     /**
@@ -47,7 +47,7 @@ public class StageList {
  	 *	 	 	Diese Exception wird geworfen, falls die Methode noch nicht implementiert ist.
  	 */
     public void removeTask(Task task) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+        if(this.task.contains(task)) this.task.remove(task);
     }
 
 	/**
