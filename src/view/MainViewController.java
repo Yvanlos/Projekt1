@@ -1,5 +1,8 @@
 package view;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.binding.IntegerBinding;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -7,8 +10,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
 import java.lang.UnsupportedOperationException;
+import java.time.LocalDateTime;
+import java.util.Stack;
 
 import controller.VirtualKanbanController;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import model.Project;
+import model.Team;
+
 
 public class MainViewController extends BorderPane{
 
@@ -47,12 +57,17 @@ public class MainViewController extends BorderPane{
  	 */
     @FXML
     private Button exitButton;
-    
+
+	@FXML
+	private GridPane showProjectPane;
     
     /**
-     * The ViratualKanbanController object.
+     * The VirtualKanbanController object.
      */
     private VirtualKanbanController virtualKanbanController;
+
+    @FXML
+    private StackPane stackPane;
     
     
     /**
@@ -64,7 +79,7 @@ public class MainViewController extends BorderPane{
     public MainViewController(VirtualKanbanController virtualKanbanController){
     	this.virtualKanbanController = virtualKanbanController;
     	
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("MainView.fxml"));
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainView.fxml"));
     	loader.setRoot(this);
     	loader.setController(this);
     	try {
@@ -74,17 +89,39 @@ public class MainViewController extends BorderPane{
     	}
     	
     	developerListViewController = new DeveloperListViewController(virtualKanbanController);
-    	
+
     	
     }
-    
+
+	@FXML
+	public void initialize() {
+		virtualKanbanController.getVirtualKanban().addProject(new Project("Testprojekt", "Testbeschreibung", LocalDateTime.now(), new Team("Testteam")));
+    	virtualKanbanController.getVirtualKanban().getProject().forEach(project -> {
+    		Button projectButton = new Button(project.getName());
+    		projectButton.setOnAction(evt -> {
+    			KanBanViewController kanBanViewController = new KanBanViewController(stackPane, virtualKanbanController, project);
+    			if(kanBanViewController == null){System.out.println("Controller Null");}else {System.out.println("Controller Not Null");}
+				if(stackPane== null){System.out.println("StackPane Null");}else {System.out.println("StackPane Not Null");}
+				if(stackPane.getChildren() == null){System.out.println("Children Null");}else {System.out.println("Children Not Null");}
+
+    			stackPane.getChildren().add(kanBanViewController);
+			});
+    		showProjectPane.getChildren().add(projectButton);
+		});
+
+
+
+    	//Binding
+		//IntegerBinding sizeProperty = Bindings.size(stackPane.getChildren());
+		//BooleanBinding multipleElemsProperty = sizeProperty.greaterThan(1);
+	}
     
 
     /**
  	 *
  	 * TODO: create JavaDoc. 
  	 * @param event
- 	 * @throws UnsupportedOperation Exception
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     @FXML
@@ -96,7 +133,7 @@ public class MainViewController extends BorderPane{
  	 *
  	 * TODO: create JavaDoc. 
  	 * @param event
- 	 * @throws UnsupportedOperation Exception
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     @FXML
@@ -124,7 +161,7 @@ public class MainViewController extends BorderPane{
  	 *
  	 * TODO: create JavaDoc. 
  	 * @param event
- 	 * @throws UnsupportedOperation Exception
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     @FXML
@@ -136,7 +173,7 @@ public class MainViewController extends BorderPane{
  	 *
  	 * TODO: create JavaDoc. 
  	 * @param event
- 	 * @throws UnsupportedOperation Exception
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     @FXML
@@ -148,7 +185,7 @@ public class MainViewController extends BorderPane{
  	 *
  	 * TODO: create JavaDoc. 
  	 * @param event
- 	 * @throws UnsupportedOperation Exception
+ 	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     @FXML
