@@ -89,7 +89,7 @@ public class Task {
 
 	/**
 	 *
-	 * @return ArrayList&lt;Note> the collection of notes attached to the task
+	 * @return the arrayList of notes attached to the task
 	 */
 	public ArrayList<Note> getNote() {
 		return notes;
