@@ -116,7 +116,6 @@ public class KanBanViewController extends BorderPane {
         }
 
         //Generate the ViewController
-         newCommentController = new NewCommentController(virtualKanbanController);
          newTaskViewController = new NewTaskViewController(virtualKanbanController,this);
          controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController);
          projectInfoViewController = new ProjectInfoViewController(virtualKanbanController, project);
@@ -200,10 +199,14 @@ public class KanBanViewController extends BorderPane {
             });
             menuButton.getItems().get(4).setOnAction(event -> {
                 if(readCommentController!= null){ readCommentController.closeView();}
+                if(newCommentController!= null){ newCommentController.closeView();}
                 readCommentController = new ReadCommentController(virtualKanbanController,task);
                 readCommentController.showView();
             });
             menuButton.getItems().get(5).setOnAction(event -> {
+                if(newCommentController!= null){ newCommentController.closeView();}
+                if(readCommentController!= null){ readCommentController.closeView();}
+                newCommentController = new NewCommentController(virtualKanbanController,task);
                 newCommentController.showView();
             });
             box.getChildren().add(menuButton);

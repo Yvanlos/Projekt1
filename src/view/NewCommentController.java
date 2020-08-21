@@ -7,33 +7,41 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.Note;
+import model.Task;
 
 import java.lang.UnsupportedOperationException;
+import java.time.LocalDateTime;
 
 public class NewCommentController extends BorderPane {
 
-    /**
- 	 * 
- 	 */
+    @FXML
+    private TextField inputNameField;
+
     @FXML
     private Button okayButton;
 
-    /**
- 	 * 
- 	 */
     @FXML
     private Button cancelButton;
+
+    @FXML
+    private TextArea inputContentField;
 
     private VirtualKanbanController virtualKanbanController;
 
     private Stage stage;
 
-    public NewCommentController(VirtualKanbanController virtualKanbanController) {
+    private Task task;
+
+    public NewCommentController(VirtualKanbanController virtualKanbanController, Task task) {
         this.virtualKanbanController = virtualKanbanController;
+        this.task = task;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("NewComment.fxml"));
         fxmlLoader.setController(this);
@@ -45,13 +53,10 @@ public class NewCommentController extends BorderPane {
             throw new RuntimeException(e);
         }
 
-        // TODO hier kann die View weiter initialisiert werden (äquivalent zu initialize-Methode bei Komponenten)
-
         // init Scene and Stage
         Scene scene = new Scene(root);
         scene.getStylesheets().add(Main.class.getResource("application.css").toExternalForm());
         stage = new Stage();
-        //stage.initModality(Modality.APPLICATION_MODAL); // Blockiert alle anderen Fenster im Hintergrund.
         stage.setScene(scene);
     }
 
@@ -60,25 +65,21 @@ public class NewCommentController extends BorderPane {
  	 *
  	 * TODO: create JavaDoc. 
  	 * @param event
- 	 * @throws UnsupportedOperation Exception
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     @FXML
-    void OnCancelButtonClicked(MouseEvent event) throws UnsupportedOperationException {
+    void OnCancelButtonClicked(MouseEvent event){
         closeView();
-        //throw new UnsupportedOperationException("Not Yet Implemented!");
     }
 
     /**
  	 *
  	 * TODO: create JavaDoc. 
  	 * @param event
- 	 * @throws UnsupportedOperation Exception
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     @FXML
-    void onOkayButtonClicked(MouseEvent event) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+    void onOkayButtonClicked(MouseEvent event){
+        virtualKanbanController.getTaskController().addNote(task, new Note(inputNameField.getText(), inputContentField.getText(), LocalDateTime.now()));
+        closeView();
     }
 
     public void showView() {
@@ -86,6 +87,9 @@ public class NewCommentController extends BorderPane {
     }
 
     public void closeView() {
+        inputNameField.setText("");
+        inputContentField.setText("");
+
         stage.hide();
     }
 }

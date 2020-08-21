@@ -60,8 +60,6 @@ public class ReadCommentController extends SplitPane {
     @FXML
     void initialize() {
         showCommentField.setText("");
-        //Test Comment
-        virtualKanbanController.getTaskController().addNote(task, new Note("Hinzugefügter Kommentar", "Das hier ist ein Kommentar", LocalDateTime.now()));
 
         //Show all notes
         if(!task.getNote().isEmpty()) {
