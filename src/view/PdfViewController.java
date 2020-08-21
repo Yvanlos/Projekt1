@@ -76,7 +76,7 @@ public class PdfViewController extends BorderPane {
     }
 
     public void showView() {
-//        stage.show();
+        stage.show();
     }
 //
     public void closeView() {

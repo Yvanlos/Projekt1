@@ -97,6 +97,8 @@ public class MainViewController extends BorderPane {
      */
     private TeamsViewController teamsViewController;
 
+    private PdfViewController pdfViewController;
+
 
     /**
      * @param virtualKanbanController
@@ -118,6 +120,7 @@ public class MainViewController extends BorderPane {
         developerListViewController = new DeveloperListViewController(virtualKanbanController);
         newProjectViewController = new NewProjectViewController(virtualKanbanController);
         teamsViewController = new TeamsViewController(virtualKanbanController);
+        pdfViewController = new PdfViewController(virtualKanbanController);
 
 
     }
@@ -187,8 +190,9 @@ public class MainViewController extends BorderPane {
      */
     @FXML
     void onExportPDFButtonClick(MouseEvent event) {
-        pdfViewController pdfViewController = new pdfViewController(virtualKanbanController);
-        stackPane.getChildren().add(pdfViewController);
+        pdfViewController.showView();
+//        pdfViewController pdfViewController = new pdfViewController(stackPane, virtualKanbanController);
+//        stackPane.getChildren().add(pdfViewController);
     }
 
     /**
