@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Project;
+import model.Task;
 
 import java.awt.*;
 import java.lang.UnsupportedOperationException;
@@ -43,18 +44,21 @@ public class ControlQuestionViewController extends VBox {
      */
     private Stage stage;
 
-    private MouseEvent event;
+    private String event;
 
     private Project project;
+
+    private Task task;
 
     /**
      *
      * @param virtualKanbanController
      */
-    public ControlQuestionViewController(VirtualKanbanController virtualKanbanController, MouseEvent event, Project project){
+    public ControlQuestionViewController(VirtualKanbanController virtualKanbanController, String event, Project project, Task task){
         this.virtualKanbanController = virtualKanbanController;
         this.event = event;
         this.project = project;
+        this.task = task;
 
         //Load view
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ControlQuestionView.fxml"));
@@ -92,14 +96,18 @@ public class ControlQuestionViewController extends VBox {
     @FXML
     void onContinueButtonEvent(MouseEvent event){
         //TODO when refreshing is working, test if it works
-        if(((Control)this.event.getSource()).getId().equals("archiveButton")){
+        if(this.event.equals("archiveButton")){
             //System.out.println("Archivieren");
             virtualKanbanController.getProjectController().archiveProject(project);
             closeView();
         }
-        if(((Control)this.event.getSource()).getId().equals("deleteButton")){
+        if(this.event.equals("deleteProjectButton")){
             //System.out.println("Löschen");
             virtualKanbanController.getProjectController().deleteProject(project);
+            closeView();
+        }
+        if(this.event.equals("deleteTaskButton")){
+            virtualKanbanController.getTaskController().deleteTask(project, task);
             closeView();
         }
     }

@@ -1,6 +1,8 @@
 package view;
 
 import controller.VirtualKanbanController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +15,7 @@ import javafx.scene.layout.VBox;
 import model.*;
 
 import java.lang.UnsupportedOperationException;
+import java.util.ArrayList;
 
 public class KanBanViewController extends BorderPane {
 
@@ -108,6 +111,9 @@ public class KanBanViewController extends BorderPane {
         this.minWidthProperty().bind(stackPane.widthProperty());
         this.minHeightProperty().bind(stackPane.heightProperty());
 
+        //Show project name
+        projectNameLabel.setText(project.getName());
+
         //Getting the first stageList
         StageList stageList = null;
         for (StageList list : project.getStageList()) {
@@ -154,7 +160,11 @@ public class KanBanViewController extends BorderPane {
         stageList.getTask().forEach(task -> {
             //A MenuButton with 6 MenuItems for managing tasks is added for each task in this stage
             MenuButton menuButton = new MenuButton();
-            menuButton.setText(task.getName() + "\n" + task.getDescription() + "\nDeadline: " + task.getDeadline());
+            if(task.getDeveloper() != null) {
+                menuButton.setText(task.getName() + "\n" + task.getDescription() + "\nDeadline: " + task.getDeadline() + "\nEntwickler: " + task.getDeveloper().getName());
+            }else{
+                menuButton.setText(task.getName() + "\n" + task.getDescription() + "\nDeadline: " + task.getDeadline() + "\nEntwickler: nicht zugewiesen");
+            }
             menuButton.getItems().add(new MenuItem("Aufgabe anfangen"));
             menuButton.getItems().add(new MenuItem("Aufgabe abbrechen"));
             menuButton.getItems().add(new MenuItem("Aufgabe beenden"));
@@ -176,8 +186,19 @@ public class KanBanViewController extends BorderPane {
             //If the task is not currently worked on, the buttons for finishing and droping are disabled but start task can be chosen
             else {
                 menuButton.getItems().get(0).setOnAction(event -> {
-                    //TODO Choose Developer
+                    //Get a ComboBox with all developers
+                    ArrayList<Developer> devList = project.getTeam().getDevelopers();
+                    //TODO Filter all assigned developer
+                    ObservableList<Developer> observableDevList = FXCollections.observableArrayList(devList);
+
+                    ComboBox<Developer> comboBox = new ComboBox<Developer>(observableDevList);
+                    comboBox.setPromptText("Bitte Entwickler auswählen");
+                    box.getChildren().add(comboBox);
+                    //TODO Choose developer
+                    //comboBox.on
+
                     virtualKanbanController.getTaskController().startTask(task, project, new Developer("TestDev", null));
+                    box.getChildren().remove(comboBox);
                 });
                 menuButton.getItems().get(1).setDisable(true);
                 menuButton.getItems().get(2).setDisable(true);
@@ -188,8 +209,10 @@ public class KanBanViewController extends BorderPane {
             }
             //If deleteComment is chosen...
             menuButton.getItems().get(3).setOnAction(event -> {
-                virtualKanbanController.getTaskController().deleteTask(project, task);
-                //TODO ControlQuestion?
+                controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController, "deleteTaskButton", project, task);
+                controlQuestionViewController.showView();
+
+                //TODO ControlQuestion
             });
             //If readComment is chosen all other comment windows are closed and the readCommentView is shown
             menuButton.getItems().get(4).setOnAction(event -> {
@@ -235,7 +258,7 @@ public class KanBanViewController extends BorderPane {
      */
     @FXML
     void onArchiveButtonMouseClick(MouseEvent event) {
-        controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController, event, project);
+        controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController, "archiveButton", project, null);
         controlQuestionViewController.showView();
     }
 
@@ -252,7 +275,7 @@ public class KanBanViewController extends BorderPane {
 
     @FXML
     void onDeleteButtonClicked(MouseEvent event) {
-        controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController, event, project);
+        controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController, "deleteProjectButton", project, null);
         controlQuestionViewController.showView();
     }
 
