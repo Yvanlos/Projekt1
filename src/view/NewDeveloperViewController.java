@@ -8,12 +8,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.Developer;
 import model.Team;
 
 import java.io.File;
@@ -114,6 +118,21 @@ public class NewDeveloperViewController {
 		ObservableList<Team> observableTeamList = FXCollections.observableArrayList(teamList);
 		developerTeamComboBox.setItems(observableTeamList);
 		
+		developerTeamComboBox.setCellFactory(e -> new ListCell<Team>() {
+    		@Override
+    		protected void updateItem(Team team, boolean empty) {
+    	        super.updateItem(team, empty);
+    	        
+    	        if (empty || team == null) {
+    	            setText(null);
+    	        } 
+    	        else{
+    	        	setText(team.getName());
+    	        }
+    	    }
+    	});
+		developerTeamComboBox.setButtonCell(developerTeamComboBox.getCellFactory().call(null));
+		
 	}
 
     /**
@@ -139,29 +158,36 @@ public class NewDeveloperViewController {
  	 */
     @FXML
     void onFileChooserButtonEvent(MouseEvent event){
-    	JFileChooser chooser = new JFileChooser("../");
     	
-		int rueckgabeWert = chooser.showOpenDialog(null);
-		
-        if(!(rueckgabeWert == JFileChooser.APPROVE_OPTION)) return;
-        
-        try {
-        	
-        	File selectedFile = chooser.getSelectedFile();
-        	InputStream imageStream = new FileInputStream(selectedFile);
-        	
-        	Image image = new Image(imageStream);
-        	
-        	selectedImage.setImage(image);
-        	
-        	selectedURI = selectedFile.toURI();
-        }
-        catch(IOException e) {
-        	e.printStackTrace();
-        }
-        
-        
-        
+    	Runnable fileChooserThreadRunnable = new Runnable() {
+    		@Override
+			public void run() {
+    			JFileChooser chooser = new JFileChooser("../");
+    	    	
+    			int rueckgabeWert = chooser.showOpenDialog(null);
+    			
+    	        if(!(rueckgabeWert == JFileChooser.APPROVE_OPTION)) return;
+    	        
+    	        try {
+    	        	
+    	        	File selectedFile = chooser.getSelectedFile();
+    	        	InputStream imageStream = new FileInputStream(selectedFile);
+    	        	
+    	        	Image image = new Image(imageStream);
+    	        	
+    	        	selectedImage.setImage(image);
+    	        	
+    	        	selectedURI = selectedFile.toURI();
+    	        }
+    	        catch(IOException e) {
+    	        	e.printStackTrace();
+    	        }
+    		}
+    	};
+    	
+    	Thread fileChooserThread = new Thread(fileChooserThreadRunnable);
+    	
+    	fileChooserThread.start();
     }
 
     /**
