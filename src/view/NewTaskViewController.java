@@ -7,6 +7,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -14,30 +17,34 @@ import javafx.stage.Stage;
 
 import java.lang.UnsupportedOperationException;
 
-public class NewCommentController extends BorderPane {
+public class NewTaskViewController extends VBox {
 
-    /**
- 	 * 
- 	 */
     @FXML
-    private Button okayButton;
+    private TextField nameInputField;
 
-    /**
- 	 * 
- 	 */
+    @FXML
+    private DatePicker dateInputField;
+
+    @FXML
+    private TextArea descriptionInputField;
+
+    @FXML
+    private Button saveButton;
+
     @FXML
     private Button cancelButton;
+
 
     private VirtualKanbanController virtualKanbanController;
 
     private Stage stage;
 
-    public NewCommentController(VirtualKanbanController virtualKanbanController) {
+    public NewTaskViewController(VirtualKanbanController virtualKanbanController){
         this.virtualKanbanController = virtualKanbanController;
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("NewComment.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("NewTaskView.fxml"));
         fxmlLoader.setController(this);
-        Parent root = new VBox();
+        Parent root = new BorderPane();
         fxmlLoader.setRoot(this);
         try {
             root = fxmlLoader.load();
@@ -45,7 +52,7 @@ public class NewCommentController extends BorderPane {
             throw new RuntimeException(e);
         }
 
-        // TODO hier kann die View weiter initialisiert werden (äquivalent zu initialize-Methode bei Komponenten)
+        // TODO hier kann die View weiter initialisiert werden (�quivalent zu initialize-Methode bei Komponenten)
 
         // init Scene and Stage
         Scene scene = new Scene(root);
@@ -55,36 +62,42 @@ public class NewCommentController extends BorderPane {
         stage.setScene(scene);
     }
 
-
     /**
- 	 *
- 	 * TODO: create JavaDoc. 
- 	 * @param event
- 	 * @throws UnsupportedOperation Exception
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
- 	 */
+     *
+     * TODO: create JavaDoc.
+     * @param event
+     * @throws UnsupportedOperationException
+     *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist.
+     */
     @FXML
-    void OnCancelButtonClicked(MouseEvent event) throws UnsupportedOperationException {
+    void onCancelButtonEvent(MouseEvent event) throws UnsupportedOperationException {
         closeView();
         //throw new UnsupportedOperationException("Not Yet Implemented!");
     }
 
     /**
- 	 *
- 	 * TODO: create JavaDoc. 
- 	 * @param event
- 	 * @throws UnsupportedOperation Exception
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
- 	 */
+     *
+     * TODO: create JavaDoc.
+     * @param event
+     * @throws UnsupportedOperationException
+     *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist.
+     */
     @FXML
-    void onOkayButtonClicked(MouseEvent event) throws UnsupportedOperationException {
+    void onSaveButtonEvent(MouseEvent event) throws UnsupportedOperationException {
         throw new UnsupportedOperationException("Not Yet Implemented!");
     }
+
+    /**
+     * Shows this View.
+     */
 
     public void showView() {
         stage.show();
     }
 
+    /**
+     * Hides this View.
+     */
     public void closeView() {
         stage.hide();
     }
