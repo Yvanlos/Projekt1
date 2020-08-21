@@ -9,28 +9,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Developer;
-import model.Project;
-import model.StageList;
-import model.Task;
-import model.Team;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.UnsupportedOperationException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import application.Main;
@@ -121,23 +112,34 @@ public class DeveloperListViewController {
 	    	            	InputStream imageStream = new FileInputStream(imageFile);
 	    	            	Image image = new Image(imageStream);
 	    	            	imageView.setImage(image);
-	    	            	imageView.setFitHeight(40);
-	    	            	imageView.setFitWidth(40);
 	    	            }
 	    	            catch(IOException e) {
 	    	            	System.out.println("Could not load picture.");
 	    	            }
     	        	}
     	        	
+    	        	imageView.setFitHeight(40);
+	            	imageView.setFitWidth(40);
+    	        	
     	        	Text name = new Text(developer.getName());
-    	        	name.setStyle("-fx-font: 20 arial;");
+    	        	name.setStyle("-fx-font: 20 arial; ");
     	        	
     	        	Button deleteButton = new Button("Löschen");
-    	        	deleteButton.setPrefWidth(100);
-    	        	deleteButton.setPrefHeight(40);
+    	        	deleteButton.setPrefHeight(20);
+    	        	deleteButton.setPrefWidth(80);
     	        	deleteButton.setCenterShape(true);
+    	        	deleteButton.setOnMouseClicked(e -> {
+    	        		//TODO: Sicherheitsabfrage
+    	        		
+    	        		
+    	        		//Deleting the developer
+    	        		virtualKanbanController.getDeveloperController().deleteDeveloper(developer);
+    	        		refreshDeveloperList();
+    	        	});
     	        	
-    	            setGraphic(new HBox(imageView, name, deleteButton));
+    	        	BorderPane display = new BorderPane(name, null, deleteButton, null, imageView);
+    	        	
+    	            setGraphic(display);
     	        }
     	    }
     		
