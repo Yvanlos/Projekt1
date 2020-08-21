@@ -19,6 +19,7 @@ import java.lang.UnsupportedOperationException;
 import application.Main;
 import controller.VirtualKanbanController;
 import model.Project;
+import model.Team;
 
 
 public class PdfViewController extends BorderPane {
@@ -63,8 +64,22 @@ public class PdfViewController extends BorderPane {
         allProjectsButton.setToggleGroup(group);
         oneProjectButton.setToggleGroup(group);
 
-        ObservableList<Project> observableProjectList = FXCollections.observableArrayList(virtualKanbanController.getVirtualKanban().getProject());
+        ObservableList<Project> observableProjectList =
+                FXCollections.observableArrayList(virtualKanbanController.getVirtualKanban().getProject());
         projectComboBox.setItems(observableProjectList);
+        projectComboBox.setCellFactory(e -> new ListCell<Project>() {
+            @Override
+            protected void updateItem(Project project, boolean empty) {
+                super.updateItem(project, empty);
+
+                if (empty || project == null) {
+                    setText(null);
+                }
+                else{
+                    setText(project.getName());
+                }
+            }
+        });
 
         // TODO hier kann die View weiter initialisiert werden (�quivalent zu initialize-Methode bei Komponenten)
 
