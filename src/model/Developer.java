@@ -130,6 +130,8 @@ public class Developer implements Serializable {
 		this.currentTaskStage = currentTaskStage;
 	}
     
-    
+    public void setCompletedStageList(ArrayList<CompletedStage> arraylist) {
+		this.completedStageList = arraylist;
+	}
     
 }
