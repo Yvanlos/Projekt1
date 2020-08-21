@@ -42,7 +42,7 @@ public class TeamController {
  	 * @throws NoSuchElementException Gets thrown if the team does not exist in the team list.
  	 */
     public void deleteTeam(Team team) throws NoSuchElementException{
-    	ArrayList<Team> teamList = virtualKanbanController.getVirtualKanban().getTeam();
+    	ArrayList<Team> teamList = getTeamsList();
     	ArrayList<Project> projectList = virtualKanbanController.getVirtualKanban().getProject();
         if(teamList.contains(team)) {
         	for(Project project : projectList) {
@@ -55,6 +55,14 @@ public class TeamController {
         else {
         	throw new NoSuchElementException("The team that should be deleted does not exist in teams.");
         }
+    }
+    
+    /**
+     * Returns an ArrayList object including all teams.
+     * @return ArrayList of all teams
+     */
+    public ArrayList<Team> getTeamsList(){
+    	return virtualKanbanController.getVirtualKanban().getTeam();
     }
     
 }

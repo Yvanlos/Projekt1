@@ -126,4 +126,19 @@ public class DeveloperController {
 		throw new NoSuchElementException("Task is not part of any Project");
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
+	public ArrayList<Developer> getDeveloperList() {
+		ArrayList<Developer> allDevelopers = new ArrayList<Developer>();
+		ArrayList<Team> teamsList = virtualKanbanController.getVirtualKanban().getTeam();
+		for(Team team : teamsList) {
+			for(Developer developer : team.getDevelopers()) {
+				allDevelopers.add(developer);
+			}
+		}
+		return allDevelopers;
+	}
+
 }
