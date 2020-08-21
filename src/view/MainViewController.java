@@ -16,8 +16,7 @@ import java.time.LocalDateTime;
 import controller.VirtualKanbanController;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import model.Project;
-import model.Team;
+import model.*;
 
 
 public class MainViewController extends BorderPane {
@@ -133,6 +132,27 @@ public class MainViewController extends BorderPane {
         //Test project
         virtualKanbanController.getVirtualKanban().addProject(new Project("Testprojekt", "Testbeschreibung", LocalDateTime.now(), new Team("Testteam")));
 
+        //Test tasks
+        Project testProject = virtualKanbanController.getVirtualKanban().getProject().get(0);
+        for (StageList list : testProject.getStageList()){
+            if (list.getStage() == Stage.NEW){
+                list.addTask(new Task("testName","testDescription",LocalDateTime.now()));
+            }
+        }
+        for (StageList list : testProject.getStageList()){
+            if (list.getStage() == Stage.IMPLEMENTATION_FINISHED){
+                list.addTask(new Task("testName1","testDescription1",LocalDateTime.now()));
+            }
+        }
+        for (StageList list : testProject.getStageList()){
+            if (list.getStage() == Stage.COMPLETED){
+                list.addTask(new Task("testName2","testDescription2",LocalDateTime.now()));
+            }
+        }
+
+        //Test developer
+        testProject.getTeam().addDeveloper(new Developer("TestDev",null));
+
         //Add all Projects as Buttons to the MainView
         showProjectPane.getChildren().clear();
         virtualKanbanController.getVirtualKanban().getProject().forEach(project -> {
@@ -140,6 +160,7 @@ public class MainViewController extends BorderPane {
             projectButton.setPrefSize(50,50);
             projectButton.setOnAction(evt -> {
                 KanBanViewController kanBanViewController = new KanBanViewController(stackPane, virtualKanbanController, project);
+                stackPane.getChildren().get(0).setVisible(false);
                 stackPane.getChildren().add(kanBanViewController);
             });
             //showProjectPane.add(projectButton,0,0);
@@ -203,6 +224,7 @@ public class MainViewController extends BorderPane {
     @FXML
     void onShowRankingAction(ActionEvent event) {
         RankingViewController rankingViewController = new RankingViewController(stackPane, virtualKanbanController);
+        stackPane.getChildren().get(0).setVisible(false);
         stackPane.getChildren().add(rankingViewController);
     }
 
@@ -214,6 +236,7 @@ public class MainViewController extends BorderPane {
     @FXML
     void onShowStatistikAction(ActionEvent event) {
         ShowStatisticsViewController showStatisticsViewController = new ShowStatisticsViewController(stackPane, virtualKanbanController);
+        stackPane.getChildren().get(0).setVisible(false);
         stackPane.getChildren().add(showStatisticsViewController);
     }
 

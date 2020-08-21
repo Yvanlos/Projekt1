@@ -1,12 +1,10 @@
 package view;
 
 import controller.VirtualKanbanController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -15,9 +13,11 @@ import javafx.scene.layout.VBox;
 import model.*;
 
 import java.lang.UnsupportedOperationException;
-import java.time.LocalDateTime;
 
 public class KanBanViewController extends BorderPane {
+
+    @FXML
+    private Label projectNameLabel;
 
     @FXML
     private Button infoButton;
@@ -29,52 +29,31 @@ public class KanBanViewController extends BorderPane {
     private Button archiveButton;
 
     @FXML
-    private Button returnButton;
+    private Button deleteButton;
 
     @FXML
-    private ScrollPane newTaskPane;
+    private Button returnButton;
 
     @FXML
     private VBox newStageBox;
 
     @FXML
-    private ScrollPane taskFinishedPane;
-
-    @FXML
     private VBox finishedStageBox;
-
-    @FXML
-    private ScrollPane analysisProcessPane;
 
     @FXML
     private VBox analysisInProgressBox;
 
     @FXML
-    private ScrollPane implementationProcessPane;
-
-    @FXML
     private VBox implementationInProgressBox;
-
-    @FXML
-    private ScrollPane testProcessPane;
 
     @FXML
     private VBox testInProgressBox;
 
     @FXML
-    private ScrollPane analysisFinishedPane;
-
-    @FXML
     private VBox analysisFinishedBox;
 
     @FXML
-    private ScrollPane implementationFinishedPane;
-
-    @FXML
     private VBox implementationFinishedBox;
-
-    @FXML
-    private ScrollPane testFinishedPane;
 
     @FXML
     private VBox testFinishedBox;
@@ -82,13 +61,12 @@ public class KanBanViewController extends BorderPane {
     @FXML
     private HBox unassignedList;
 
-
     @FXML
     private StackPane stackPane;
 
-    private VirtualKanbanController virtualKanbanController;
-
     private Project project;
+
+    private VirtualKanbanController virtualKanbanController;
 
     private ReadCommentController readCommentController;
 
@@ -116,9 +94,9 @@ public class KanBanViewController extends BorderPane {
         }
 
         //Generate the ViewController
-         newTaskViewController = new NewTaskViewController(virtualKanbanController,this);
-         controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController);
-         projectInfoViewController = new ProjectInfoViewController(virtualKanbanController, project);
+        newTaskViewController = new NewTaskViewController(virtualKanbanController, this);
+        //controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController);
+        projectInfoViewController = new ProjectInfoViewController(virtualKanbanController, project);
     }
 
     /**
@@ -130,28 +108,10 @@ public class KanBanViewController extends BorderPane {
         this.minWidthProperty().bind(stackPane.widthProperty());
         this.minHeightProperty().bind(stackPane.heightProperty());
 
-        //Example of tasks for the board
-        Project project = virtualKanbanController.getVirtualKanban().getProject().get(0);
-        for (StageList list : project.getStageList()){
-            if (list.getStage() == Stage.NEW){
-                list.addTask(new Task("testName","testDescription",LocalDateTime.now()));
-            }
-        }
-        for (StageList list : project.getStageList()){
-            if (list.getStage() == Stage.IMPLEMENTATION_FINISHED){
-                list.addTask(new Task("testName1","testDescription1",LocalDateTime.now()));
-            }
-        }
-        for (StageList list : project.getStageList()){
-            if (list.getStage() == Stage.COMPLETED){
-                list.addTask(new Task("testName2","testDescription2",LocalDateTime.now()));
-            }
-        }
-
         //Getting the first stageList
         StageList stageList = null;
-        for (StageList list : project.getStageList()){
-            if (list.getStage() == Stage.NEW){
+        for (StageList list : project.getStageList()) {
+            if (list.getStage() == Stage.NEW) {
                 stageList = list;
             }
         }
@@ -159,94 +119,152 @@ public class KanBanViewController extends BorderPane {
         //Adds all tasks in a stageList in the specific Box, starting from new
         addTasksToStageBox(newStageBox, stageList);
         stageList = project.getNextStage(stageList);
-        addTasksToStageBox(analysisInProgressBox,stageList);
+        addTasksToStageBox(analysisInProgressBox, stageList);
         stageList = project.getNextStage(stageList);
-        addTasksToStageBox(analysisFinishedBox,stageList);
+        addTasksToStageBox(analysisFinishedBox, stageList);
         stageList = project.getNextStage(stageList);
-        addTasksToStageBox(implementationInProgressBox,stageList);
+        addTasksToStageBox(implementationInProgressBox, stageList);
         stageList = project.getNextStage(stageList);
-        addTasksToStageBox(implementationFinishedBox,stageList);
+        addTasksToStageBox(implementationFinishedBox, stageList);
         stageList = project.getNextStage(stageList);
-        addTasksToStageBox(testInProgressBox,stageList);
+        addTasksToStageBox(testInProgressBox, stageList);
         stageList = project.getNextStage(stageList);
-        addTasksToStageBox(testFinishedBox,stageList);
+        addTasksToStageBox(testFinishedBox, stageList);
         stageList = project.getNextStage(stageList);
-        addTasksToStageBox(finishedStageBox,stageList);
+        addTasksToStageBox(finishedStageBox, stageList);
+
+        //Adds all unassigned developers to the unassigned List
+        //TODO: use something else than a label
+        project.getTeam().getDevelopers().forEach(developer -> {
+            if (!developer.isAtWork()) {
+                Label label = new Label(developer.getName());
+                unassignedList.getChildren().add(label);
+            }
+        });
     }
 
 
     /**
      * Adds all tasks in the given stageList to the given VBox
-     * @param box the VBox the tasks should be added to
+     *
+     * @param box       the VBox the tasks should be added to
      * @param stageList the stageList that holds the to be added tasks
      */
-    public void addTasksToStageBox(VBox box, StageList stageList){
+    public void addTasksToStageBox(VBox box, StageList stageList) {
         stageList.getTask().forEach(task -> {
+            //A MenuButton with 6 MenuItems for managing tasks is added for each task in this stage
             MenuButton menuButton = new MenuButton();
-            menuButton.setText(task.getName()+"\n"+task.getDescription()+"\nDeadline: "+task.getDeadline());
+            menuButton.setText(task.getName() + "\n" + task.getDescription() + "\nDeadline: " + task.getDeadline());
             menuButton.getItems().add(new MenuItem("Aufgabe anfangen"));
-            menuButton.getItems().add(new MenuItem("Aufgabe zuruecklegen"));
+            menuButton.getItems().add(new MenuItem("Aufgabe abbrechen"));
             menuButton.getItems().add(new MenuItem("Aufgabe beenden"));
             menuButton.getItems().add(new MenuItem("Aufgabe loeschen"));
             menuButton.getItems().add(new MenuItem("Kommentare anzeigen"));
             menuButton.getItems().add(new MenuItem("Kommentar hinzufuegen"));
             //TODO refresh if task is moved
-            //menuButton.getItems().get(0).setOnAction(event -> );
-            //menuButton.getItems().get(1).setOnAction(event -> );
-            //menuButton.getItems().get(2).setOnAction(event -> );
+
+            //If the task is worked on, the button for starting a task is disabled but finishing and droping a task can be chosen
+            if (stageList.getStage() == Stage.ANALYSE_IN_PROGRESS || stageList.getStage() == Stage.IMPLEMENTATION_IN_PROGRESS || stageList.getStage() == Stage.TEST_IN_PROGRESS) {
+                menuButton.getItems().get(0).setDisable(true);
+                menuButton.getItems().get(1).setOnAction(event -> {
+                    virtualKanbanController.getTaskController().dropTask(task, project);
+                });
+                menuButton.getItems().get(2).setOnAction(event -> {
+                    virtualKanbanController.getTaskController().finishTask(task, project);
+                });
+            }
+            //If the task is not currently worked on, the buttons for finishing and droping are disabled but start task can be chosen
+            else {
+                menuButton.getItems().get(0).setOnAction(event -> {
+                    //TODO Choose Developer
+                    virtualKanbanController.getTaskController().startTask(task, project, new Developer("TestDev", null));
+                });
+                menuButton.getItems().get(1).setDisable(true);
+                menuButton.getItems().get(2).setDisable(true);
+                //If the task is completed, all buttons for actions are disabled
+                if (stageList.getStage() == Stage.COMPLETED) {
+                    menuButton.getItems().get(0).setDisable(true);
+                }
+            }
+            //If deleteComment is chosen...
             menuButton.getItems().get(3).setOnAction(event -> {
-                virtualKanbanController.getTaskController().deleteTask(project,task);
+                virtualKanbanController.getTaskController().deleteTask(project, task);
+                //TODO ControlQuestion?
             });
+            //If readComment is chosen all other comment windows are closed and the readCommentView is shown
             menuButton.getItems().get(4).setOnAction(event -> {
-                if(readCommentController!= null){ readCommentController.closeView();}
-                if(newCommentController!= null){ newCommentController.closeView();}
-                readCommentController = new ReadCommentController(virtualKanbanController,task);
+                if (readCommentController != null) {
+                    readCommentController.closeView();
+                }
+                if (newCommentController != null) {
+                    newCommentController.closeView();
+                }
+                readCommentController = new ReadCommentController(virtualKanbanController, task);
                 readCommentController.showView();
             });
+            //If newComment is chosen all other comment windows are closed and the newCommentView is shown
             menuButton.getItems().get(5).setOnAction(event -> {
-                if(newCommentController!= null){ newCommentController.closeView();}
-                if(readCommentController!= null){ readCommentController.closeView();}
-                newCommentController = new NewCommentController(virtualKanbanController,task);
+                if (newCommentController != null) {
+                    newCommentController.closeView();
+                }
+                if (readCommentController != null) {
+                    readCommentController.closeView();
+                }
+                newCommentController = new NewCommentController(virtualKanbanController, task);
                 newCommentController.showView();
             });
+            //the menuButton is added to the VBox
             box.getChildren().add(menuButton);
         });
     }
 
     /**
- 	 * Opens the newTask window
- 	 * @param event the MouseEvent triggered when clicked
- 	 */
+     * Opens the newTask window
+     *
+     * @param event the MouseEvent triggered when clicked
+     */
     @FXML
-    void onAddTaskButtonMouseClick(MouseEvent event){
+    void onAddTaskButtonMouseClick(MouseEvent event) {
         newTaskViewController.showView();
     }
 
     /**
- 	 * Opens the ControlQuestion window
- 	 * @param event the MouseEvent triggered when clicked
- 	 */
+     * Opens the ControlQuestion window
+     *
+     * @param event the MouseEvent triggered when clicked
+     */
     @FXML
-    void onArchiveButtonMouseClick(MouseEvent event){
+    void onArchiveButtonMouseClick(MouseEvent event) {
+        controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController, event, project);
         controlQuestionViewController.showView();
     }
 
     /**
- 	 * Opens the Info Window
- 	 * @param event the MouseEvent triggered when clicked
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
- 	 */
+     * Opens the Info Window
+     *
+     * @param event the MouseEvent triggered when clicked
+     * @throws UnsupportedOperationException Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist.
+     */
     @FXML
-    void onInfoButtonMouseClick(MouseEvent event) { projectInfoViewController.showView(); }
+    void onInfoButtonMouseClick(MouseEvent event) {
+        projectInfoViewController.showView();
+    }
+
+    @FXML
+    void onDeleteButtonClicked(MouseEvent event) {
+        controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController, event, project);
+        controlQuestionViewController.showView();
+    }
 
     /**
      * Closes the KanbanView and returns to the MainView
+     *
      * @param event the MouseEvent triggered when clicked
      */
     @FXML
     void returnButtonClicked(MouseEvent event) {
         stackPane.getChildren().removeIf(child -> child.equals(this));
+        stackPane.getChildren().get(0).setVisible(true);
     }
 
     public Project getProject() {
