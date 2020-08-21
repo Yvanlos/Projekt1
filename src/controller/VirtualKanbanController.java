@@ -2,6 +2,9 @@ package controller;
 
 import model.VirtualKanban;
 
+/**
+ * The main contoller which connects the contoller classes with the model
+ */
 public class VirtualKanbanController {
 
     /**
@@ -32,7 +35,7 @@ public class VirtualKanbanController {
     /**
  	 * Reference to the VirtualKanban (Main-Class of model)
  	 */
-    private final VirtualKanban virtualKanban;
+    private VirtualKanban virtualKanban;
 
     /**
  	 * Reference to the StatisticController, which can be used by other controllers, the GUI or the VirtualKanban-Class
@@ -51,8 +54,17 @@ public class VirtualKanbanController {
         teamController = new TeamController(this);
         iOController = new IOController(this);
         statisticController = new StatisticController(this);
+        virtualKanban = new VirtualKanban();
 
-        virtualKanban = new VirtualKanban(); // has to be replaced with loading feature
+        /*
+        try{
+            virtualKanban = getIOController().load();
+        }
+        catch (Exception e){
+            virtualKanban = new VirtualKanban();
+        }
+
+         */
     }
 
     /**

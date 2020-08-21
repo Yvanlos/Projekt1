@@ -5,6 +5,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+/**
+ * Test for the VirtualKanbanController methods
+ */
 public class VirtualKanbanControllerTest {
     /**
      * The VirtualKanbanContoller which is used for the tests
@@ -27,9 +30,9 @@ public class VirtualKanbanControllerTest {
     public void testVirtualKanbanController() {
         // Needs an implemented version of getVirtualKanbanController() in every controller-class
 
-        //assertEquals(vkc, vkc.getProjectController().getVirtualKanbanController());
-        //assertEquals(vkc, vkc.getTaskController().getVirtualKanbanController());
-        //assertEquals(vkc, vkc.getDeveloperController().getVirtualKanbanController());
+        assertEquals(vkc, vkc.getProjectController().getVirtualKanbanController());
+        assertEquals(vkc, vkc.getTaskController().getVirtualKanbanController());
+        assertEquals(vkc, vkc.getDeveloperController().getVirtualKanbanController());
         //assertEquals(vkc, vkc.getTeamController().getVirtualKanbanController());
         //assertEquals(vkc, vkc.getIOController().getVirtualKanbanController());
         //assertEquals(vkc, vkc.getStatisticController().getVirtualKanbanController());
