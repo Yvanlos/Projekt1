@@ -3,7 +3,6 @@ package controller;
 import model.*;
 
 import java.net.URI;
-import java.lang.UnsupportedOperationException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
@@ -110,7 +109,7 @@ public class DeveloperController {
 	}
 
 	/**
-	 *
+	 * a help method to find the project of a task
 	 * @param task the task for which the project it is in is asked
 	 * @return project the project which contains the task
 	 * @throws NoSuchElementException if the task is not found in any project
@@ -127,8 +126,8 @@ public class DeveloperController {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * this method returns a list with all developers found by the virtualKanbanController
+	 * @return a list with al all existing developers
 	 */
 	public ArrayList<Developer> getDeveloperList() {
 		ArrayList<Developer> allDevelopers = new ArrayList<Developer>();

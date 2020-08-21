@@ -8,6 +8,9 @@ import java.time.LocalDateTime;
 
 import static org.junit.Assert.*;
 
+/**
+ * tests the ProjectController
+ */
 public class ProjectControllerTest {
 
     ProjectController pc;

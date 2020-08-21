@@ -23,8 +23,10 @@ public class DeveloperControllerTest {
         Team testTeam = new Team("testTeam");
         vkc.getVirtualKanban().getTeam().add(testTeam);
         developerController.createDeveloper(testTeam, "testdev2", null);
+        developerController.createDeveloper(testTeam, "testdev2", null);
 
         assertFalse(testTeam.getDevelopers().isEmpty());
+        assertNotEquals(testTeam.getDevelopers().get(0).getName(),testTeam.getDevelopers().get(1).getName());
     }
 
     /**

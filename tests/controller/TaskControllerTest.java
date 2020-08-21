@@ -9,14 +9,24 @@ import java.time.LocalDateTime;
 
 import static org.junit.Assert.*;
 
+/**
+ * tests teh taskController
+ */
 public class TaskControllerTest {
     TaskController tc;
 
+    /**
+     *
+     * @throws Exception
+     */
     @Before
     public void setUp() throws Exception {
         tc = new TaskController(new VirtualKanbanController() );
     }
 
+    /**
+     * tests the method deleteTask(project, task)
+     */
     @Test
     public void deleteTask() {
         Project p = new Project("testController","descriptionController", LocalDateTime.now(), new Team("testname"));
@@ -38,6 +48,9 @@ public class TaskControllerTest {
        }
     }
 
+    /**
+     * tests teh method addTask(project, name , description, deadline)
+     */
     @Test
     public void addTask() {
         Project p = new Project("testController","descriptionController", LocalDateTime.now(), new Team("testname"));
@@ -55,6 +68,9 @@ public class TaskControllerTest {
         }
     }
 
+    /**
+     * tests the method addNote(task, note)
+     */
     @Test
     public void addNote() {
         Task t= new Task("testController","descriptionController",LocalDateTime.now());
@@ -63,15 +79,22 @@ public class TaskControllerTest {
         assertTrue(t.getNote().contains(n));
     }
 
+    /**
+     * tests the method startTask(task, project, developer)
+     */
     @Test
     public void startTask() {
         Project p = new Project("testController","descriptionController", LocalDateTime.now(), new Team("testname"));
         Task t= new Task("testController","descriptionController",LocalDateTime.now());
         Developer d= new Developer("testname", URI.create("image"));
+        p.getStageList().get(0).getTask().add(t);
         tc.startTask(t,p,d);
         assertTrue(t.isInProgress());
     }
 
+    /**
+     * tests the method finishTask(task, project)
+     */
     @Test
     public void finishTask() {
         Project p = new Project("testController","descriptionController", LocalDateTime.now(), new Team("testname"));
@@ -91,6 +114,9 @@ public class TaskControllerTest {
         assertFalse(t.isInProgress());
     }
 
+    /**
+     * tests the method dropTask(task, project)
+     */
     @Test
     public void dropTask() {
         Project p = new Project("testController","descriptionController", LocalDateTime.now(), new Team("testname"));
@@ -108,7 +134,18 @@ public class TaskControllerTest {
         assertEquals(p.getStageFromTask(t).getStage(),Stage.ANALYSE_FINISHED);
     }
 
+    /**
+     * tests the method showNotes()
+     */
     @Test
     public void showNotes() {
+    }
+
+    /**
+     * tests the method getStageFromTask(task, project)
+     */
+    @Test
+    public void testGetStageFromTask(){
+
     }
 }

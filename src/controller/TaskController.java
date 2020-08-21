@@ -5,7 +5,11 @@ import model.*;
 import java.time.LocalDateTime;
 import java.lang.UnsupportedOperationException;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
+/**
+ * ths class allows to add, delete start, drop or finish tasks as well as add notes to a task
+ */
 public class TaskController {
 	/**
 	 * get this VirtualKanbanController
@@ -35,13 +39,12 @@ public class TaskController {
 
     /**
  	 * delete an existing task from a project
- 	 * TODO: create JavaDoc. 
  	 * @param project The Project we delete the Task from
  	 * @param task The Task tu delete
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
+ 	 * @throws NoSuchElementException
+ 	 *	 	 	is thrown if a task should be deleted which does not exist in tha given project
  	 */
-    public void deleteTask(Project project, Task task) throws UnsupportedOperationException {
+    public void deleteTask(Project project, Task task) throws NoSuchElementException {
 		for(StageList list : project.getStageList()){
 			if(list.getTask().contains(task)) {
 				StageList taskList = project.getStageFromTask(task);
@@ -49,21 +52,20 @@ public class TaskController {
 				taskList.removeTask(task);
 				return ;
 			}
-		}				throw new UnsupportedOperationException("task do not found");
-
+		}
+		throw new NoSuchElementException("task do not found");
 	}
 
     /**
  	 * add a new task in a Project
- 	 * TODO: create JavaDoc. 
  	 * @param project The Project where the task will be add
  	 * @param name the name of the Task
  	 * @param description The description of The Task
  	 * @param deadline the Time for The Task to be done
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
+ 	 * @throws NoSuchElementException
+ 	 *	 	 	is thrown if a task should be added which already exists inside the project
  	 */
-    public void addTask(Project project, String name, String description, LocalDateTime deadline) throws UnsupportedOperationException {
+    public void addTask(Project project, String name, String description, LocalDateTime deadline) throws NoSuchElementException {
     	Task t= new Task(name,description,deadline);
 		for(StageList list : project.getStageList())
 		{
@@ -74,77 +76,92 @@ public class TaskController {
 			}
 
 		}
-			throw new UnsupportedOperationException("Task already exist or Stage not found");
+			throw new NoSuchElementException("Task already exist or Stage not found");
     }
 
     /**
  	 * add a new Note to an existing Task
- 	 * TODO: create JavaDoc. 
  	 * @param task where the Note will be add
  	 * @param note to add
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
+ 	 * @throws NoSuchElementException
+ 	 *	 	 	is thrown if a note should be added to a task which already has such note
  	 */
-    public void addNote(Task task, Note note) throws UnsupportedOperationException {
+    public void addNote(Task task, Note note) throws NoSuchElementException {
     	if(!task.getNote().contains(note)){
     		task.getNote().add(note);
 		}
     	else {
-			throw new UnsupportedOperationException("Note already exist");
+			throw new NoSuchElementException("Note already exist");
 		}
     }
 
     /**
  	 *  start a new Task
- 	 * TODO: create JavaDoc. 
  	 * @param task to start
  	 * @param project The project where the Task  start
  	 * @param developer The developer who start the Task
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
+ 	 * @throws NoSuchElementException
+ 	 *	 	 	is thrown if a task which is already in work should be started
  	 */
-    public void startTask(Task task, Project project, Developer developer) throws UnsupportedOperationException {
+    public void startTask(Task task, Project project, Developer developer) throws NoSuchElementException {
     	if(!task.isInProgress())
 		{
 			task.setDeveloper(developer);
 			developer.setAtWork(true);
-			CompletedStage cs = new CompletedStage(task,Stage.NEW);
+			CompletedStage cs = new CompletedStage(task,getStageFromTask(task,project).next());
 			developer.setCurrentTaskStage(cs);
-			//project.moveTaskForeward(task);
+			project.moveTaskForeward(task);
 		} else {
-			throw new UnsupportedOperationException("task already start");
+			throw new NoSuchElementException("task already in work");
 		}
     }
 
+	/**
+	 *
+	 * @param task the task for which the Stage is searched
+	 * @param project the project which contains the task
+	 * @return Stage the enum of the Stage which contains the task
+	 * @throws NoSuchElementException
+	 * 			is thrown if the task is not part of any Stagelist
+	 */
+	public Stage getStageFromTask(Task task,Project project) throws NoSuchElementException{
+    	for(StageList stageList : project.getStageList()) {
+    		if(stageList.getTask().contains(task)){
+    			return stageList.getStage();
+    		}
+		}
+		throw new NoSuchElementException("Task is not part of any StageList");
+	}
+
     /**
  	 *task to finish
- 	 * TODO: create JavaDoc. 
  	 * @param task The task to be finish
  	 * @param project the Project of the Task
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
+ 	 * @throws NoSuchElementException
+ 	 *	 	 	is thrown if task which is not in work should be finished
  	 */
-    public void finishTask(Task task, Project project) throws UnsupportedOperationException {
+    public void finishTask(Task task, Project project) throws NoSuchElementException {
     	if(task.isInProgress())
 		{
 			task.getDeveloper().addCompletedStage();
+			task.getDeveloper().setCurrentTaskStage(null);
+			task.getDeveloper().setAtWork(false);
 			task.setDeveloper(null);
 			project.moveTaskForeward(task);
 		}
     	else {
-			throw new UnsupportedOperationException("task can't be finished");
+			throw new NoSuchElementException("task can't be finished");
 		}
     }
 
     /**
  	 * drop The Task back
- 	 * TODO: create JavaDoc. 
  	 * @param task The Task to be drop
  	 * @param project The Project of the Task
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
+ 	 * @throws NoSuchElementException
+ 	 *	 	 	is thrown if task which is not in work should be droped
  	 */
-    public void dropTask(Task task, Project project) throws UnsupportedOperationException {
+    public void dropTask(Task task, Project project) throws NoSuchElementException {
     	if(task.isInProgress())
 		{
 			project.moveTaskBackward(task);
@@ -154,18 +171,15 @@ public class TaskController {
 		}
     	else
     		{
-			throw new UnsupportedOperationException("the Task ist not in progress");
+			throw new NoSuchElementException("the Task ist not in progress");
 		}
     }
 
     /**
  	 * show all notes from a Task
- 	 * TODO: create JavaDoc. 
  	 * @param task The task with Notes
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
-    public ArrayList<Note> showNotes(Task task) throws UnsupportedOperationException {
+    public ArrayList<Note> showNotes(Task task) {
 
     	 return task.getNote();
     }
