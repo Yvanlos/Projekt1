@@ -1,14 +1,16 @@
 package controller;
 
+import model.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
-import model.Developer;
-import model.Task;
 
 import static org.junit.Assert.*;
 
+/**
+ * tests the DeveloperController
+ */
 public class DeveloperControllerTest {
 
     /**
@@ -18,17 +20,11 @@ public class DeveloperControllerTest {
     public void testCreateDeveloper() {
         VirtualKanbanController vkc = new VirtualKanbanController();
         DeveloperController developerController = vkc.getDeveloperController();
-        ProjectController pc = vkc.getProjectController();
-        TeamController tc = vkc.getTeamController();
-        tc.createTeam("testTeam1");
-        pc.createProject("testproj1", LocalDateTime.MAX,
-                vkc.getVirtualKanban().getTeam().get(0),"the first test project");
+        Team testTeam = new Team("testTeam");
+        vkc.getVirtualKanban().getTeam().add(testTeam);
+        developerController.createDeveloper(testTeam, "testdev2", null);
 
-        developerController.createDeveloper(vkc.getVirtualKanban().getTeam().get(0), "testDev1", null);
-        assertFalse(vkc.getVirtualKanban().getTeam().get(0).getDevelopers().isEmpty());
-
-
-
+        assertFalse(testTeam.getDevelopers().isEmpty());
     }
 
     /**
@@ -38,23 +34,25 @@ public class DeveloperControllerTest {
     public void testDeleteDeveloper() {
         VirtualKanbanController vkc = new VirtualKanbanController();
         DeveloperController developerController = vkc.getDeveloperController();
-        ProjectController pc = vkc.getProjectController();
-        TeamController tc = vkc.getTeamController();
-        TaskController taskController = vkc.getTaskController();
-        tc.createTeam("testTeam1");
-        developerController.createDeveloper(vkc.getVirtualKanban().getTeam().get(0), "testDev1", null);
-        pc.createProject("testproj1", LocalDateTime.MAX,
-                vkc.getVirtualKanban().getTeam().get(0),"the first test project");
-        Developer dev = vkc.getVirtualKanban().getTeam().get(0).getDevelopers().get(0);
-        //taskController.addTask(vkc.getVirtualKanban().getProject().get(0), "testTask1",
-        //       "the first testTask", LocalDateTime.MAX);
-        //Task testTask = vkc.getVirtualKanban().getProject().get(0).getStageList().get(0).getTask().get(0);
-        //taskController.startTask(testTask, vkc.getVirtualKanban().getProject().get(0), dev);
+        TaskController taskController = new TaskController(vkc);
+        Team testTeam = new Team("testTeam");
+        Project testProj = new Project("testProj", "this is at test", LocalDateTime.MAX, testTeam);
+        Task testTask = new Task("testTask", "this is a test",LocalDateTime.MAX);
+        Developer testDev = new Developer("testDev", null);
+        CompletedStage testStage = new CompletedStage(testTask, Stage.ANALYSE_IN_PROGRESS);
+        testDev.setCurrentTaskStage(testStage);
+        testTeam.getDevelopers().add(testDev);
+        vkc.getVirtualKanban().getProject().add(testProj);
+        vkc.getVirtualKanban().getTeam().add(testTeam);
+        testProj.getStageList().get(1).addTask(testTask);
+        testTask.setDeveloper(testDev);
+        testDev.setAtWork(true);
+        developerController.deleteDeveloper(testDev);
 
+        assertFalse(testTeam.getDevelopers().contains(testDev));
+        assertFalse(testProj.getStageList().get(1).getTask().contains(testTask));
+        assertTrue(testProj.getStageList().get(0).getTask().contains(testTask));
 
-        developerController.deleteDeveloper(dev);
-        assertTrue(vkc.getVirtualKanban().getTeam().get(0).getDevelopers().isEmpty());
-        //assertTrue(vkc.getVirtualKanban().getProject().get(0).getStageList().get(0).getTask().contains(testTask));
     }
 
     /**
@@ -64,25 +62,27 @@ public class DeveloperControllerTest {
     public void testChangeTeam() {
         VirtualKanbanController vkc = new VirtualKanbanController();
         DeveloperController developerController = vkc.getDeveloperController();
-        ProjectController pc = vkc.getProjectController();
-        TeamController tc = vkc.getTeamController();
-        TaskController taskController = vkc.getTaskController();
-        tc.createTeam("testTeam1");
-        tc.createTeam("testTeam2");
-        developerController.createDeveloper(vkc.getVirtualKanban().getTeam().get(0), "testDev1", null);
-        pc.createProject("testproj1", LocalDateTime.MAX,
-                vkc.getVirtualKanban().getTeam().get(0),"the first test project");
-        //taskController.addTask(vkc.getVirtualKanban().getProject().get(0), "testTask1",
-        //       "the first testTask", LocalDateTime.MAX);
-        //Task testTask = vkc.getVirtualKanban().getProject().get(0).getStageList().get(0).getTask().get(0);
-        //taskController.startTask(testTask, vkc.getVirtualKanban().getProject().get(0), dev);
+        TaskController taskController = new TaskController(vkc);
+        Team testTeam1 = new Team("testTeam1");
+        Team testTeam2 = new Team("testTeam2");
+        Project testProj = new Project("testProj", "this is at test", LocalDateTime.MAX, testTeam1);
+        Task testTask = new Task("testTask", "this is a test",LocalDateTime.MAX);
+        Developer testDev = new Developer("testDev", null);
+        CompletedStage testStage = new CompletedStage(testTask, Stage.ANALYSE_IN_PROGRESS);
+        testDev.setCurrentTaskStage(testStage);
+        testTeam1.getDevelopers().add(testDev);
+        vkc.getVirtualKanban().getProject().add(testProj);
+        vkc.getVirtualKanban().getTeam().add(testTeam1);
+        vkc.getVirtualKanban().getTeam().add(testTeam2);
+        testProj.getStageList().get(1).addTask(testTask);
+        testTask.setDeveloper(testDev);
+        testDev.setAtWork(true);
+        developerController.changeTeam(testDev, testTeam2);
 
-        developerController.changeTeam(vkc.getVirtualKanban().getTeam().get(0).getDevelopers().get(0),
-                vkc.getVirtualKanban().getTeam().get(1));
-        assertTrue(vkc.getVirtualKanban().getTeam().get(0).getDevelopers().isEmpty());
-        assertFalse(vkc.getVirtualKanban().getTeam().get(1).getDevelopers().isEmpty());
-        //assertTrue(vkc.getVirtualKanban().getProject().get(0).getStageList().get(0).getTask().contains(testTask));
-
+        assertFalse(testTeam1.getDevelopers().contains(testDev));
+        assertTrue(testTeam2.getDevelopers().contains(testDev));
+        assertFalse(testProj.getStageList().get(1).getTask().contains(testTask));
+        assertTrue(testProj.getStageList().get(0).getTask().contains(testTask));
     }
 
     /**
@@ -95,18 +95,17 @@ public class DeveloperControllerTest {
         ProjectController pc = vkc.getProjectController();
         TeamController tc = vkc.getTeamController();
         TaskController taskController = vkc.getTaskController();
-        tc.createTeam("testTeam1");
-        tc.createTeam("testTeam2");
-        developerController.createDeveloper(vkc.getVirtualKanban().getTeam().get(0), "testDev1", null);
-        pc.createProject("testproj1", LocalDateTime.MAX,
-                vkc.getVirtualKanban().getTeam().get(0),"the first test project");
-        pc.createProject("testproj1", LocalDateTime.MAX,
-                vkc.getVirtualKanban().getTeam().get(1),"the first test project");
-        //taskController.addTask(vkc.getVirtualKanban().getProject().get(0), "testTask1",
-        //       "the first testTask", LocalDateTime.MAX);
-        //Task testTask = vkc.getVirtualKanban().getProject().get(0).getStageList().get(0).getTask().get(0);
+        Team testTeam1 = new Team("testTeam1");
+        Team testTeam2 = new Team("testTeam2");
+        Project testProj1 = new Project("testProj", "this is at test", LocalDateTime.MAX, testTeam1);
+        Project testProj2 = new Project("testProj", "this is at test", LocalDateTime.MAX, testTeam2);
+        Task testTask = new Task("testTask", "this is a test",LocalDateTime.MAX);
+        vkc.getVirtualKanban().getProject().add(testProj1);
+        vkc.getVirtualKanban().getProject().add(testProj2);
+        vkc.getVirtualKanban().getTeam().add(testTeam1);
+        vkc.getVirtualKanban().getTeam().add(testTeam2);
+        testProj1.getStageList().get(1).addTask(testTask);
 
-        //assertTrue(developerController.getProjectFromTask(testTask).equals(vkc.getVirtualKanban().getProject().get(0)));
-
+        assertEquals(developerController.getProjectFromTask(testTask), testProj1);
     }
 }

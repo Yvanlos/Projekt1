@@ -3,6 +3,9 @@ package model;
 import java.time.LocalDateTime;
 import java.lang.UnsupportedOperationException;
 
+/**
+ * class for each task a developer finishes and is working on
+ */
 public class CompletedStage {
 
     /**

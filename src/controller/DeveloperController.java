@@ -7,6 +7,9 @@ import java.lang.UnsupportedOperationException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
+/**
+ * controller to create, delete and move developers
+ */
 public class DeveloperController {
 
 	/**
