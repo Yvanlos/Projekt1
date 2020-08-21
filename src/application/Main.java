@@ -14,14 +14,14 @@ import controller.VirtualKanbanController;
 public class Main extends Application {
 
     /**
- 	 *
- 	 * TODO: create JavaDoc. 
+ 	 * TODO: create JavaDoc
  	 * @param primaryStage
  	 */
     @Override
     public void start(Stage primaryStage) {
         try {
         	VirtualKanbanController virtualKanbanController = new VirtualKanbanController();
+        	virtualKanbanController.setVirtualKanban(virtualKanbanController.getIOController().load());
         	
             MainViewController mainViewController = new MainViewController(virtualKanbanController);
             Scene scene = new Scene(mainViewController, 1600, 800);

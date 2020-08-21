@@ -67,6 +67,7 @@ public class VirtualKanbanController {
          */
     }
 
+
     /**
      * Returns the ProjectController, which can be used by other controllers, the GUI or the VirtualKanban-Class
      *
@@ -128,5 +129,9 @@ public class VirtualKanbanController {
      */
     public StatisticController getStatisticController() {
         return statisticController;
+    }
+
+    public void setVirtualKanban(VirtualKanban virtualKanban) {
+        this.virtualKanban = virtualKanban;
     }
 }

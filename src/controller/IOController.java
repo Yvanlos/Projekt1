@@ -30,7 +30,7 @@ public class IOController {
     private VirtualKanbanController virtualKanbanController;
 
     public IOController(VirtualKanbanController virtualKanbanController) {
-    	virtualKanbanController =  virtualKanbanController ;
+    	this.virtualKanbanController =  virtualKanbanController ;
     }
 
     /**
@@ -40,18 +40,20 @@ public class IOController {
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist.
  	 */
 
-    public void load() throws UnsupportedOperationException{
+    public VirtualKanban load() throws UnsupportedOperationException{
 		if (SAVE_File.exists()) {
 			try {
 				ObjectInputStream stream = new ObjectInputStream(new FileInputStream(SAVE_File));
 				VirtualKanban virtualKanban = (VirtualKanban) stream.readObject();
 				stream.close();
+				return virtualKanban;
 			} catch(IOException exception) {
 				throw new UnsupportedOperationException("Not Yet Implemented!");
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 		}
+		return null;
 	}
 
     /**
