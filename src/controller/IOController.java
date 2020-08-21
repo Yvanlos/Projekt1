@@ -64,17 +64,11 @@ public class IOController {
         throw new UnsupportedOperationException("Not Yet Implemented!");
     }
 
-    /**
- 	 *
- 	 * creates an PDF-File from all existing projects
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist.
- 	 */
-
 	/***
-	 * Ich erstelle erstmal eine Tabelle und dann füge ich die passende Elemente drin...
-	 * @throws FileNotFoundException
-	 * @throws DocumentException
+	 *
+	 * @param allproject is the list of all the project of the program
+	 * @throws FileNotFoundException will be call if a File can't be found
+	 * @throws DocumentException will be call if there's a problem with this document
 	 */
 	public void exportPdf(ArrayList<Project> allproject) throws FileNotFoundException, DocumentException {
     	Document document = new Document() ;
@@ -128,14 +122,14 @@ public class IOController {
 			document.close();
 		}
 	}
-    /**
- 	 *
- 	 * creates an PDF-File from the selected project
- 	 * @param project the selected project
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist.
- 	 */
-    public void exportPdf(Project project) throws FileNotFoundException, DocumentException {
+
+	/***
+	 *
+	 * @param project , i'm doing a table of this project
+	 * @throws FileNotFoundException will be call if a File can't be found
+	 * @throws DocumentException will be call if there's a problem with this document
+	 */
+	public void exportPdf(Project project) throws FileNotFoundException, DocumentException {
         Document document = new Document() ;
 		FileOutputStream place =  new FileOutputStream(Table_PDF) ;/* is this the correct destination ? */
 		PdfWriter.getInstance(document,place);
