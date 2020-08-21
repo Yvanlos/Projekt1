@@ -61,7 +61,14 @@ public class IOController {
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist.
  	 */
     public void save() throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+		try{
+			ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(SAVE_File));
+			stream.writeObject(virtualKanbanController.getVirtualKanban());
+			stream.close();
+		} catch (IOException ioex ) {
+			System.err.println("Fehler beim Speichern aufgetreten.");
+			ioex.printStackTrace();
+		}
     }
 
 	/***
