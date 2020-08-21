@@ -98,6 +98,8 @@ public class KanBanViewController extends BorderPane {
 
     private ControlQuestionViewController controlQuestionViewController;
 
+    private ProjectInfoViewController projectInfoViewController;
+
     public KanBanViewController(StackPane stackPane, VirtualKanbanController virtualKanbanController, Project project) {
         this.stackPane = stackPane;
         this.virtualKanbanController = virtualKanbanController;
@@ -118,6 +120,7 @@ public class KanBanViewController extends BorderPane {
          newCommentController = new NewCommentController(virtualKanbanController);
          newTaskViewController = new NewTaskViewController(virtualKanbanController);
          controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController);
+         projectInfoViewController = new ProjectInfoViewController(virtualKanbanController, project);
     }
 
     /**
@@ -229,9 +232,7 @@ public class KanBanViewController extends BorderPane {
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     @FXML
-    void onInfoButtonMouseClick(MouseEvent event) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
-    }
+    void onInfoButtonMouseClick(MouseEvent event) { projectInfoViewController.showView(); }
 
     /**
      * Closes the KanbanView and returns to the MainView
