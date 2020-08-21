@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class VirtualKanban {
+public class VirtualKanban implements Serializable {
 
     /**
  	 * Collection of all existing projects in the entire Program

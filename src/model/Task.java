@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,7 +8,7 @@ import java.util.Collection;
 /**
  * This class models a task and manages its assigned developer and notes
  */
-public class Task {
+public class Task implements Serializable {
 
 	/**
 	 * Name of the task

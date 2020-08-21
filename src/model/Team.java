@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.lang.UnsupportedOperationException;
@@ -8,7 +9,7 @@ import java.util.List;
 /**
  * A team is a group of developers
  */
-public class Team {
+public class Team implements Serializable {
 
     /**
  	 * unique name of the team

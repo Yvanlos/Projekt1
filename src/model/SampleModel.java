@@ -1,11 +1,12 @@
 package model;
 
+import java.io.Serializable;
 import java.lang.UnsupportedOperationException;
 
 /**
  * Provides an example for a model class.
  */
-public class SampleModel {
+public class SampleModel implements Serializable {
 
     /**
      * This method intentionally violates PMD rules.

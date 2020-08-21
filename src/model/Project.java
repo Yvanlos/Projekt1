@@ -1,12 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
 
 /**
  * This class models a project with a deadline, an assigned team and a number of tasks in different stages.
  */
-public class Project {
+public class Project implements Serializable {
 
     /**
  	 * Name of the project.

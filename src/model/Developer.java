@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.net.URI;
 import java.util.ArrayList;
 
@@ -7,7 +8,7 @@ import java.util.ArrayList;
  * The Developer class that holds a name and a profile picture.
  * 
  */
-public class Developer {
+public class Developer implements Serializable {
 
     /**
  	 * The developers name.

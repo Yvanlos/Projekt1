@@ -2,11 +2,12 @@ package model;
 
 import java.time.LocalDateTime;
 import java.lang.UnsupportedOperationException;
+import java.io.Serializable;
 
 /**
  * class for each task a developer finishes and is working on
  */
-public class CompletedStage {
+public class CompletedStage implements Serializable{
 
     /**
  	 * time at which the devloper started the task

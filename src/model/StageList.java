@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,7 +8,7 @@ import java.util.Collection;
 /**
  * This class models a specific stage a task is in.
  */
-public class StageList {
+public class StageList implements Serializable {
 
     /**
  	 * The list of tasks that currently belong to this stage.

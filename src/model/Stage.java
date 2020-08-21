@@ -1,6 +1,8 @@
 package model;
 
-public enum Stage {
+import java.io.Serializable;
+
+public enum Stage implements Serializable {
     NEW,
     ANALYSE_IN_PROGRESS,
     ANALYSE_FINISHED,

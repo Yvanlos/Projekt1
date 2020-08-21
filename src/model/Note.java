@@ -1,11 +1,12 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * This class models a note that can be added to a task as a comment.
  */
-public class Note {
+public class Note implements Serializable {
 
     /**
  	 * The name or subject of the note.
