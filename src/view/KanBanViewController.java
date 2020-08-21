@@ -1,10 +1,6 @@
 package view;
 
-import com.sun.javafx.animation.KeyValueType;
 import controller.VirtualKanbanController;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
-import javafx.beans.binding.IntegerBinding;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -94,12 +90,20 @@ public class KanBanViewController extends BorderPane {
 
     private Project project;
 
+    private ReadCommentController readCommentController;
+
+    private NewCommentController newCommentController;
+
+    private NewTaskViewController newTaskViewController;
+
+    private ControlQuestionViewController controlQuestionViewController;
 
     public KanBanViewController(StackPane stackPane, VirtualKanbanController virtualKanbanController, Project project) {
         this.stackPane = stackPane;
         this.virtualKanbanController = virtualKanbanController;
         this.project = project;
 
+        //Load view
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/KanbanView.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -108,13 +112,24 @@ public class KanBanViewController extends BorderPane {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
+        //Generate the ViewController
+         readCommentController = new ReadCommentController(virtualKanbanController);
+         newCommentController = new NewCommentController(virtualKanbanController);
+         newTaskViewController = new NewTaskViewController(virtualKanbanController);
+         controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController);
     }
 
+    /**
+     *
+     */
     @FXML
     void initialize() {
+        //Binding
         this.minWidthProperty().bind(stackPane.widthProperty());
         this.minHeightProperty().bind(stackPane.heightProperty());
 
+        //Example of tasks for the board
         Project project = virtualKanbanController.getVirtualKanban().getProject().get(0);
         for (StageList list : project.getStageList()){
             if (list.getStage() == Stage.NEW){
@@ -132,6 +147,7 @@ public class KanBanViewController extends BorderPane {
             }
         }
 
+        //Getting the first stageList
         StageList stageList = null;
         for (StageList list : project.getStageList()){
             if (list.getStage() == Stage.NEW){
@@ -139,6 +155,7 @@ public class KanBanViewController extends BorderPane {
             }
         }
 
+        //Adds all tasks in a stageList in the specific Box, starting from new
         addTasksToStageBox(newStageBox, stageList);
         stageList = project.getNextStage(stageList);
         addTasksToStageBox(analysisInProgressBox,stageList);
@@ -154,10 +171,14 @@ public class KanBanViewController extends BorderPane {
         addTasksToStageBox(testFinishedBox,stageList);
         stageList = project.getNextStage(stageList);
         addTasksToStageBox(finishedStageBox,stageList);
-
     }
 
 
+    /**
+     * Adds all tasks in the given stageList to the given VBox
+     * @param box the VBox the tasks should be added to
+     * @param stageList the stageList that holds the to be added tasks
+     */
     public void addTasksToStageBox(VBox box, StageList stageList){
         stageList.getTask().forEach(task -> {
             MenuButton menuButton = new MenuButton();
@@ -174,11 +195,9 @@ public class KanBanViewController extends BorderPane {
             //menuButton.getItems().get(2).setOnAction(event -> );
             //menuButton.getItems().get(3).setOnAction(event -> );
             menuButton.getItems().get(4).setOnAction(event -> {
-                ReadCommentController readCommentController = new ReadCommentController(virtualKanbanController);
                 readCommentController.showView();
             });
             menuButton.getItems().get(5).setOnAction(event -> {
-                NewCommentController newCommentController = new NewCommentController(virtualKanbanController);
                 newCommentController.showView();
             });
             box.getChildren().add(menuButton);
@@ -186,37 +205,26 @@ public class KanBanViewController extends BorderPane {
     }
 
     /**
- 	 *
- 	 * TODO: create JavaDoc. 
- 	 * @param event
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
+ 	 * Opens the newTask window
+ 	 * @param event the MouseEvent triggered when clicked
  	 */
     @FXML
-    void onAddTaskButtonMouseClick(MouseEvent event) throws UnsupportedOperationException {
-        NewTaskViewController newTaskViewController = new NewTaskViewController(virtualKanbanController);
+    void onAddTaskButtonMouseClick(MouseEvent event){
         newTaskViewController.showView();
-        //throw new UnsupportedOperationException("Not Yet Implemented!");
     }
 
     /**
- 	 *
- 	 * TODO: create JavaDoc. 
- 	 * @param event
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
+ 	 * Opens the ControlQuestion window
+ 	 * @param event the MouseEvent triggered when clicked
  	 */
     @FXML
-    void onArchiveButtonMouseClick(MouseEvent event) throws UnsupportedOperationException {
-        ControlQuestionViewController controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController);
+    void onArchiveButtonMouseClick(MouseEvent event){
         controlQuestionViewController.showView();
-        //throw new UnsupportedOperationException("Not Yet Implemented!");
     }
 
     /**
- 	 *
- 	 * TODO: create JavaDoc. 
- 	 * @param event
+ 	 * Opens the Info Window
+ 	 * @param event the MouseEvent triggered when clicked
  	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
@@ -225,6 +233,10 @@ public class KanBanViewController extends BorderPane {
         throw new UnsupportedOperationException("Not Yet Implemented!");
     }
 
+    /**
+     * Closes the KanbanView and returns to the MainView
+     * @param event the MouseEvent triggered when clicked
+     */
     @FXML
     void returnButtonClicked(MouseEvent event) {
         stackPane.getChildren().removeIf(child -> child.equals(this));

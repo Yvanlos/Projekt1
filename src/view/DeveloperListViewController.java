@@ -38,9 +38,16 @@ public class DeveloperListViewController {
      */
     private Stage stage;
 
+    private NewDeveloperViewController newDeveloperViewController;
+
+    /**
+     *
+     * @param virtualKanbanController
+     */
     public DeveloperListViewController(VirtualKanbanController virtualKanbanController) {
     	this.virtualKanbanController = virtualKanbanController;
-    	
+
+    	//Load view
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("DeveloperListView.fxml"));
     	fxmlLoader.setController(this);
     	Parent root = new BorderPane();
@@ -50,14 +57,15 @@ public class DeveloperListViewController {
     	    throw new RuntimeException(e);
     	}
 
-    	// TODO hier kann die View weiter initialisiert werden (äquivalent zu initialize-Methode bei Komponenten)
-
     	// init Scene and Stage
     	Scene scene = new Scene(root);
     	scene.getStylesheets().add(Main.class.getResource("application.css").toExternalForm());
     	stage = new Stage();
-    	//stage.initModality(Modality.APPLICATION_MODAL); // Blockiert alle anderen Fenster im Hintergrund.
     	stage.setScene(scene);
+
+    	//Generate ViewController
+         newDeveloperViewController = new NewDeveloperViewController(virtualKanbanController);
+
 	}
     
     
@@ -65,14 +73,10 @@ public class DeveloperListViewController {
  	 *
  	 * TODO: create JavaDoc. 
  	 * @param event
- 	 * @throws UnsupportedOperation Exception
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     @FXML
-    void onAddDeveloperButtonClicked(MouseEvent event) throws UnsupportedOperationException {
-        NewDeveloperViewController newDeveloperViewController = new NewDeveloperViewController(virtualKanbanController);
+    void onAddDeveloperButtonClicked(MouseEvent event){
         newDeveloperViewController.showView();
-        //throw new UnsupportedOperationException("Not Yet Implemented!");
     }
     
     

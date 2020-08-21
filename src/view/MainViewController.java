@@ -11,9 +11,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
-import java.lang.UnsupportedOperationException;
 import java.time.LocalDateTime;
-import java.util.Stack;
 
 import controller.VirtualKanbanController;
 import javafx.scene.layout.GridPane;
@@ -42,11 +40,18 @@ public class MainViewController extends BorderPane{
     @FXML
     private Button developersButton;
 
+	/**
+	 *
+	 */
 	@FXML
 	private MenuItem showRankingButton;
 
+	/**
+	 *
+	 */
 	@FXML
 	private MenuItem showStatisticButton;
+
     /**
  	 * 
  	 */
@@ -59,6 +64,9 @@ public class MainViewController extends BorderPane{
     @FXML
     private Button exitButton;
 
+	/**
+	 *
+	 */
 	@FXML
 	private GridPane showProjectPane;
     
@@ -67,7 +75,10 @@ public class MainViewController extends BorderPane{
      */
     private VirtualKanbanController virtualKanbanController;
 
-    @FXML
+	/**
+	 * The Stackpane object.
+	 */
+	@FXML
     private StackPane stackPane;
     
     
@@ -75,11 +86,26 @@ public class MainViewController extends BorderPane{
      * A DeveloperListViewController object for showing the DeveloperListView
      */
     private DeveloperListViewController developerListViewController;
-    
-    
+
+	/**
+	 * A NewProjectViewController object for showing the NewProjectView
+	 */
+	private NewProjectViewController newProjectViewController;
+
+	/**
+	 * A TeamsViewController object for showing the TeamsView
+	 */
+	private TeamsViewController teamsViewController;
+
+
+	/**
+	 *
+	 * @param virtualKanbanController
+	 */
     public MainViewController(VirtualKanbanController virtualKanbanController){
     	this.virtualKanbanController = virtualKanbanController;
-    	
+
+    	//Load view
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainView.fxml"));
     	loader.setRoot(this);
     	loader.setController(this);
@@ -88,16 +114,25 @@ public class MainViewController extends BorderPane{
     	} catch (Exception e) {
     	    throw new RuntimeException(e);
     	}
-    	
+
+    	//Generate the ViewController
     	developerListViewController = new DeveloperListViewController(virtualKanbanController);
+    	newProjectViewController = new NewProjectViewController(virtualKanbanController);
+    	teamsViewController = new TeamsViewController(virtualKanbanController);
 
     	
     }
 
+	/**
+	 *
+	 */
 	@FXML
 	public void initialize() {
+		//Testproject
 		virtualKanbanController.getVirtualKanban().addProject(new Project("Testprojekt", "Testbeschreibung", LocalDateTime.now(), new Team("Testteam")));
-    	virtualKanbanController.getVirtualKanban().getProject().forEach(project -> {
+
+		//Add all Projects as Buttons to the MainView
+		virtualKanbanController.getVirtualKanban().getProject().forEach(project -> {
     		Button projectButton = new Button(project.getName());
     		projectButton.setOnAction(evt -> {
     			KanBanViewController kanBanViewController = new KanBanViewController(stackPane, virtualKanbanController, project);
@@ -113,32 +148,21 @@ public class MainViewController extends BorderPane{
     
 
     /**
- 	 *
- 	 * TODO: create JavaDoc. 
- 	 * @param event
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
+ 	 * Opens the NewProject window
+ 	 * @param event the MouseEvent triggered when clicked
  	 */
     @FXML
-    void onCreateProjectButtonClick(MouseEvent event) throws UnsupportedOperationException {
-		NewProjectViewController newProjectViewController = new NewProjectViewController(virtualKanbanController);
+    void onCreateProjectButtonClick(MouseEvent event){
     	newProjectViewController.showView();
-    	//throw new UnsupportedOperationException("Not Yet Implemented!");
     }
 
     /**
- 	 *
- 	 * TODO: create JavaDoc. 
- 	 * @param event
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
+ 	 * Opens the Developer overview window
+ 	 * @param event the MouseEvent triggered when clicked
  	 */
     @FXML
-    void onDevelopersButtonClick(MouseEvent event) throws UnsupportedOperationException {
-    	//Show DeveloperListView
+    void onDevelopersButtonClick(MouseEvent event){
     	developerListViewController.showView();
-    	
-        //throw new UnsupportedOperationException("Not Yet Implemented!");
     }
 
     /**
@@ -148,31 +172,22 @@ public class MainViewController extends BorderPane{
     @FXML
     void onExitButtonClick(MouseEvent event){
         //TODO: Saving data
-    	
-    	
-    	
     	System.exit(0);
     }
 
     /**
- 	 *
- 	 * TODO: create JavaDoc. 
- 	 * @param event
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
+ 	 * Opens the exportPDF view in a stackPane
+ 	 * @param event the MouseEvent triggered when clicked
  	 */
     @FXML
-    void onExportPDFButtonClick(MouseEvent event) throws UnsupportedOperationException {
+    void onExportPDFButtonClick(MouseEvent event){
 		pdfViewController pdfViewController = new pdfViewController(virtualKanbanController);
 		stackPane.getChildren().add(pdfViewController);
     }
 
     /**
- 	 *
- 	 * TODO: create JavaDoc. 
- 	 * @param event
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
+ 	 * Opens the showRanking view in a stackPane
+ 	 * @param event the ActionEvent triggered when clicked
  	 */
     @FXML
 	void onShowRankingAction(ActionEvent event) {
@@ -180,6 +195,10 @@ public class MainViewController extends BorderPane{
 		stackPane.getChildren().add(rankingViewController);
 	}
 
+	/**
+	 * Opens the showStatistic view in a stackPane
+	 * @param event the ActionEvent triggered when clicked
+	 */
 	@FXML
 	void onShowStatistikAction(ActionEvent event) {
 		ShowStatisticsViewController showStatisticsViewController = new ShowStatisticsViewController(stackPane, virtualKanbanController);
@@ -187,16 +206,11 @@ public class MainViewController extends BorderPane{
 	}
 
     /**
- 	 *
- 	 * TODO: create JavaDoc. 
- 	 * @param event
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
+ 	 * Opens the teams overview in a window
+ 	 * @param event the MouseEvent triggered when clicked
  	 */
     @FXML
-    void onTeamsButtonClick(MouseEvent event) throws UnsupportedOperationException {
-        TeamsViewController TeamsViewController = new TeamsViewController(virtualKanbanController);
-        TeamsViewController.showView();
-    	//throw new UnsupportedOperationException("Not Yet Implemented!");
+    void onTeamsButtonClick(MouseEvent event){
+    	teamsViewController.showView();
     }
 }
