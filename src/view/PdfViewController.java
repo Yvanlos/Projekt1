@@ -1,5 +1,8 @@
 package view;
 
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,6 +18,7 @@ import java.lang.UnsupportedOperationException;
 
 import application.Main;
 import controller.VirtualKanbanController;
+import model.Project;
 
 
 public class PdfViewController extends BorderPane {
@@ -32,9 +36,11 @@ public class PdfViewController extends BorderPane {
     private RadioButton oneProjectButton;
 
     @FXML
-    private ChoiceBox<?> ProjectChoiceBox;
+    private ComboBox<Project> projectComboBox;
 
     //private StackPane stackPane;
+
+    ToggleGroup group = new ToggleGroup();
 
     private Stage stage;
 
@@ -53,6 +59,12 @@ public class PdfViewController extends BorderPane {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
+        allProjectsButton.setToggleGroup(group);
+        oneProjectButton.setToggleGroup(group);
+
+        ObservableList<Project> observableProjectList = FXCollections.observableArrayList(virtualKanbanController.getVirtualKanban().getProject());
+        projectComboBox.setItems(observableProjectList);
 
         // TODO hier kann die View weiter initialisiert werden (�quivalent zu initialize-Methode bei Komponenten)
 
