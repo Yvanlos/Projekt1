@@ -133,7 +133,7 @@ public class KanBanViewController extends BorderPane {
         this.minHeightProperty().bind(stackPane.heightProperty());
 
         //Example of tasks for the board
-        Project project = virtualKanbanController.getVirtualKanban().getProject().get(0);
+        /*Project project = virtualKanbanController.getVirtualKanban().getProject().get(0);
         for (StageList list : project.getStageList()){
             if (list.getStage() == Stage.NEW){
                 list.addTask(new Task("testName","testDescription",LocalDateTime.now()));
@@ -148,7 +148,7 @@ public class KanBanViewController extends BorderPane {
             if (list.getStage() == Stage.COMPLETED){
                 list.addTask(new Task("testName2","testDescription2",LocalDateTime.now()));
             }
-        }
+        }*/
 
         //Getting the first stageList
         StageList stageList = null;

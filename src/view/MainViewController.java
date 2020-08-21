@@ -131,12 +131,15 @@ public class MainViewController extends BorderPane {
         virtualKanbanController.getVirtualKanban().addProject(new Project("Testprojekt", "Testbeschreibung", LocalDateTime.now(), new Team("Testteam")));
 
         //Add all Projects as Buttons to the MainView
+        showProjectPane.getChildren().clear();
         virtualKanbanController.getVirtualKanban().getProject().forEach(project -> {
             Button projectButton = new Button(project.getName());
+            projectButton.setPrefSize(50,50);
             projectButton.setOnAction(evt -> {
                 KanBanViewController kanBanViewController = new KanBanViewController(stackPane, virtualKanbanController, project);
                 stackPane.getChildren().add(kanBanViewController);
             });
+            //showProjectPane.add(projectButton,0,0);
             showProjectPane.getChildren().add(projectButton);
         });
 
