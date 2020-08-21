@@ -2,6 +2,7 @@ package view;
 
 import application.Main;
 import controller.VirtualKanbanController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.lang.UnsupportedOperationException;
 
 public class ControlQuestionViewController extends VBox {
@@ -45,7 +47,6 @@ public class ControlQuestionViewController extends VBox {
      */
     public ControlQuestionViewController(VirtualKanbanController virtualKanbanController){
         this.virtualKanbanController = virtualKanbanController;
-
         //Load view
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ControlQuestionView.fxml"));
         fxmlLoader.setController(this);
@@ -62,6 +63,7 @@ public class ControlQuestionViewController extends VBox {
         stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL); // Blocks all windows in the background
         stage.setScene(scene);
+        cancelButton.requestFocus();
     }
 
 
@@ -70,8 +72,8 @@ public class ControlQuestionViewController extends VBox {
  	 * @param event the MouseEvent triggered when clicked
  	 */
     @FXML
-    void onCancelButtonClick(MouseEvent event){
-        closeView();
+    void onCancelButtonEvent(ActionEvent event){
+        stage.close();
     }
 
     /**
@@ -79,7 +81,7 @@ public class ControlQuestionViewController extends VBox {
  	 * @param event the MouseEvent triggered when clicked
  	 */
     @FXML
-    void onContinueButtonClick(MouseEvent event) throws UnsupportedOperationException {
+    void onContinueButtonEvent(ActionEvent event) throws UnsupportedOperationException {
         //TODO
         throw new UnsupportedOperationException("Not Yet Implemented!");
     }
