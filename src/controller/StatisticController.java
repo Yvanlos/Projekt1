@@ -1,58 +1,55 @@
 package controller;
 
-import model.CompletedStage;
-import model.Developer;
-import model.Project;
-import model.Team;
-import java.lang.UnsupportedOperationException;
+import model.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.TemporalUnit;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.stream.IntStream;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
 public class StatisticController {
 
     /**
- 	 * 
+ 	 * reference to the main-controller
  	 */
     private VirtualKanbanController virtualKanbanController;
 
     public StatisticController(VirtualKanbanController virtualKanbanController) {
-    	virtualKanbanController=virtualKanbanController;
+    	this.virtualKanbanController = virtualKanbanController;
     }
 
     /**
- 	 * shows the statistics of a project
-	 *
- 	 * TODO: create JavaDoc. 
- 	 * @param project
-	 * 					project, of which the statistics are shown
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
+ 	 *
  	 */
-    public void showStats(Project project) throws UnsupportedOperationException {
-
-
-
-
-
-
-
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+    public HashMap<String, Integer> showStats(Project project) {
+    	HashMap<String, Integer> result = new HashMap<>();
+    	for(StageList stagelist : project.getStageList()) {
+    		for(Task task : stagelist.getTask()) {
+    			//TODO
+			}
+		}
+		return null;
     }
 
     /**
- 	 * shows the statistics of a team
-	 *
- 	 * TODO: create JavaDoc. 
- 	 * @param team
-	 * 				team, of which the statistics are shown
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
- 	 */
-    public String[][] showStats(Team team) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+ 	 * returns a map, which holds the developer names + min, max and avg time for the finished tasks
+	 */
+    public HashMap<String, double[]> showStats(Team team) {
+    	HashMap<String, double[]> result = new HashMap<>();
+    	ArrayList<Developer> devs = team.getDevelopers();
+    	for(Developer dev : devs) {
+			IntStream stream = dev.getCompletedStageList().stream().filter(cs -> ChronoUnit.DAYS.between(cs.getCompletionDate().toLocalDate(), LocalDate.now()) <= 7).mapToInt(cs -> (int)ChronoUnit.MINUTES.between(cs.getCompletionDate(), LocalDateTime.now()));
+			double[] value = new double[] {0, 0, 0};
+			if(stream.min().isPresent()) value[0] = stream.min().getAsInt();
+			if(stream.average().isPresent()) value[1] = stream.average().getAsDouble();
+			if(stream.max().isPresent()) value[2] = stream.max().getAsInt();
+			result.put(dev.getName(), value);
+		}
+        return result;
     }
 
 	/**
