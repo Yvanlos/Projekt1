@@ -44,8 +44,8 @@ public class TaskControllerTest {
         String n= "name";
         String d= "description";
         LocalDateTime dateTime= LocalDateTime.now();
-        Task t = new Task(n,d,dateTime);
         tc.addTask(p,n,d,dateTime);
+        Task t = new Task(n,d,dateTime);
         for(StageList list : p.getStageList())
         {
             if(list.getTask().contains(t))

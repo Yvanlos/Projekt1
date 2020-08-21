@@ -1,5 +1,7 @@
 package view;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,12 +9,21 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.Team;
 
-import java.lang.UnsupportedOperationException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.util.ArrayList;
+
+import javax.swing.JFileChooser;
 
 import application.Main;
 import controller.VirtualKanbanController;
@@ -29,7 +40,7 @@ public class NewDeveloperViewController {
  	 * 
  	 */
     @FXML
-    private ComboBox<?> developerTeamComboBox;
+    private ComboBox<Team> developerTeamComboBox;
 
     /**
  	 * 
@@ -55,18 +66,26 @@ public class NewDeveloperViewController {
     @FXML
     private Button cancelButton;
     
+    private URI selectedURI;
+    
     /**
-     * The ViratualKanbanControlle object.
+     * The ViratualKanbanController object.
      */
     private VirtualKanbanController virtualKanbanController;
+    
+    /**
+     * The DeveloperListViewController object.
+     */
+    private DeveloperListViewController developerListViewController;
     
     /**
      * The Stage object that represents this view.
      */
     private Stage stage;
 
-    public NewDeveloperViewController(VirtualKanbanController virtualKanbanController) {
+    public NewDeveloperViewController(VirtualKanbanController virtualKanbanController, DeveloperListViewController developerListViewController) {
     	this.virtualKanbanController = virtualKanbanController;
+    	this.developerListViewController = developerListViewController;
     	
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("NewDeveloperView.fxml"));
     	fxmlLoader.setController(this);
@@ -87,6 +106,15 @@ public class NewDeveloperViewController {
     	//stage.initModality(Modality.APPLICATION_MODAL); // Blockiert alle anderen Fenster im Hintergrund.
     	stage.setScene(scene);
 	}
+    
+	@FXML
+	void initialize() {
+		
+		ArrayList<Team> teamList = virtualKanbanController.getTeamController().getTeamsList();
+		ObservableList<Team> observableTeamList = FXCollections.observableArrayList(teamList);
+		developerTeamComboBox.setItems(observableTeamList);
+		
+	}
 
     /**
  	 *
@@ -95,8 +123,11 @@ public class NewDeveloperViewController {
  	 */
     @FXML
     void onCancelButtonEvent(MouseEvent event){
-    	//TODO: Clear textfields, combobox and image
-    	
+    	//Reset all fields
+    	nameInputField.setText("");
+    	selectedURI = null;
+    	selectedImage.setImage(null);
+    	developerTeamComboBox.setValue(null);
     	
         closeView();
     }
@@ -105,24 +136,56 @@ public class NewDeveloperViewController {
  	 *
  	 * TODO: create JavaDoc. 
  	 * @param event
- 	 * @throws UnsupportedOperation Exception
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     @FXML
-    void onFileChooserButtonEvent(MouseEvent event) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+    void onFileChooserButtonEvent(MouseEvent event){
+    	JFileChooser chooser = new JFileChooser("../");
+    	
+		int rueckgabeWert = chooser.showOpenDialog(null);
+		
+        if(!(rueckgabeWert == JFileChooser.APPROVE_OPTION)) return;
+        
+        try {
+        	
+        	File selectedFile = chooser.getSelectedFile();
+        	InputStream imageStream = new FileInputStream(selectedFile);
+        	
+        	Image image = new Image(imageStream);
+        	
+        	selectedImage.setImage(image);
+        	
+        	selectedURI = selectedFile.toURI();
+        }
+        catch(IOException e) {
+        	e.printStackTrace();
+        }
+        
+        
+        
     }
 
     /**
  	 *
  	 * TODO: create JavaDoc. 
  	 * @param event
- 	 * @throws UnsupportedOperation Exception
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     @FXML
-    void onSaveButtonEvent(MouseEvent event) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+    void onSaveButtonEvent(MouseEvent event){
+    	
+    	String name = nameInputField.getText();
+    	Team selectedTeam = developerTeamComboBox.getValue();
+    	
+    	virtualKanbanController.getDeveloperController().createDeveloper(selectedTeam, name, selectedURI);
+    	
+    	developerListViewController.refreshDeveloperList();
+    	
+    	//Reset all fields
+    	nameInputField.setText("");
+    	selectedURI = null;
+    	selectedImage.setImage(null);
+    	developerTeamComboBox.setValue(null);
+    	
+    	closeView();
     }
     
     /**

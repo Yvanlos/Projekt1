@@ -98,6 +98,8 @@ public class KanBanViewController extends BorderPane {
 
     private ControlQuestionViewController controlQuestionViewController;
 
+    private ProjectInfoViewController projectInfoViewController;
+
     public KanBanViewController(StackPane stackPane, VirtualKanbanController virtualKanbanController, Project project) {
         this.stackPane = stackPane;
         this.virtualKanbanController = virtualKanbanController;
@@ -118,6 +120,7 @@ public class KanBanViewController extends BorderPane {
          newCommentController = new NewCommentController(virtualKanbanController);
          newTaskViewController = new NewTaskViewController(virtualKanbanController);
          controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController);
+         projectInfoViewController = new ProjectInfoViewController(virtualKanbanController, project);
     }
 
     /**
@@ -130,7 +133,7 @@ public class KanBanViewController extends BorderPane {
         this.minHeightProperty().bind(stackPane.heightProperty());
 
         //Example of tasks for the board
-        Project project = virtualKanbanController.getVirtualKanban().getProject().get(0);
+        /*Project project = virtualKanbanController.getVirtualKanban().getProject().get(0);
         for (StageList list : project.getStageList()){
             if (list.getStage() == Stage.NEW){
                 list.addTask(new Task("testName","testDescription",LocalDateTime.now()));
@@ -145,7 +148,7 @@ public class KanBanViewController extends BorderPane {
             if (list.getStage() == Stage.COMPLETED){
                 list.addTask(new Task("testName2","testDescription2",LocalDateTime.now()));
             }
-        }
+        }*/
 
         //Getting the first stageList
         StageList stageList = null;
@@ -229,9 +232,7 @@ public class KanBanViewController extends BorderPane {
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
     @FXML
-    void onInfoButtonMouseClick(MouseEvent event) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
-    }
+    void onInfoButtonMouseClick(MouseEvent event) { projectInfoViewController.showView(); }
 
     /**
      * Closes the KanbanView and returns to the MainView

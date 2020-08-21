@@ -67,13 +67,14 @@ public class TaskController {
     	Task t= new Task(name,description,deadline);
 		for(StageList list : project.getStageList())
 		{
-			if(list.getStage()== Stage.NEW && list.getTask().contains(t))
+			if(list.getStage()== Stage.NEW && !list.getTask().contains(t))
 			{
 				list.addTask(t);
-			}else{
-				throw new UnsupportedOperationException("Task already exist or Stage not found");
+				return ;
 			}
+
 		}
+			throw new UnsupportedOperationException("Task already exist or Stage not found");
     }
 
     /**
