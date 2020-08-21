@@ -17,6 +17,7 @@ import model.Task;
 
 import java.lang.UnsupportedOperationException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class ReadCommentController extends SplitPane {
 
@@ -62,9 +63,10 @@ public class ReadCommentController extends SplitPane {
         showCommentField.setText("");
 
         //Show all notes
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         if(!task.getNote().isEmpty()) {
             task.getNote().forEach(note -> {
-                showCommentField.setText(showCommentField.getText() + "Betreff: " + note.getName() + "\nErstellt am: " + note.getCreationDate().toString() + "\nInhalt: " + note.getContent()+"\n\n");
+                showCommentField.setText(showCommentField.getText() + "Betreff: " + note.getName() + "\nErstellt am: " + note.getCreationDate().format(formatter) + "\nInhalt: " + note.getContent()+"\n\n");
             });
         }
     }

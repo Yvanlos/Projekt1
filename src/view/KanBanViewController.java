@@ -16,6 +16,7 @@ import model.*;
 
 import java.lang.UnsupportedOperationException;
 import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
 
 public class KanBanViewController extends BorderPane {
 
@@ -161,16 +162,16 @@ public class KanBanViewController extends BorderPane {
             //A MenuButton with 6 MenuItems for managing tasks is added for each task in this stage
             MenuButton menuButton = new MenuButton();
             if(task.getDeveloper() != null) {
-                menuButton.setText(task.getName() + "\n" + task.getDescription() + "\nDeadline: " + task.getDeadline() + "\nEntwickler: " + task.getDeveloper().getName());
+                menuButton.setText(task.getName() + "\n" + task.getDescription() + "\nDeadline: " + task.getDeadline().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")) + "\nEntwickler: " + task.getDeveloper().getName());
             }else{
-                menuButton.setText(task.getName() + "\n" + task.getDescription() + "\nDeadline: " + task.getDeadline() + "\nEntwickler: nicht zugewiesen");
+                menuButton.setText(task.getName() + "\n" + task.getDescription() + "\nDeadline: " + task.getDeadline().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")) + "\nEntwickler: nicht zugewiesen");
             }
             menuButton.getItems().add(new MenuItem("Aufgabe anfangen"));
             menuButton.getItems().add(new MenuItem("Aufgabe abbrechen"));
             menuButton.getItems().add(new MenuItem("Aufgabe beenden"));
-            menuButton.getItems().add(new MenuItem("Aufgabe loeschen"));
+            menuButton.getItems().add(new MenuItem("Aufgabe l\u00f6schen"));
             menuButton.getItems().add(new MenuItem("Kommentare anzeigen"));
-            menuButton.getItems().add(new MenuItem("Kommentar hinzufuegen"));
+            menuButton.getItems().add(new MenuItem("Kommentar hinzuf\u00fcgen"));
             //TODO refresh if task is moved
 
             //If the task is worked on, the button for starting a task is disabled but finishing and droping a task can be chosen

@@ -78,7 +78,7 @@ public class NewTeamsViewController {
     	    throw new RuntimeException(e);
     	}
 
-    	// TODO hier kann die View weiter initialisiert werden (äquivalent zu initialize-Methode bei Komponenten)
+    	// TODO hier kann die View weiter initialisiert werden (aequivalent zu initialize-Methode bei Komponenten)
     	
 
     	// init Scene and Stage
