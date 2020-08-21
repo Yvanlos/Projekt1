@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -42,11 +43,11 @@ public class StatisticController {
     	HashMap<String, double[]> result = new HashMap<>();
     	ArrayList<Developer> devs = team.getDevelopers();
     	for(Developer dev : devs) {
-			IntStream stream = dev.getCompletedStageList().stream().filter(cs -> ChronoUnit.DAYS.between(cs.getCompletionDate().toLocalDate(), LocalDate.now()) <= 7).mapToInt(cs -> (int)ChronoUnit.MINUTES.between(cs.getCompletionDate(), LocalDateTime.now()));
+			Supplier<IntStream> streamSupplier = () -> dev.getCompletedStageList().stream().filter(cs -> ChronoUnit.DAYS.between(cs.getCompletionDate().toLocalDate(), LocalDate.now()) <= 7).mapToInt(cs -> (int)ChronoUnit.MINUTES.between(cs.getStartDate(), cs.getCompletionDate()));
 			double[] value = new double[] {0, 0, 0};
-			if(stream.min().isPresent()) value[0] = stream.min().getAsInt();
-			if(stream.average().isPresent()) value[1] = stream.average().getAsDouble();
-			if(stream.max().isPresent()) value[2] = stream.max().getAsInt();
+			if(streamSupplier.get().min().isPresent()) value[0] = streamSupplier.get().min().getAsInt();
+			if(streamSupplier.get().average().isPresent()) value[1] = streamSupplier.get().average().getAsDouble();
+			if(streamSupplier.get().max().isPresent()) value[2] = streamSupplier.get().max().getAsInt();
 			result.put(dev.getName(), value);
 		}
         return result;
