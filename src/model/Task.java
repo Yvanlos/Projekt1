@@ -52,7 +52,7 @@ public class Task implements Serializable {
 		this.description = description;
 		this.deadline = deadline;
 		this.creationDate = LocalDateTime.now();
-		this.notes = new ArrayList<>();
+		this.notes = new ArrayList<Note>();
 		this.developer = null;
 	}
 

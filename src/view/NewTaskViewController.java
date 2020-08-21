@@ -16,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.lang.UnsupportedOperationException;
+import java.time.LocalDateTime;
 
 public class NewTaskViewController extends VBox {
 
@@ -37,10 +38,13 @@ public class NewTaskViewController extends VBox {
 
     private VirtualKanbanController virtualKanbanController;
 
+    private KanBanViewController kanBanViewController;
+
     private Stage stage;
 
-    public NewTaskViewController(VirtualKanbanController virtualKanbanController){
+    public NewTaskViewController(VirtualKanbanController virtualKanbanController, KanBanViewController kanBanViewController){
         this.virtualKanbanController = virtualKanbanController;
+        this.kanBanViewController = kanBanViewController;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("NewTaskView.fxml"));
         fxmlLoader.setController(this);
@@ -52,13 +56,10 @@ public class NewTaskViewController extends VBox {
             throw new RuntimeException(e);
         }
 
-        // TODO hier kann die View weiter initialisiert werden (�quivalent zu initialize-Methode bei Komponenten)
-
         // init Scene and Stage
         Scene scene = new Scene(root);
         scene.getStylesheets().add(Main.class.getResource("application.css").toExternalForm());
         stage = new Stage();
-        //stage.initModality(Modality.APPLICATION_MODAL); // Blockiert alle anderen Fenster im Hintergrund.
         stage.setScene(scene);
     }
 
@@ -70,9 +71,8 @@ public class NewTaskViewController extends VBox {
      *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist.
      */
     @FXML
-    void onCancelButtonEvent(MouseEvent event) throws UnsupportedOperationException {
+    void onCancelButtonEvent(MouseEvent event){
         closeView();
-        //throw new UnsupportedOperationException("Not Yet Implemented!");
     }
 
     /**
@@ -84,7 +84,13 @@ public class NewTaskViewController extends VBox {
      */
     @FXML
     void onSaveButtonEvent(MouseEvent event) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+        LocalDateTime date = null;
+        if(dateInputField.getValue() != null){
+            date = dateInputField.getValue().atStartOfDay();
+        }
+        virtualKanbanController.getTaskController().addTask(kanBanViewController.getProject(),nameInputField.getText(),descriptionInputField.getText(),date);
+        System.out.println("Added Task: "+nameInputField.getText());
+        closeView();
     }
 
     /**
@@ -92,6 +98,10 @@ public class NewTaskViewController extends VBox {
      */
 
     public void showView() {
+        nameInputField.setText("");
+        descriptionInputField.setText("");
+        dateInputField.getEditor().clear();
+
         stage.show();
     }
 

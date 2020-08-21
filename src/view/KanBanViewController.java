@@ -116,9 +116,8 @@ public class KanBanViewController extends BorderPane {
         }
 
         //Generate the ViewController
-         readCommentController = new ReadCommentController(virtualKanbanController);
          newCommentController = new NewCommentController(virtualKanbanController);
-         newTaskViewController = new NewTaskViewController(virtualKanbanController);
+         newTaskViewController = new NewTaskViewController(virtualKanbanController,this);
          controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController);
          projectInfoViewController = new ProjectInfoViewController(virtualKanbanController, project);
     }
@@ -133,7 +132,7 @@ public class KanBanViewController extends BorderPane {
         this.minHeightProperty().bind(stackPane.heightProperty());
 
         //Example of tasks for the board
-        /*Project project = virtualKanbanController.getVirtualKanban().getProject().get(0);
+        Project project = virtualKanbanController.getVirtualKanban().getProject().get(0);
         for (StageList list : project.getStageList()){
             if (list.getStage() == Stage.NEW){
                 list.addTask(new Task("testName","testDescription",LocalDateTime.now()));
@@ -148,7 +147,7 @@ public class KanBanViewController extends BorderPane {
             if (list.getStage() == Stage.COMPLETED){
                 list.addTask(new Task("testName2","testDescription2",LocalDateTime.now()));
             }
-        }*/
+        }
 
         //Getting the first stageList
         StageList stageList = null;
@@ -189,15 +188,19 @@ public class KanBanViewController extends BorderPane {
             menuButton.getItems().add(new MenuItem("Aufgabe anfangen"));
             menuButton.getItems().add(new MenuItem("Aufgabe zuruecklegen"));
             menuButton.getItems().add(new MenuItem("Aufgabe beenden"));
-            menuButton.getItems().add(new MenuItem("Aufgabe bearbeiten?"));
+            menuButton.getItems().add(new MenuItem("Aufgabe loeschen"));
             menuButton.getItems().add(new MenuItem("Kommentare anzeigen"));
             menuButton.getItems().add(new MenuItem("Kommentar hinzufuegen"));
             //TODO refresh if task is moved
             //menuButton.getItems().get(0).setOnAction(event -> );
             //menuButton.getItems().get(1).setOnAction(event -> );
             //menuButton.getItems().get(2).setOnAction(event -> );
-            //menuButton.getItems().get(3).setOnAction(event -> );
+            menuButton.getItems().get(3).setOnAction(event -> {
+                virtualKanbanController.getTaskController().deleteTask(project,task);
+            });
             menuButton.getItems().get(4).setOnAction(event -> {
+                if(readCommentController!= null){ readCommentController.closeView();}
+                readCommentController = new ReadCommentController(virtualKanbanController,task);
                 readCommentController.showView();
             });
             menuButton.getItems().get(5).setOnAction(event -> {
@@ -243,4 +246,7 @@ public class KanBanViewController extends BorderPane {
         stackPane.getChildren().removeIf(child -> child.equals(this));
     }
 
+    public Project getProject() {
+        return project;
+    }
 }
