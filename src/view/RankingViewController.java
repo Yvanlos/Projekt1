@@ -42,7 +42,7 @@ public class RankingViewController extends BorderPane {
     }
 
     @FXML
-    private TableView<?> tableViewaRanking;
+    private TableView<?> tableViewRanking;
 
     @FXML
     private TableColumn<?, ?> tableColumnName;

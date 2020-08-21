@@ -15,7 +15,7 @@
          </font></Text>
    </top>
    <center>
-      <TableView fx:id="tableViewaRanking" prefHeight="962.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="tableViewRanking" prefHeight="962.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="tableColumnName" prefWidth="960.0" text="Name" />
           <TableColumn fx:id="tableColumnLast7Days" minWidth="0.0" prefWidth="960.0" text="Bearbeitete Aufgaben in den letzten sieben Tagen" />
