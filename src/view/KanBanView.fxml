@@ -9,9 +9,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="1000.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.KanBanViewController">
+<fx:root id="root" prefHeight="1000.0" prefWidth="1920.0" type="BorderPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <HBox prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -23,16 +24,24 @@
             <Button fx:id="infoButton" mnemonicParsing="false" onMouseClicked="#onInfoButtonMouseClick" prefHeight="100.0" prefWidth="510.0" text="Info" />
             <Button fx:id="addTaskButton" mnemonicParsing="false" onMouseClicked="#onAddTaskButtonMouseClick" prefHeight="100.0" prefWidth="510.0" text="+ Aufgabe" wrapText="true" />
             <Button fx:id="archiveButton" mnemonicParsing="false" onMouseClicked="#onArchiveButtonMouseClick" prefHeight="40.0" prefWidth="510.0" text="Archivieren" />
+            <Pane prefHeight="40.0" prefWidth="99.0" />
+            <Button fx:id="returnButton" mnemonicParsing="false" onMouseClicked="#returnButtonClicked" prefHeight="20.0" prefWidth="100.0" text="Zurück" />
          </children>
       </HBox>
    </top>
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <left>
-            <ScrollPane fx:id="newTaskPane" prefHeight="880.0" prefWidth="197.0" BorderPane.alignment="CENTER" />
+            <ScrollPane fx:id="newTaskPane" prefHeight="880.0" prefWidth="197.0" BorderPane.alignment="CENTER">
+               <content>
+                  <VBox fx:id="newStageBox" prefHeight="876.0" prefWidth="176.0" />
+               </content></ScrollPane>
          </left>
          <right>
-            <ScrollPane fx:id="taskFinishedPane" prefHeight="880.0" prefWidth="197.0" BorderPane.alignment="CENTER" />
+            <ScrollPane fx:id="taskFinishedPane" prefHeight="880.0" prefWidth="197.0" BorderPane.alignment="CENTER">
+               <content>
+                  <VBox fx:id="finishedStageBox" prefHeight="860.0" prefWidth="181.0" />
+               </content></ScrollPane>
          </right>
          <center>
             <GridPane BorderPane.alignment="CENTER">
@@ -48,7 +57,10 @@
                <children>
                   <BorderPane prefHeight="200.0" prefWidth="200.0">
                      <center>
-                        <ScrollPane fx:id="analysisProcessPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                        <ScrollPane fx:id="analysisProcessPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <content>
+                              <VBox fx:id="analysisInProgressBox" prefHeight="408.0" prefWidth="489.0" />
+                           </content></ScrollPane>
                      </center>
                      <top>
                         <Label text="Bearbeitung" BorderPane.alignment="CENTER" />
@@ -56,7 +68,10 @@
                   </BorderPane>
                   <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <center>
-                        <ScrollPane fx:id="implementationProcessPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                        <ScrollPane fx:id="implementationProcessPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <content>
+                              <VBox fx:id="implementationInProgressBox" prefHeight="414.0" prefWidth="498.0" />
+                           </content></ScrollPane>
                      </center>
                      <top>
                         <Label text="Bearbeitung" BorderPane.alignment="CENTER" />
@@ -64,7 +79,10 @@
                   </BorderPane>
                   <BorderPane layoutX="130.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                      <center>
-                        <ScrollPane fx:id="testProcessPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                        <ScrollPane fx:id="testProcessPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <content>
+                              <VBox fx:id="testInProgressBox" prefHeight="412.0" prefWidth="497.0" />
+                           </content></ScrollPane>
                      </center>
                      <top>
                         <Label text="Bearbeitung" BorderPane.alignment="CENTER" />
@@ -72,7 +90,10 @@
                   </BorderPane>
                   <BorderPane layoutX="249.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                      <center>
-                        <ScrollPane fx:id="analysisFinishedPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                        <ScrollPane fx:id="analysisFinishedPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <content>
+                              <VBox fx:id="analysisFinishedBox" prefHeight="410.0" prefWidth="497.0" />
+                           </content></ScrollPane>
                      </center>
                      <top>
                         <Label text="Erledigt" BorderPane.alignment="CENTER" />
@@ -80,7 +101,10 @@
                   </BorderPane>
                   <BorderPane layoutX="10.0" layoutY="143.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <center>
-                        <ScrollPane fx:id="implementationFinishedPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                        <ScrollPane fx:id="implementationFinishedPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <content>
+                              <VBox fx:id="implementationFinishedBox" prefHeight="412.0" prefWidth="496.0" />
+                           </content></ScrollPane>
                      </center>
                      <top>
                         <Label text="Erledigt" BorderPane.alignment="CENTER" />
@@ -88,7 +112,10 @@
                   </BorderPane>
                   <BorderPane layoutX="130.0" layoutY="143.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <center>
-                        <ScrollPane fx:id="testFinishedPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                        <ScrollPane fx:id="testFinishedPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <content>
+                              <VBox fx:id="testFinishedBox" prefHeight="407.0" prefWidth="496.0" />
+                           </content></ScrollPane>
                      </center>
                      <top>
                         <Label text="Erledigt" BorderPane.alignment="CENTER" />
@@ -132,4 +159,4 @@
          </left>
       </BorderPane>
    </bottom>
-</BorderPane>
+</fx:root>
