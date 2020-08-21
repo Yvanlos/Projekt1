@@ -164,9 +164,8 @@ public class TaskController {
  	 * @throws UnsupportedOperationException
  	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
  	 */
-    public void showNotes(Task task) throws UnsupportedOperationException {
-    	ArrayList<Note> notesList = task.getNote();
-    	//notesList.toString();
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+    public ArrayList<Note> showNotes(Task task) throws UnsupportedOperationException {
+
+    	 return task.getNote();
     }
 }
