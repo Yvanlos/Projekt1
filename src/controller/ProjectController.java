@@ -16,7 +16,11 @@ public class ProjectController {
 	 */
     private VirtualKanbanController virtualKanbanController;
 
-    public ProjectController(VirtualKanbanController virtualKanbanController) {
+	/**
+	 * The ProjectController constructor
+	 * @param virtualKanbanController reference to the main-controller
+	 */
+	public ProjectController(VirtualKanbanController virtualKanbanController) {
     	this.virtualKanbanController = virtualKanbanController;
     }
 

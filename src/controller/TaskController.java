@@ -33,8 +33,12 @@ public class TaskController {
  	 */
     private VirtualKanbanController virtualKanbanController;
 
-    public TaskController(VirtualKanbanController VirtualKanbanController) {
-    	this.virtualKanbanController= VirtualKanbanController;
+	/**
+	 * The TaskController constructor.
+	 * @param virtualKanbanController reference to the main-controller
+	 */
+    public TaskController(VirtualKanbanController virtualKanbanController) {
+    	this.virtualKanbanController= virtualKanbanController;
     }
 
     /**
@@ -178,6 +182,7 @@ public class TaskController {
     /**
  	 * show all notes from a Task
  	 * @param task The task with Notes
+	 * @return ArrayList of notes
  	 */
     public ArrayList<Note> showNotes(Task task) {
 

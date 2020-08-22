@@ -45,7 +45,7 @@ public class Developer implements Serializable {
     public Developer(String name, URI picture) {
 		this.name = name;
 		this.picture = picture;
-		completedStageList = new ArrayList<CompletedStage>();
+		completedStageList = new ArrayList<>();
 	}
 
 	/**
@@ -129,8 +129,12 @@ public class Developer implements Serializable {
 	public void setCurrentTaskStage(CompletedStage currentTaskStage) {
 		this.currentTaskStage = currentTaskStage;
 	}
-    
-    public void setCompletedStageList(ArrayList<CompletedStage> arraylist) {
+
+	/**
+	 * Sets the ArrayList of completedStages to a given ArrayList
+	 * @param arraylist the ArrayList of completed stages
+	 */
+	public void setCompletedStageList(ArrayList<CompletedStage> arraylist) {
 		this.completedStageList = arraylist;
 	}
     

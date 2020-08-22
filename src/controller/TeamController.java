@@ -19,7 +19,7 @@ public class TeamController {
 
     /**
      * The TeamController constructor.
-     * @param virtualKanbanController
+     * @param virtualKanbanController reference to the main-controller
      */
     public TeamController(VirtualKanbanController virtualKanbanController) {
     	this.virtualKanbanController = virtualKanbanController;

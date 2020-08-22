@@ -46,8 +46,6 @@ public class IOController {
  	 * loads the last state of the Program after launching VirtualKanban
  	 * @throws IOException
  	 *	 	 	is thrown if an error occurs while loading
-	 * @throws ClassNotFoundException
-	 * 			is thrown if the SAVE_File file can not be found
  	 */
     public VirtualKanban load() throws IOException{
 		if (SAVE_File.exists()) {
