@@ -15,7 +15,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.lang.UnsupportedOperationException;
 import java.time.LocalDateTime;
 
 public class NewTaskViewController extends VBox {
@@ -64,11 +63,8 @@ public class NewTaskViewController extends VBox {
     }
 
     /**
-     *
-     * TODO: create JavaDoc.
+     * Cancels the adding of a new task
      * @param event
-     * @throws UnsupportedOperationException
-     *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist.
      */
     @FXML
     void onCancelButtonEvent(MouseEvent event){
@@ -76,20 +72,16 @@ public class NewTaskViewController extends VBox {
     }
 
     /**
-     *
-     * TODO: create JavaDoc.
+     * Adds a new task to the project
      * @param event
-     * @throws UnsupportedOperationException
-     *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist.
      */
     @FXML
-    void onSaveButtonEvent(MouseEvent event) throws UnsupportedOperationException {
+    void onSaveButtonEvent(MouseEvent event){
         LocalDateTime date = null;
         if(dateInputField.getValue() != null){
             date = dateInputField.getValue().atStartOfDay();
         }
         virtualKanbanController.getTaskController().addTask(kanBanViewController.getProject(),nameInputField.getText(),descriptionInputField.getText(),date);
-        System.out.println("Added Task: "+nameInputField.getText());
         closeView();
     }
 
