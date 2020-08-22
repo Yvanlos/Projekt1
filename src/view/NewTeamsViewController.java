@@ -1,5 +1,6 @@
 package view;
 
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -28,24 +29,6 @@ public class NewTeamsViewController {
  	 * 
  	 */
     @FXML
-    private TextField numberInputField;
-
-    /**
- 	 * 
- 	 */
-    @FXML
-    private TextField descriptionInputField;
-
-    /**
- 	 * 
- 	 */
-    @FXML
-    private ComboBox<?> projectInputField;
-
-    /**
- 	 * 
- 	 */
-    @FXML
     private Button cancelButton;
 
     /**
@@ -56,7 +39,7 @@ public class NewTeamsViewController {
     
     
     /**
-     * The ViratualKanbanControlle object.
+     * The VirtualKanbanController object.
      */
     private VirtualKanbanController virtualKanbanController;
     
@@ -65,9 +48,14 @@ public class NewTeamsViewController {
      */
     private Stage stage;
 
-    
-    public NewTeamsViewController(VirtualKanbanController virtualKanbanController) {
+	/**
+	 *
+	 */
+	private TeamsViewController teamsViewController;
+
+	public NewTeamsViewController(VirtualKanbanController virtualKanbanController, TeamsViewController teamsViewController) {
     	this.virtualKanbanController = virtualKanbanController;
+    	this.teamsViewController = teamsViewController;
     	
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("NewTeamsView.fxml"));
     	fxmlLoader.setController(this);
@@ -87,39 +75,47 @@ public class NewTeamsViewController {
     	stage = new Stage();
     	//stage.initModality(Modality.APPLICATION_MODAL); // Blockiert alle anderen Fenster im Hintergrund.
     	stage.setScene(scene);
+    	stage.setTitle("Neues Team anlegen");
+    	stage.getIcons().add(new Image(getClass().getResourceAsStream("ressources/team.png")));
 	}
 
     /**
+ 	 * Handles a MouseClick on the cancelButton
+	 * Closes the view and clears the input field
  	 *
- 	 * TODO: create JavaDoc. 
- 	 * @param event
- 	 * @throws UnsupportedOperation Exception
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
+ 	 * @param event the cause of the method-call
  	 */
     @FXML
-    void onCancelButtonEvent(MouseEvent event) throws UnsupportedOperationException {
-        //Clear textfield
-    	
-    	
+    void onCancelButtonEvent(MouseEvent event){
     	closeView();
+    	nameInputField.clear();
+		nameInputField.setPromptText("");
     }
 
     /**
+	 * Handles a MouseClick on the confirmButton
+	 * creates a team, closes the view and clears the input field
  	 *
- 	 * TODO: create JavaDoc. 
- 	 * @param event
- 	 * @throws UnsupportedOperation Exception
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist. 
+ 	 * @param event the cause of the method-call
  	 */
     @FXML
-    void onConfirmButtonEvent(MouseEvent event) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+    void onConfirmButtonEvent(MouseEvent event){
+		String name = nameInputField.getText();
+		if(name.equals(""))
+		{
+			nameInputField.setPromptText("Bitte geben Sie einen Namen ein");
+		} else {
+			virtualKanbanController.getTeamController().createTeam(name);
+			nameInputField.setPromptText("");
+			nameInputField.clear();
+			closeView();
+			teamsViewController.refreshTeamList();
+		}
     }
     
     /**
      * Shows this Window.
      */
-    
     public void showView() {
     	stage.show();
     }
