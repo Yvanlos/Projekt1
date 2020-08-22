@@ -5,6 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
 
@@ -27,6 +29,18 @@ public class DeveloperControllerTest {
 
         assertFalse(testTeam.getDevelopers().isEmpty());
         assertNotEquals(testTeam.getDevelopers().get(0).getName(),testTeam.getDevelopers().get(1).getName());
+    }
+
+    /**
+     * tests createDeveloper with empty name
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testCreateDeveloper2() {
+        VirtualKanbanController vkc = new VirtualKanbanController();
+        DeveloperController developerController = vkc.getDeveloperController();
+        Team testTeam = new Team("testTeam");
+        vkc.getVirtualKanban().getTeam().add(testTeam);
+        developerController.createDeveloper(testTeam, "", null);
     }
 
     /**
@@ -109,5 +123,47 @@ public class DeveloperControllerTest {
         testProj1.getStageList().get(1).addTask(testTask);
 
         assertEquals(developerController.getProjectFromTask(testTask), testProj1);
+    }
+
+    /**
+     * tests the getProjectFromTask method with a unallowed task
+     */
+    @Test (expected = NoSuchElementException.class)
+    public void testGetProjectFromTask2(){
+        VirtualKanbanController vkc = new VirtualKanbanController();
+        DeveloperController developerController = vkc.getDeveloperController();
+        ProjectController pc = vkc.getProjectController();
+        TeamController tc = vkc.getTeamController();
+        TaskController taskController = vkc.getTaskController();
+        Task testTask = new Task("testTask", "this is a test",LocalDateTime.MAX);
+        Team testTeam1 = new Team("testTeam1");
+        Project testProj1 = new Project("testProj", "this is at test", LocalDateTime.MAX, testTeam1);
+        vkc.getVirtualKanban().getProject().add(testProj1);
+        vkc.getVirtualKanban().getTeam().add(testTeam1);
+        developerController.getProjectFromTask(testTask);
+    }
+
+
+    /**
+     * tests the method getDeveloperList()
+     */
+    @Test
+    public void testgetDeveloperList(){
+        VirtualKanbanController vkc = new VirtualKanbanController();
+        DeveloperController developerController = vkc.getDeveloperController();
+        TaskController taskController = new TaskController(vkc);
+        Team testTeam1 = new Team("testTeam1");
+        Team testTeam2 = new Team("testTeam2");
+        Developer testDev = new Developer("testDev", null);
+        Developer testDev2 = new Developer("testDev2", null);
+        testTeam1.getDevelopers().add(testDev);
+        testTeam2.getDevelopers().add(testDev2);
+        vkc.getVirtualKanban().getTeam().add(testTeam1);
+        vkc.getVirtualKanban().getTeam().add(testTeam2);
+        ArrayList<Developer> devList = new ArrayList<>();
+        devList.add(testDev);
+        devList.add(testDev2);
+
+        assertEquals(devList,developerController.getDeveloperList());
     }
 }
