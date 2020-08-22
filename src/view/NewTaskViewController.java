@@ -77,12 +77,16 @@ public class NewTaskViewController extends VBox {
      */
     @FXML
     void onSaveButtonEvent(MouseEvent event){
-        LocalDateTime date = null;
-        if(dateInputField.getValue() != null){
-            date = dateInputField.getValue().atStartOfDay();
+        if(nameInputField.getText().equals("")) {
+            nameInputField.setPromptText("Bitte geben Sie einen Namen ein");
+        } else {
+            LocalDateTime date = null;
+            if (dateInputField.getValue() != null) {
+                date = dateInputField.getValue().atStartOfDay();
+            }
+            virtualKanbanController.getTaskController().addTask(kanBanViewController.getProject(), nameInputField.getText(), descriptionInputField.getText(), date);
+            closeView();
         }
-        virtualKanbanController.getTaskController().addTask(kanBanViewController.getProject(),nameInputField.getText(),descriptionInputField.getText(),date);
-        closeView();
     }
 
     /**
