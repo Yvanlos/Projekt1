@@ -3,23 +3,45 @@ package view;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.IntegerBinding;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import controller.VirtualKanbanController;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 import model.*;
 
 
 public class MainViewController extends BorderPane {
+
+    public static class HBoxCell extends HBox {
+        Label label = new Label();
+        Button button = new Button();
+
+        HBoxCell(String labelText, String buttonText) {
+            super();
+
+            label.setText(labelText);
+            label.setMaxWidth(Double.MAX_VALUE);
+            HBox.setHgrow(label, Priority.ALWAYS);
+
+            button.setText(buttonText);
+
+            this.getChildren().addAll(label, button);
+        }
+    }
 
     /**
      *
@@ -63,11 +85,12 @@ public class MainViewController extends BorderPane {
     @FXML
     private Button exitButton;
 
-    /**
-     *
-     */
     @FXML
-    private GridPane showProjectPane;
+    private ListView<Project> activeProjectsList;
+
+    @FXML
+    private ListView<Project> archivedProjectsList;
+
 
     /**
      * The VirtualKanbanController object.
@@ -153,18 +176,76 @@ public class MainViewController extends BorderPane {
         //Test developer
         testProject.getTeam().addDeveloper(new Developer("TestDev",null));
 
-        //Add all Projects as Buttons to the MainView
-        showProjectPane.getChildren().clear();
-        virtualKanbanController.getVirtualKanban().getProject().forEach(project -> {
-            Button projectButton = new Button(project.getName());
-            projectButton.setPrefSize(50,50);
-            projectButton.setOnAction(evt -> {
-                KanBanViewController kanBanViewController = new KanBanViewController(stackPane, virtualKanbanController, project);
-                stackPane.getChildren().get(0).setVisible(false);
-                stackPane.getChildren().add(kanBanViewController);
-            });
-            //showProjectPane.add(projectButton,0,0);
-            showProjectPane.getChildren().add(projectButton);
+        activeProjectsList.setPlaceholder(new Label("Keine Projekte vorhanden"));
+        ArrayList<Project> activeProjects = new ArrayList<>();
+        for(Project project : virtualKanbanController.getVirtualKanban().getProject())
+            if(!project.isReadOnly()){
+                activeProjects.add(project);
+            }
+        ObservableList<Project> observableActiveProjectsList =
+                FXCollections.observableArrayList(activeProjects);
+        activeProjectsList.setItems(observableActiveProjectsList);
+        activeProjectsList.setCellFactory(e -> new ListCell<Project>() {
+            @Override
+            protected void updateItem(Project project, boolean empty) {
+                super.updateItem(project, empty);
+
+                if (empty || project == null) {
+                    setGraphic(null);
+                } else {
+                    Text name = new Text(project.getName());
+                    name.setStyle("-fx-font: 20 arial; ");
+
+                    Button showButton = new Button("Projekt anzeigen");
+                    showButton.setPrefHeight(20);
+                    showButton.setPrefWidth(200);
+                    showButton.setCenterShape(true);
+                    showButton.setOnMouseClicked(e -> {
+                        KanBanViewController kanBanViewController = new KanBanViewController(stackPane, virtualKanbanController, project);
+                        stackPane.getChildren().get(0).setVisible(false);
+                        stackPane.getChildren().add(kanBanViewController);
+
+                    });
+                    BorderPane display = new BorderPane(name, null, showButton, null, null);
+                    setGraphic(display);
+                }
+            }
+        });
+
+        archivedProjectsList.setPlaceholder(new Label("Keine archivierten Projekte vorhanden"));
+        ArrayList<Project> archivedProjects = new ArrayList<>();
+        for(Project project : virtualKanbanController.getVirtualKanban().getProject())
+            if(project.isReadOnly()){
+                archivedProjects.add(project);
+            }
+        ObservableList<Project> observableArchivedProjectsList =
+                FXCollections.observableArrayList(archivedProjects);
+        archivedProjectsList.setItems(observableArchivedProjectsList);
+        archivedProjectsList.setCellFactory(e -> new ListCell<Project>() {
+            @Override
+            protected void updateItem(Project project, boolean empty) {
+                super.updateItem(project, empty);
+
+                if (empty || project == null) {
+                    setGraphic(null);
+                } else {
+                    Text name = new Text(project.getName());
+                    name.setStyle("-fx-font: 20 arial; ");
+
+                    Button showButton = new Button("Projekt anzeigen");
+                    showButton.setPrefHeight(20);
+                    showButton.setPrefWidth(200);
+                    showButton.setCenterShape(true);
+                    showButton.setOnMouseClicked(e -> {
+                        KanBanViewController kanBanViewController = new KanBanViewController(stackPane, virtualKanbanController, project);
+                        stackPane.getChildren().get(0).setVisible(false);
+                        stackPane.getChildren().add(kanBanViewController);
+
+                    });
+                    BorderPane display = new BorderPane(name, null, showButton, null, null);
+                    setGraphic(display);
+                }
+            }
         });
 
         //Binding
