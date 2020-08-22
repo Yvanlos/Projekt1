@@ -241,10 +241,13 @@ public class KanBanViewController extends BorderPane {
             //A MenuButton with 6 MenuItems for managing tasks is added for each task in this stage
             MenuButton menuButton = new MenuButton();
             menuButton.setPrefSize(300,90);
+            String deadline = "";
+            if(task.getDeadline() != null){ deadline = task.getDeadline().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));}
+
             if(task.getDeveloper() != null) {
-                menuButton.setText(task.getName() + "\n" + task.getDescription() + "\nDeadline: " + task.getDeadline().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")) + "\nEntwickler: " + task.getDeveloper().getName());
+                menuButton.setText(task.getName() + "\n" + task.getDescription() + "\nDeadline: " + deadline + "\nEntwickler: " + task.getDeveloper().getName());
             }else{
-                menuButton.setText(task.getName() + "\n" + task.getDescription() + "\nDeadline: " + task.getDeadline().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")) + "\nEntwickler: nicht zugewiesen");
+                menuButton.setText(task.getName() + "\n" + task.getDescription() + "\nDeadline: " + deadline + "\nEntwickler: nicht zugewiesen");
             }
             //A menu that shows all unassigned developers is added, if a developer is chosen he is assigned to the task
             Menu menu = new Menu("Aufgabe anfangen");
