@@ -1,6 +1,5 @@
 package view;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -8,18 +7,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.scene.layout.AnchorPane;
-
-import java.lang.UnsupportedOperationException;
 
 import application.Main;
 import controller.VirtualKanbanController;
 import model.Project;
-import model.Team;
 
 
 public class PdfViewController extends BorderPane {
@@ -39,7 +33,9 @@ public class PdfViewController extends BorderPane {
     @FXML
     private ComboBox<Project> projectComboBox;
 
-    //private StackPane stackPane;
+    @FXML
+    private Label errorLabel;
+
 
     ToggleGroup group = new ToggleGroup();
 
@@ -48,7 +44,6 @@ public class PdfViewController extends BorderPane {
     private VirtualKanbanController virtualKanbanController;
 
     public PdfViewController(VirtualKanbanController virtualKanbanController) {
-        //this.stackPane = stackPane;
         this.virtualKanbanController = virtualKanbanController;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PdfView.fxml"));
@@ -63,26 +58,6 @@ public class PdfViewController extends BorderPane {
 
         allProjectsButton.setToggleGroup(group);
         oneProjectButton.setToggleGroup(group);
-
-        ObservableList<Project> observableProjectList =
-                FXCollections.observableArrayList(virtualKanbanController.getVirtualKanban().getProject());
-        projectComboBox.setItems(observableProjectList);
-        projectComboBox.setCellFactory(e -> new ListCell<Project>() {
-            @Override
-            protected void updateItem(Project project, boolean empty) {
-                super.updateItem(project, empty);
-
-                if (empty || project == null) {
-                    setText(null);
-                }
-                else{
-                    setText(project.getName());
-                }
-            }
-        });
-
-        // TODO hier kann die View weiter initialisiert werden (�quivalent zu initialize-Methode bei Komponenten)
-
 
         // init Scene and Stage
         Scene scene = new Scene(root);
@@ -99,14 +74,45 @@ public class PdfViewController extends BorderPane {
 
     @FXML
     void onExportButtonClicked(MouseEvent event) {
-
+        errorLabel.setVisible(false);
+        if(allProjectsButton.isSelected()) {
+            //virtualKanbanController.getIOController().exportPdf(virtualKanbanController.getVirtualKanban().getProject());
+        }
+        else if(projectComboBox.getValue()==null) {
+            errorLabel.setVisible(true);
+        } else {
+            //virtualKanbanController.getIOController().exportPdf(projectComboBox.getValue());
+        }
     }
 
     public void showView() {
         stage.show();
+        errorLabel.setVisible(false);
+        getData();
     }
-//
+
+    //
     public void closeView() {
+        projectComboBox.setValue(null);
         stage.hide();
+    }
+
+    public void getData() {
+        ObservableList<Project> observableProjectList =
+                FXCollections.observableArrayList(virtualKanbanController.getVirtualKanban().getProject());
+        projectComboBox.setItems(observableProjectList);
+        projectComboBox.setCellFactory(e -> new ListCell<Project>() {
+            @Override
+            protected void updateItem(Project project, boolean empty) {
+                super.updateItem(project, empty);
+
+                if (empty || project == null) {
+                    setText(null);
+                } else {
+                    setText(project.getName());
+                }
+            }
+        });
+        projectComboBox.setButtonCell(projectComboBox.getCellFactory().call(null));
     }
 }
