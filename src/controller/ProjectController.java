@@ -50,9 +50,13 @@ public class ProjectController {
  	 * @param project the project to be archived
  	 */
     public void archiveProject(Project project) {
-		ArrayList<Task> tasksAnalysis = null;
+		//Getting all necessary stageLists
+    	ArrayList<Task> tasksAnalysis = null;
 		ArrayList<Task> tasksImplementation = null;
 		ArrayList<Task> tasksTests = null;
+		ArrayList<Task> tasksNew = null;
+		ArrayList<Task> tasksAnalysisFinished = null;
+		ArrayList<Task> tasksImplementationFinished = null;
 		for (StageList list : project.getStageList()){
 			if(list.getStage()== Stage.ANALYSE_IN_PROGRESS){
 				tasksAnalysis = list.getTask();
@@ -63,22 +67,31 @@ public class ProjectController {
 			if(list.getStage()==Stage.TEST_IN_PROGRESS){
 				tasksTests = list.getTask();
 			}
+			if(list.getStage()==Stage.NEW){
+				tasksNew = list.getTask();
+			}
+			if(list.getStage()==Stage.ANALYSE_FINISHED){
+				tasksAnalysisFinished = list.getTask();
+			}
+			if(list.getStage()==Stage.IMPLEMENTATION_FINISHED){
+				tasksImplementationFinished = list.getTask();
+			}
 		}
-		//tasksAnalysis.forEach((task) -> task.getDeveloper().cancelTask());
-		//moveTaskBackward is not failsafe for removing in a loop
-		//TODO make the removing failsafe
-		for (Task task: tasksAnalysis) {
-			project.moveTaskBackward(task);
-			task.getDeveloper().cancelTask();
-		}
-		for (Task task: tasksImplementation) {
-			project.moveTaskBackward(task);
-			task.getDeveloper().cancelTask();
-		}
-		for (Task task: tasksTests) {
-			project.moveTaskBackward(task);
-			task.getDeveloper().cancelTask();
-		}
+
+		//Cancels all tasks
+		tasksAnalysis.forEach((task) -> task.getDeveloper().cancelTask());
+		tasksImplementation.forEach((task) -> task.getDeveloper().cancelTask());
+		tasksTests.forEach((task) -> task.getDeveloper().cancelTask());
+
+		//Moves tasks backwards
+		tasksNew.addAll(tasksAnalysis);
+		tasksAnalysis.clear();
+		tasksAnalysisFinished.addAll(tasksImplementation);
+		tasksImplementation.clear();
+		tasksImplementationFinished.addAll(tasksTests);
+		tasksTests.clear();
+
+		//set status of the project to readOnly
 		project.setReadOnly(true);
     }
 
