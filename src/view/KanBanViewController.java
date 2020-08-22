@@ -6,14 +6,22 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Orientation;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import model.*;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.UnsupportedOperationException;
 import java.util.ArrayList;
 import java.time.format.DateTimeFormatter;
@@ -63,7 +71,7 @@ public class KanBanViewController extends BorderPane {
     private VBox testFinishedBox;
 
     @FXML
-    private HBox unassignedList;
+    private ListView<Developer> unassignedList;
 
     @FXML
     private StackPane stackPane;
@@ -165,13 +173,60 @@ public class KanBanViewController extends BorderPane {
         }
 
         //Adds all unassigned developers to the unassigned List
-        //TODO: use something else than a label
+        addUnassignedDeveloperToListView();
+        //unassignedList.setCellFactory();
+
+
+
+
+    }
+    @FXML
+    public void addUnassignedDeveloperToListView(){
+        unassignedList.setOrientation(Orientation.HORIZONTAL);
+        unassignedList.setCellFactory(e -> new ListCell<Developer>() {
+                    @Override
+                    protected void updateItem(Developer developer, boolean empty) {
+                        super.updateItem(developer, empty);
+                        if (empty || developer == null) {
+                            setGraphic(null);
+                        } else{
+                            ImageView imageView = new ImageView();
+                            if(developer.getPicture() != null) {
+                                try {
+                                    File imageFile = new File(developer.getPicture());
+                                    InputStream imageStream = new FileInputStream(imageFile);
+                                    Image image = new Image(imageStream);
+                                    imageView.setImage(image);
+                                }
+                                catch(IOException e) {
+                                    System.out.println("Could not load picture.");
+                                }
+                            }
+                            imageView.setFitHeight(40);
+                            imageView.setFitWidth(40);
+                            Text name = new Text(developer.getName());
+                            name.setStyle("-fx-font: 12 arial; ");
+                            BorderPane display = new BorderPane(name, null, null, null, imageView);
+                            setGraphic(display);
+                        }
+                    }
+                }
+        );
+        refreshDeveloperList();
+    }
+
+    /**
+     * Sets the unassigned developerList to a list of all currently unassigned developers.
+     */
+    public void refreshDeveloperList() {
+        ArrayList<Developer> developerList = new ArrayList<Developer>();
         project.getTeam().getDevelopers().forEach(developer -> {
-            if (!developer.isAtWork()) {
-                Label label = new Label(developer.getName());
-                unassignedList.getChildren().add(label);
+            if(!developer.isAtWork()){
+                developerList.add(developer);
             }
         });
+        ObservableList<Developer> observableDeveloperList = FXCollections.observableArrayList(developerList);
+        unassignedList.setItems(observableDeveloperList);
     }
 
 
@@ -185,6 +240,7 @@ public class KanBanViewController extends BorderPane {
         stageList.getTask().forEach(task -> {
             //A MenuButton with 6 MenuItems for managing tasks is added for each task in this stage
             MenuButton menuButton = new MenuButton();
+            menuButton.setPrefSize(300,90);
             if(task.getDeveloper() != null) {
                 menuButton.setText(task.getName() + "\n" + task.getDescription() + "\nDeadline: " + task.getDeadline().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")) + "\nEntwickler: " + task.getDeveloper().getName());
             }else{
@@ -263,6 +319,7 @@ public class KanBanViewController extends BorderPane {
         stageList.getTask().forEach(task -> {
             //A MenuButton with 6 MenuItems for managing tasks is added for each task in this stage
             MenuButton menuButton = new MenuButton();
+            menuButton.setPrefSize(300,90);
             menuButton.setText(task.getName() + "\n" + task.getDescription() + "\nDeadline: " + task.getDeadline().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")) + "\nEntwickler: nicht zugewiesen");
             menuButton.getItems().add(new MenuItem("Aufgabe anfangen"));
             menuButton.getItems().add(new MenuItem("Aufgabe abbrechen"));
