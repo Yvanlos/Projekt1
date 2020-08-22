@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -50,15 +51,18 @@ public class ControlQuestionViewController extends VBox {
 
     private Task task;
 
+    private StackPane stackPane;
+
     /**
      *
      * @param virtualKanbanController
      */
-    public ControlQuestionViewController(VirtualKanbanController virtualKanbanController, String event, Project project, Task task){
+    public ControlQuestionViewController(VirtualKanbanController virtualKanbanController, String event, Project project, Task task, StackPane stackPane){
         this.virtualKanbanController = virtualKanbanController;
         this.event = event;
         this.project = project;
         this.task = task;
+        this.stackPane = stackPane;
 
         //Load view
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ControlQuestionView.fxml"));
@@ -97,14 +101,16 @@ public class ControlQuestionViewController extends VBox {
     void onContinueButtonEvent(MouseEvent event){
         //TODO when refreshing is working, test if it works
         if(this.event.equals("archiveButton")){
-            //System.out.println("Archivieren");
             virtualKanbanController.getProjectController().archiveProject(project);
             closeView();
+            stackPane.getChildren().remove(1);
+            stackPane.getChildren().get(0).setVisible(true);
         }
         if(this.event.equals("deleteProjectButton")){
-            //System.out.println("Löschen");
             virtualKanbanController.getProjectController().deleteProject(project);
             closeView();
+            stackPane.getChildren().remove(1);
+            stackPane.getChildren().get(0).setVisible(true);
         }
         if(this.event.equals("deleteTaskButton")){
             virtualKanbanController.getTaskController().deleteTask(project, task);

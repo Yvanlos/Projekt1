@@ -223,7 +223,7 @@ public class KanBanViewController extends BorderPane {
             }
             //If deleteComment is chosen a confirm window is shown
             menuButton.getItems().get(3).setOnAction(event -> {
-                controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController, "deleteTaskButton", project, task);
+                controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController, "deleteTaskButton", project, task,stackPane);
                 controlQuestionViewController.showView();
             });
             //If readComment is chosen all other comment windows are closed and the readCommentView is shown
@@ -330,7 +330,7 @@ public class KanBanViewController extends BorderPane {
      */
     @FXML
     void onArchiveButtonMouseClick(MouseEvent event) {
-        controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController, "archiveButton", project, null);
+        controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController, "archiveButton", project, null, stackPane);
         controlQuestionViewController.showView();
     }
 
@@ -347,7 +347,7 @@ public class KanBanViewController extends BorderPane {
 
     @FXML
     void onDeleteButtonClicked(MouseEvent event) {
-        controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController, "deleteProjectButton", project, null);
+        controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController, "deleteProjectButton", project, null, stackPane);
         controlQuestionViewController.showView();
     }
 
