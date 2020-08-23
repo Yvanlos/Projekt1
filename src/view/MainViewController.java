@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import controller.VirtualKanbanController;
@@ -123,7 +125,7 @@ public class MainViewController extends BorderPane {
 
 
     /**
-     * @param virtualKanbanController
+     * @param virtualKanbanController the actual current KanbanController
      */
     public MainViewController(VirtualKanbanController virtualKanbanController) {
         this.virtualKanbanController = virtualKanbanController;
@@ -176,7 +178,78 @@ public class MainViewController extends BorderPane {
         //Test developer
         testProject.getTeam().addDeveloper(new Developer("TestDev",null));
 
-        activeProjectsList.setPlaceholder(new Label("Keine Projekte vorhanden"));
+        //list of active projects
+        activeProjectsList.setPlaceholder(new Label("Keine aktiven Projekte vorhanden"));
+        activeProjectsList.setCellFactory(e -> new ListCell<>() {
+            @Override
+            protected void updateItem(Project project, boolean empty) {
+                super.updateItem(project, empty);
+
+                if (empty || project == null) {
+                    setGraphic(null);
+                } else {
+                    Text name = new Text(project.getName());
+                    name.setStyle("-fx-font: 20 arial; ");
+
+                    Button showButton = new Button("Projekt anzeigen");
+                    showButton.setPrefHeight(20);
+                    showButton.setPrefWidth(200);
+                    showButton.setCenterShape(true);
+                    showButton.setOnMouseClicked(e -> {
+                        KanBanViewController kanBanViewController = new KanBanViewController(stackPane, virtualKanbanController, project);
+                        stackPane.getChildren().get(0).setVisible(false);
+                        stackPane.getChildren().add(kanBanViewController);
+
+                    });
+                    Text deadline = new Text("Deadline: "+project.getDeadline().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
+                    deadline.setStyle("-fx-font: 20 arial; ");
+                    BorderPane display = new BorderPane(name, null, showButton, null, deadline);
+
+                    setGraphic(display);
+                }
+            }
+        });
+
+        refreshActiveProjectsList();
+
+        //list of archived projects
+        archivedProjectsList.setPlaceholder(new Label("Keine archivierten Projekte vorhanden"));
+        archivedProjectsList.setCellFactory(e -> new ListCell<>() {
+            @Override
+            protected void updateItem(Project project, boolean empty) {
+                super.updateItem(project, empty);
+
+                if (empty || project == null) {
+                    setGraphic(null);
+                } else {
+                    Text name = new Text(project.getName());
+                    name.setStyle("-fx-font: 20 arial; ");
+
+                    Button showButton = new Button("Projekt anzeigen");
+                    showButton.setPrefHeight(20);
+                    showButton.setPrefWidth(200);
+                    showButton.setCenterShape(true);
+                    showButton.setOnMouseClicked(e -> {
+                        KanBanViewController kanBanViewController = new KanBanViewController(stackPane, virtualKanbanController, project);
+                        stackPane.getChildren().get(0).setVisible(false);
+                        stackPane.getChildren().add(kanBanViewController);
+
+                    });
+                    BorderPane display = new BorderPane(name, null, showButton, null, null);
+                    setGraphic(display);
+                }
+            }
+        });
+
+        refreshArchivedProjectsList();
+
+
+        //Binding
+        IntegerBinding sizeProperty = Bindings.size(stackPane.getChildren());
+        BooleanBinding multipleElemsProperty = sizeProperty.greaterThan(1);
+    }
+
+    public void refreshActiveProjectsList() {
         ArrayList<Project> activeProjects = new ArrayList<>();
         for(Project project : virtualKanbanController.getVirtualKanban().getProject())
             if(!project.isReadOnly()){
@@ -185,34 +258,9 @@ public class MainViewController extends BorderPane {
         ObservableList<Project> observableActiveProjectsList =
                 FXCollections.observableArrayList(activeProjects);
         activeProjectsList.setItems(observableActiveProjectsList);
-        activeProjectsList.setCellFactory(e -> new ListCell<Project>() {
-            @Override
-            protected void updateItem(Project project, boolean empty) {
-                super.updateItem(project, empty);
+    }
 
-                if (empty || project == null) {
-                    setGraphic(null);
-                } else {
-                    Text name = new Text(project.getName());
-                    name.setStyle("-fx-font: 20 arial; ");
-
-                    Button showButton = new Button("Projekt anzeigen");
-                    showButton.setPrefHeight(20);
-                    showButton.setPrefWidth(200);
-                    showButton.setCenterShape(true);
-                    showButton.setOnMouseClicked(e -> {
-                        KanBanViewController kanBanViewController = new KanBanViewController(stackPane, virtualKanbanController, project);
-                        stackPane.getChildren().get(0).setVisible(false);
-                        stackPane.getChildren().add(kanBanViewController);
-
-                    });
-                    BorderPane display = new BorderPane(name, null, showButton, null, null);
-                    setGraphic(display);
-                }
-            }
-        });
-
-        archivedProjectsList.setPlaceholder(new Label("Keine archivierten Projekte vorhanden"));
+    public void refreshArchivedProjectsList() {
         ArrayList<Project> archivedProjects = new ArrayList<>();
         for(Project project : virtualKanbanController.getVirtualKanban().getProject())
             if(project.isReadOnly()){
@@ -221,38 +269,7 @@ public class MainViewController extends BorderPane {
         ObservableList<Project> observableArchivedProjectsList =
                 FXCollections.observableArrayList(archivedProjects);
         archivedProjectsList.setItems(observableArchivedProjectsList);
-        archivedProjectsList.setCellFactory(e -> new ListCell<Project>() {
-            @Override
-            protected void updateItem(Project project, boolean empty) {
-                super.updateItem(project, empty);
-
-                if (empty || project == null) {
-                    setGraphic(null);
-                } else {
-                    Text name = new Text(project.getName());
-                    name.setStyle("-fx-font: 20 arial; ");
-
-                    Button showButton = new Button("Projekt anzeigen");
-                    showButton.setPrefHeight(20);
-                    showButton.setPrefWidth(200);
-                    showButton.setCenterShape(true);
-                    showButton.setOnMouseClicked(e -> {
-                        KanBanViewController kanBanViewController = new KanBanViewController(stackPane, virtualKanbanController, project);
-                        stackPane.getChildren().get(0).setVisible(false);
-                        stackPane.getChildren().add(kanBanViewController);
-
-                    });
-                    BorderPane display = new BorderPane(name, null, showButton, null, null);
-                    setGraphic(display);
-                }
-            }
-        });
-
-        //Binding
-        IntegerBinding sizeProperty = Bindings.size(stackPane.getChildren());
-        BooleanBinding multipleElemsProperty = sizeProperty.greaterThan(1);
     }
-
 
     /**
      * Opens the NewProject window

@@ -33,7 +33,7 @@
             
                </left>
                <center>
-                  <SplitPane dividerPositions="0.5" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                  <SplitPane dividerPositions="0.66" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <items>
                         <ListView fx:id="activeProjectsList" prefHeight="200.0" prefWidth="200.0" />
                         <ListView fx:id="archivedProjectsList" prefHeight="200.0" prefWidth="200.0" />
