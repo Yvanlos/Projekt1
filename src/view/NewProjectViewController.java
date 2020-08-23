@@ -4,21 +4,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.lang.UnsupportedOperationException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import application.Main;
 import controller.VirtualKanbanController;
-import model.Project;
 import model.Team;
 
 public class NewProjectViewController extends VBox {
@@ -78,10 +74,8 @@ public class NewProjectViewController extends VBox {
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("NewProjectView.fxml"));
         fxmlLoader.setRoot(this);
     	fxmlLoader.setController(this);
-    	//Parent root = new BorderPane();
     	try {
-    	    //root =
-                    fxmlLoader.load();
+    	    fxmlLoader.load();
     	} catch (Exception e) {
     	    throw new RuntimeException(e);
     	}
@@ -90,59 +84,66 @@ public class NewProjectViewController extends VBox {
     	Scene scene = new Scene(this);
     	scene.getStylesheets().add(Main.class.getResource("application.css").toExternalForm());
     	stage = new Stage();
-    	//stage.initModality(Modality.APPLICATION_MODAL); // Blockiert alle anderen Fenster im Hintergrund.
     	stage.setScene(scene);
 
     	//Generate the ViewController
         nameAlreadyAssignedViewController = new NameAlreadyAssignedViewController(virtualKanbanController);
 
-
-    	//TODO alignment of the textarea
-        //TODO combobox link with team:
-
-        //Testteam
-        //virtualKanbanController.getVirtualKanban().addTeam(new Team("testTeam"));
-
-        teamInputField.setPromptText("Bitte ein Team auswaehlen");
+        //Link the combobox with all existing teams
         ArrayList<Team> teamList = virtualKanbanController.getTeamController().getTeamsList();
         ObservableList<Team> observableTeamList = FXCollections.observableArrayList(teamList);
         teamInputField.setItems(observableTeamList);
-        //cellFactory?
+
+        teamInputField.setCellFactory(e -> new ListCell<Team>() {
+            @Override
+            protected void updateItem(Team team, boolean empty) {
+                super.updateItem(team, empty);
+
+                if (empty || team == null) {
+                    setText(null);
+                }
+                else{
+                    setText(team.getName());
+                }
+            }
+        });
+        teamInputField.setButtonCell(teamInputField.getCellFactory().call(null));
 	}
 
     /**
  	 *
- 	 * Closes this window.
+ 	 * Closes this window, clears all inputFields
  	 * @param event the mouse event
  	 */
     @FXML
     void onCancelButtonClick(MouseEvent event) {
-        //Clears all InputFields, if opened
-        nameInputField.setText("");
-        descriptionInputField.setText("");
-        deadlineInputField.getEditor().clear();
-
         closeView();
     }
 
     /**
- 	 *
- 	 * TODO: create JavaDoc.
+ 	 * Creates a new project, if not another project with the same name exists
  	 * @param event
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist.
  	 */
     @FXML
-    void onConfirmButtonClick(MouseEvent event) throws UnsupportedOperationException {
-        if(nameInputField.getText()==""){
-            //TODO
-        }
-        try{
-            //TODO teamInputField.getValue()
-            LocalDateTime deadline = null;
-            if(deadlineInputField.getValue() != null){
-                deadline= deadlineInputField.getValue().atStartOfDay();
+    void onConfirmButtonClick(MouseEvent event) {
+        try{//create a new project with the given data
+            if(nameInputField.getText().equals("")){
+                nameInputField.setPromptText("Bitte geben Sie einen Namen ein");
+                return;
             }
+            if(deadlineInputField.getValue() == null){
+                deadlineInputField.setPromptText("Bitte geben Sie eine Deadline ein");
+                return;
+            }
+            if(deadlineInputField.getValue() == null){
+                deadlineInputField.setPromptText("Bitte geben Sie eine Deadline ein");
+                return;
+            }
+            if(teamInputField.getValue() == null){
+                teamInputField.setPromptText("Bitte w\u00E4hlen Sie ein Team aus");
+                return;
+            }
+            LocalDateTime deadline= deadlineInputField.getValue().atStartOfDay();
             virtualKanbanController.getProjectController().createProject(nameInputField.getText(), deadline , teamInputField.getValue(),descriptionInputField.getText());
             closeView();
         }
@@ -164,6 +165,12 @@ public class NewProjectViewController extends VBox {
      * Hides this View.
      */
     public void closeView() {
-    	stage.hide();
+        //Clears all InputFields, if opened
+        nameInputField.setText("");
+        descriptionInputField.setText("");
+        deadlineInputField.getEditor().clear();
+        teamInputField.setValue(null);
+
+        stage.hide();
     }
 }

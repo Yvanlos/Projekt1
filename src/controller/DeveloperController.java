@@ -3,7 +3,6 @@ package controller;
 import model.*;
 
 import java.net.URI;
-import java.lang.UnsupportedOperationException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
@@ -34,14 +33,6 @@ public class DeveloperController {
 	}
 
 	/**
-	 * sets the virtualKanbanController
-	 * @param virtualKanbanController  the VirtualKanbanController
-	 */
-	public void setVirtualKanbanController(VirtualKanbanController virtualKanbanController) {
-		this.virtualKanbanController = virtualKanbanController;
-	}
-
-	/**
 	 * creates a developer which is then assigned to a team
 	 *
 	 * @param team the team for which the developer is created
@@ -50,7 +41,7 @@ public class DeveloperController {
 	 * @throws IllegalArgumentException if the name is empty
 	 */
 	public void createDeveloper(Team team, String name, URI picture) throws IllegalArgumentException {
-		if (name!=null) {
+		if (!name.isEmpty()) {
 			int i = 0;
 			for (Developer dev : team.getDevelopers()) {
 				if (dev.getName().equals(name)) {
@@ -110,7 +101,7 @@ public class DeveloperController {
 	}
 
 	/**
-	 *
+	 * a help method to find the project of a task
 	 * @param task the task for which the project it is in is asked
 	 * @return project the project which contains the task
 	 * @throws NoSuchElementException if the task is not found in any project
@@ -127,11 +118,11 @@ public class DeveloperController {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * this method returns a list with all developers found by the virtualKanbanController
+	 * @return a list with al all existing developers
 	 */
 	public ArrayList<Developer> getDeveloperList() {
-		ArrayList<Developer> allDevelopers = new ArrayList<Developer>();
+		ArrayList<Developer> allDevelopers = new ArrayList<>();
 		ArrayList<Team> teamsList = virtualKanbanController.getVirtualKanban().getTeam();
 		for(Team team : teamsList) {
 			for(Developer developer : team.getDevelopers()) {

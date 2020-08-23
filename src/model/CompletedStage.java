@@ -86,6 +86,10 @@ public class CompletedStage implements Serializable{
 	 */
 	public Stage getStage() {return stage;}
 
+	/**
+	 * sets the start date to a specified LocalDateTime
+	 * @param dateTime the LocalDateTime at which the stage was started
+	 */
 	public void setStartDate(LocalDateTime dateTime) {
 		startDate = dateTime;
 	}

@@ -79,7 +79,7 @@ public class DeveloperListViewController {
     	    throw new RuntimeException(e);
     	}
 
-    	// TODO hier kann die View weiter initialisiert werden (äquivalent zu initialize-Methode bei Komponenten)
+    	// TODO hier kann die View weiter initialisiert werden (aequivalent zu initialize-Methode bei Komponenten)
     	newDeveloperViewController = new NewDeveloperViewController(virtualKanbanController, this);
     	
 
@@ -124,7 +124,7 @@ public class DeveloperListViewController {
     	        	Text name = new Text(developer.getName());
     	        	name.setStyle("-fx-font: 20 arial; ");
     	        	
-    	        	Button deleteButton = new Button("Löschen");
+    	        	Button deleteButton = new Button("L\u00f6schen");
     	        	deleteButton.setPrefHeight(20);
     	        	deleteButton.setPrefWidth(80);
     	        	deleteButton.setCenterShape(true);

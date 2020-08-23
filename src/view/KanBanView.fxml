@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -10,37 +11,41 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<fx:root id="root" prefHeight="1000.0" prefWidth="1920.0" type="BorderPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root id="root" prefHeight="900.0" prefWidth="1700.0" style="-fx-border-color: black;" type="BorderPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
-      <HBox prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <HBox prefHeight="40.0" prefWidth="200.0" style="-fx-border-color: grey;" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="40.0" prefWidth="197.0">
+            <Pane prefHeight="40.0" prefWidth="283.3">
                <children>
-                  <Label alignment="CENTER" layoutX="7.0" layoutY="6.0" text="Projektname" textAlignment="CENTER" />
+                  <Label fx:id="projectNameLabel" alignment="CENTER" layoutX="-1.0" layoutY="-1.0" prefHeight="40.0" prefWidth="283.3" text="Projekt:" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                </children>
             </Pane>
-            <Button fx:id="infoButton" mnemonicParsing="false" onMouseClicked="#onInfoButtonMouseClick" prefHeight="100.0" prefWidth="510.0" text="Info" />
-            <Button fx:id="addTaskButton" mnemonicParsing="false" onMouseClicked="#onAddTaskButtonMouseClick" prefHeight="100.0" prefWidth="510.0" text="+ Aufgabe" wrapText="true" />
-            <Button fx:id="archiveButton" mnemonicParsing="false" onMouseClicked="#onArchiveButtonMouseClick" prefHeight="40.0" prefWidth="510.0" text="Archivieren" />
-            <Pane prefHeight="40.0" prefWidth="99.0" />
-            <Button fx:id="returnButton" mnemonicParsing="false" onMouseClicked="#returnButtonClicked" prefHeight="20.0" prefWidth="100.0" text="Zurück" />
+            <Button fx:id="infoButton" mnemonicParsing="false" onMouseClicked="#onInfoButtonMouseClick" prefHeight="100.0" prefWidth="283.3" text="Info" />
+            <Button fx:id="addTaskButton" mnemonicParsing="false" onMouseClicked="#onAddTaskButtonMouseClick" prefHeight="100.0" prefWidth="283.3" text="+ Aufgabe" wrapText="true" />
+            <Button fx:id="archiveButton" mnemonicParsing="false" onMouseClicked="#onArchiveButtonMouseClick" prefHeight="40.0" prefWidth="283.3" text="Archivieren" />
+            <Button fx:id="deleteButton" mnemonicParsing="false" onMouseClicked="#onDeleteButtonClicked" prefHeight="40.0" prefWidth="283.3" text="Löschen" />
+            <Button fx:id="returnButton" mnemonicParsing="false" onMouseClicked="#returnButtonClicked" prefHeight="40.0" prefWidth="283.3" text="Zurück" />
          </children>
       </HBox>
    </top>
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <left>
-            <ScrollPane fx:id="newTaskPane" prefHeight="880.0" prefWidth="197.0" BorderPane.alignment="CENTER">
+            <ScrollPane fx:id="newTaskPane" prefHeight="880.0" prefWidth="300.0" BorderPane.alignment="CENTER">
                <content>
-                  <VBox fx:id="newStageBox" prefHeight="876.0" prefWidth="176.0" />
+                  <VBox fx:id="newStageBox" prefHeight="600.0" prefWidth="296.0" />
                </content></ScrollPane>
          </left>
          <right>
-            <ScrollPane fx:id="taskFinishedPane" prefHeight="880.0" prefWidth="197.0" BorderPane.alignment="CENTER">
+            <ScrollPane fx:id="taskFinishedPane" prefHeight="880.0" prefWidth="300.0" BorderPane.alignment="CENTER">
                <content>
-                  <VBox fx:id="finishedStageBox" prefHeight="860.0" prefWidth="181.0" />
+                  <VBox fx:id="finishedStageBox" prefHeight="860.0" prefWidth="283.0" />
                </content></ScrollPane>
          </right>
          <center>
@@ -57,7 +62,7 @@
                <children>
                   <BorderPane prefHeight="200.0" prefWidth="200.0">
                      <center>
-                        <ScrollPane fx:id="analysisProcessPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                        <ScrollPane fx:id="analysisProcessPane" prefHeight="200.0" prefWidth="340.0" BorderPane.alignment="CENTER">
                            <content>
                               <VBox fx:id="analysisInProgressBox" prefHeight="408.0" prefWidth="489.0" />
                            </content></ScrollPane>
@@ -129,21 +134,21 @@
                <children>
                   <Pane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Text layoutX="48.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Neu" textAlignment="CENTER" />
+                        <Text layoutX="135.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Neu" textAlignment="CENTER" />
                      </children>
                   </Pane>
                   <Pane prefHeight="20.0" prefWidth="400.0">
                      <children>
-                        <Text layoutX="228.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Analyse" />
+                        <Text layoutX="310.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Analyse" />
                      </children>
                   </Pane>
                   <Pane prefHeight="20.0" prefWidth="1184.0">
                      <children>
-                        <Text layoutX="844.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Test" />
-                        <Text layoutX="316.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Implementierung" />
+                        <Text layoutX="640.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Test" />
+                        <Text layoutX="275.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Implementierung" />
+                        <Text layoutX="930.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Abgeschlossen" wrappingWidth="99.550048828125" />
                      </children>
                   </Pane>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Abgeschlossen" wrappingWidth="99.550048828125" />
                </children>
             </HBox>
          </top>
@@ -152,7 +157,7 @@
    <bottom>
       <BorderPane prefHeight="60.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <center>
-            <HBox fx:id="unassignedList" prefHeight="60.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <ListView fx:id="unassignedList" prefHeight="200.0" prefWidth="200.0" />
          </center>
          <left>
             <Label text="Nicht zugewiesen:" BorderPane.alignment="CENTER" />

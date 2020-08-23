@@ -1,75 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane prefHeight="498.0" prefWidth="500.0">
+      <Pane prefHeight="10.0" prefWidth="200.0" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Neues Team anlegen" textAlignment="CENTER" underline="true" wrappingWidth="300.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Pane prefHeight="30.0" prefWidth="200.0" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" textAlignment="CENTER" wrappingWidth="300.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Pane prefHeight="10.0" prefWidth="200.0" />
+      <TextField fx:id="nameInputField" maxWidth="270.0" prefHeight="36.0" prefWidth="200.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <Pane prefHeight="120.0" prefWidth="200.0" />
+      <HBox alignment="CENTER" maxHeight="20.0" prefHeight="20.0" prefWidth="200.0">
          <children>
-            <GridPane layoutY="14.0" prefHeight="562.0" prefWidth="900.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="111.19999237060546" minWidth="10.0" prefWidth="22.19999809265137" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="398.0" minWidth="10.0" prefWidth="167.60001220703126" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="649.600030517578" minWidth="10.0" prefWidth="643.1999877929688" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="111.2000122070313" minWidth="10.0" prefWidth="22.399951171875045" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="300.0" valignment="TOP" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="60.536712646484375" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Neues Team Anlegen" underline="true" GridPane.columnIndex="1">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Anzahl der Entwikler" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Projekt" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Beschreibung" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="nameInputField" prefHeight="36.0" prefWidth="650.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-                  <TextField fx:id="numberInputField" prefHeight="38.0" prefWidth="650.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <TextField fx:id="descriptionInputField" prefHeight="329.0" prefWidth="650.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                  <ComboBox fx:id="projectInputField" prefHeight="34.0" prefWidth="326.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-               </children>
-            </GridPane>
+            <Button fx:id="confirmButton" mnemonicParsing="false" onMouseClicked="#onConfirmButtonEvent" prefWidth="100.0" text="Bestätigen" />
+            <Pane maxHeight="20.0" prefHeight="10.0" prefWidth="70.0" />
+            <Button fx:id="cancelButton" cancelButton="true" mnemonicParsing="false" onMouseClicked="#onCancelButtonEvent" prefWidth="100.0" text="Abbrechen" />
          </children>
-      </Pane>
-      <HBox prefHeight="100.0" prefWidth="623.0" />
-      <Pane prefHeight="106.0" prefWidth="900.0">
-         <children>
-            <Button fx:id="cancelButton" cancelButton="true" layoutX="792.0" layoutY="67.0" mnemonicParsing="false" onMouseClicked="#onCancelButtonEvent" text="Abbrechen" />
-            <Button fx:id="confirmButton" defaultButton="true" layoutX="676.0" layoutY="67.0" mnemonicParsing="false" onMouseClicked="#onConfirmButtonEvent" text="Bestätigen" />
-         </children>
-      </Pane>
+      </HBox>
    </children>
 </VBox>

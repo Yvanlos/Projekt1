@@ -2,17 +2,23 @@ package view;
 
 import application.Main;
 import controller.VirtualKanbanController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Project;
+import model.Task;
 
+import java.awt.*;
 import java.lang.UnsupportedOperationException;
 
 public class ControlQuestionViewController extends VBox {
@@ -39,12 +45,27 @@ public class ControlQuestionViewController extends VBox {
      */
     private Stage stage;
 
+    private String event;
+
+    private Project project;
+
+    private Task task;
+
+    private StackPane stackPane;
+
+    private KanBanViewController kanBanViewController;
+
     /**
      *
      * @param virtualKanbanController
      */
-    public ControlQuestionViewController(VirtualKanbanController virtualKanbanController){
+    public ControlQuestionViewController(VirtualKanbanController virtualKanbanController, String event, Project project, Task task, StackPane stackPane, KanBanViewController kanBanViewController){
         this.virtualKanbanController = virtualKanbanController;
+        this.event = event;
+        this.project = project;
+        this.task = task;
+        this.stackPane = stackPane;
+        this.kanBanViewController = kanBanViewController;
 
         //Load view
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ControlQuestionView.fxml"));
@@ -62,6 +83,7 @@ public class ControlQuestionViewController extends VBox {
         stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL); // Blocks all windows in the background
         stage.setScene(scene);
+        cancelButton.requestFocus();
     }
 
 
@@ -70,7 +92,7 @@ public class ControlQuestionViewController extends VBox {
  	 * @param event the MouseEvent triggered when clicked
  	 */
     @FXML
-    void onCancelButtonClick(MouseEvent event){
+    void onCancelButtonEvent(MouseEvent event){
         closeView();
     }
 
@@ -79,9 +101,30 @@ public class ControlQuestionViewController extends VBox {
  	 * @param event the MouseEvent triggered when clicked
  	 */
     @FXML
-    void onContinueButtonClick(MouseEvent event) throws UnsupportedOperationException {
-        //TODO
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+    void onContinueButtonEvent(MouseEvent event){
+        //TODO when refreshing is working, test if it works
+        if(this.event.equals("archiveButton")){
+            virtualKanbanController.getProjectController().archiveProject(project);
+            closeView();
+            stackPane.getChildren().remove(1);
+            stackPane.getChildren().get(0).setVisible(true);
+        }
+        if(this.event.equals("deleteProjectButton")){
+            virtualKanbanController.getProjectController().deleteProject(project);
+            closeView();
+            stackPane.getChildren().remove(1);
+            stackPane.getChildren().get(0).setVisible(true);
+        }
+        if(this.event.equals("deleteTaskButton")){
+            virtualKanbanController.getTaskController().deleteTask(project, task);
+            closeView();
+            kanBanViewController.refreshKanbanBoard();
+        }
+        if(this.event.equals("finishTaskButton")){
+            project.moveTaskForeward(task);
+            closeView();
+            kanBanViewController.refreshKanbanBoard();
+        }
     }
 
     /**

@@ -17,11 +17,19 @@ import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
-
+/**
+ * controller to save and load the programms status and export PDF's
+ */
 public class IOController {
 
-
+	/**
+	 * the file in which the status is saved
+	 */
 	private static final File SAVE_File = new File("save");
+
+	/**
+	 * the file in which the PDF exports are saved
+	 */
 	private static final File Table_PDF = new File("?");
 
     /**
@@ -36,11 +44,10 @@ public class IOController {
     /**
  	 *
  	 * loads the last state of the Program after launching VirtualKanban
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist.
+ 	 * @throws IOException
+ 	 *	 	 	is thrown if an error occurs while loading
  	 */
-
-    public VirtualKanban load() throws UnsupportedOperationException{
+    public VirtualKanban load() throws IOException{
 		if (SAVE_File.exists()) {
 			try {
 				ObjectInputStream stream = new ObjectInputStream(new FileInputStream(SAVE_File));
@@ -48,7 +55,7 @@ public class IOController {
 				stream.close();
 				return virtualKanban;
 			} catch(IOException exception) {
-				throw new UnsupportedOperationException("Not Yet Implemented!");
+				throw new IOException("error loading file");
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
@@ -59,10 +66,10 @@ public class IOController {
     /**
  	 *
  	 * saves the current state of the program when it gets closed
- 	 * @throws UnsupportedOperationException
- 	 *	 	 	Diese Exception wird geworfen, fallsdie Methode noch nicht implementiert ist.
+ 	 * @throws IOException
+ 	 *	 	 	is thrown if an error occurs while saving a file
  	 */
-    public void save() throws UnsupportedOperationException {
+    public void save() throws IOException {
 		try{
 			ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(SAVE_File));
 			stream.writeObject(virtualKanbanController.getVirtualKanban());

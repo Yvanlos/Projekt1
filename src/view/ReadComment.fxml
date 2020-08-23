@@ -7,7 +7,7 @@
 
 <fx:root id="root" dividerPositions="0.9170854271356784" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" type="SplitPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <items>
-      <TextArea prefHeight="200.0" prefWidth="200.0" />
+      <TextArea fx:id="showCommentField" editable="false" prefHeight="200.0" prefWidth="200.0" />
       <Pane prefHeight="200.0" prefWidth="200.0">
          <children>
             <Button fx:id="OkayButtonReadComment" layoutX="273.0" layoutY="2.0" mnemonicParsing="false" onMouseClicked="#onOkayButtonReadCommentClicked" text="Okay" />

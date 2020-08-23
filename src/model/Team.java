@@ -21,9 +21,13 @@ public class Team implements Serializable {
  	 */
     private ArrayList<Developer> developers;
 
+	/**
+	 * Constructor for a new Team
+	 * @param name the name of the Team
+	 */
 	public Team(String name) {
 		this.name = name;
-		this.developers = new ArrayList<Developer>();
+		this.developers = new ArrayList<>();
 	}
 
 	/**

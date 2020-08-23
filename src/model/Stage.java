@@ -2,6 +2,9 @@ package model;
 
 import java.io.Serializable;
 
+/**
+ * The enum for the different stages a task can be in
+ */
 public enum Stage implements Serializable {
     NEW,
     ANALYSE_IN_PROGRESS,
@@ -11,8 +14,15 @@ public enum Stage implements Serializable {
     TEST_IN_PROGRESS,
     TEST_FINISHED,COMPLETED;
 
+    /**
+     * an array containing the constants of the Stage type, in the order they are declared
+     */
     private final static Stage[] stages = values();
 
+    /**
+     * Provides the next Stage
+     * @return Stage the next Stage, if the last stage is already reached returns null
+     */
     public Stage next(){
         if (this.ordinal() < stages.length-1){
             return stages[this.ordinal()+1];
@@ -20,6 +30,10 @@ public enum Stage implements Serializable {
         return null;
     }
 
+    /**
+     * Provides the previous Stage
+     * @return Stage the previous Stage, if the first stage is already reached returns null
+     */
     public Stage previous(){
         if (this.ordinal() > 0){
             return stages[this.ordinal()-1];

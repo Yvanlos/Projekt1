@@ -17,6 +17,18 @@ import java.lang.UnsupportedOperationException;
 
 public class RankingViewController extends BorderPane {
 
+    @FXML
+    private Button backButton;
+
+    @FXML
+    private TableView<?> tableViewRanking;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnName;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnLast7Days;
+
     private StackPane stackPane;
 
     private VirtualKanbanController virtualKanbanController;
@@ -42,20 +54,9 @@ public class RankingViewController extends BorderPane {
     }
 
     @FXML
-    private TableView<?> tableViewRanking;
-
-    @FXML
-    private TableColumn<?, ?> tableColumnName;
-
-    @FXML
-    private TableColumn<?, ?> tableColumnLast7Days;
-
-    @FXML
-    private Button backButton;
-
-    @FXML
     void onBackButtonEvent(MouseEvent event) {
-
+        stackPane.getChildren().removeIf(child -> child.equals(this));
+        stackPane.getChildren().get(0).setVisible(true);
     }
 
 }

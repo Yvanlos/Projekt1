@@ -131,6 +131,12 @@ public class VirtualKanbanController {
         return statisticController;
     }
 
+    /**
+     * Sets the virtualKanban
+     * Use this function to set a saved virtualKanban
+     *
+     * @param virtualKanban the virtualKanban to be controlled
+     */
     public void setVirtualKanban(VirtualKanban virtualKanban) {
         this.virtualKanban = virtualKanban;
     }

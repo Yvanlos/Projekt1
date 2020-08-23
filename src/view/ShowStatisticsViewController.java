@@ -16,6 +16,24 @@ import java.lang.UnsupportedOperationException;
 
 public class ShowStatisticsViewController extends BorderPane {
 
+    @FXML
+    private TableView<?> tableViewStatsTable;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnName;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnMin;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnMax;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnAvg;
+
+    @FXML
+    private Button backButton;
+
     private StackPane stackPane;
 
     private VirtualKanbanController virtualKanbanController;
@@ -39,27 +57,11 @@ public class ShowStatisticsViewController extends BorderPane {
         this.minWidthProperty().bind(stackPane.widthProperty());
         this.minHeightProperty().bind(stackPane.heightProperty());
     }
-    @FXML
-    private TableView<?> tableViewStatsTable;
-
-    @FXML
-    private TableColumn<?, ?> tableColumnName;
-
-    @FXML
-    private TableColumn<?, ?> tableColumnMin;
-
-    @FXML
-    private TableColumn<?, ?> tableColumnMax;
-
-    @FXML
-    private TableColumn<?, ?> tableColumnAvg;
-
-    @FXML
-    private Button backButton;
 
     @FXML
     void onBackButtonEvent(MouseEvent event) {
-
+        stackPane.getChildren().removeIf(child -> child.equals(this));
+        stackPane.getChildren().get(0).setVisible(true);
     }
 
 }

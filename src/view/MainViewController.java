@@ -3,24 +3,47 @@ package view;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.IntegerBinding;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import controller.VirtualKanbanController;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import model.Project;
-import model.Team;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
+import model.*;
 
 
 public class MainViewController extends BorderPane {
+
+    public static class HBoxCell extends HBox {
+        Label label = new Label();
+        Button button = new Button();
+
+        HBoxCell(String labelText, String buttonText) {
+            super();
+
+            label.setText(labelText);
+            label.setMaxWidth(Double.MAX_VALUE);
+            HBox.setHgrow(label, Priority.ALWAYS);
+
+            button.setText(buttonText);
+
+            this.getChildren().addAll(label, button);
+        }
+    }
 
     /**
      *
@@ -64,11 +87,12 @@ public class MainViewController extends BorderPane {
     @FXML
     private Button exitButton;
 
-    /**
-     *
-     */
     @FXML
-    private GridPane showProjectPane;
+    private ListView<Project> activeProjectsList;
+
+    @FXML
+    private ListView<Project> archivedProjectsList;
+
 
     /**
      * The VirtualKanbanController object.
@@ -101,7 +125,7 @@ public class MainViewController extends BorderPane {
 
 
     /**
-     * @param virtualKanbanController
+     * @param virtualKanbanController the actual current KanbanController
      */
     public MainViewController(VirtualKanbanController virtualKanbanController) {
         this.virtualKanbanController = virtualKanbanController;
@@ -133,24 +157,119 @@ public class MainViewController extends BorderPane {
         //Test project
         virtualKanbanController.getVirtualKanban().addProject(new Project("Testprojekt", "Testbeschreibung", LocalDateTime.now(), new Team("Testteam")));
 
-        //Add all Projects as Buttons to the MainView
-        showProjectPane.getChildren().clear();
-        virtualKanbanController.getVirtualKanban().getProject().forEach(project -> {
-            Button projectButton = new Button(project.getName());
-            projectButton.setPrefSize(50,50);
-            projectButton.setOnAction(evt -> {
-                KanBanViewController kanBanViewController = new KanBanViewController(stackPane, virtualKanbanController, project);
-                stackPane.getChildren().add(kanBanViewController);
-            });
-            //showProjectPane.add(projectButton,0,0);
-            showProjectPane.getChildren().add(projectButton);
+        //Test tasks
+        Project testProject = virtualKanbanController.getVirtualKanban().getProject().get(0);
+        for (StageList list : testProject.getStageList()){
+            if (list.getStage() == Stage.NEW){
+                list.addTask(new Task("testName","testDescription",LocalDateTime.now()));
+            }
+        }
+        for (StageList list : testProject.getStageList()){
+            if (list.getStage() == Stage.IMPLEMENTATION_FINISHED){
+                list.addTask(new Task("testName1","testDescription1",LocalDateTime.now()));
+            }
+        }
+        for (StageList list : testProject.getStageList()){
+            if (list.getStage() == Stage.COMPLETED){
+                list.addTask(new Task("testName2","testDescription2",LocalDateTime.now()));
+            }
+        }
+
+        //Test developer
+        testProject.getTeam().addDeveloper(new Developer("TestDev",null));
+
+        //list of active projects
+        activeProjectsList.setPlaceholder(new Label("Keine aktiven Projekte vorhanden"));
+        activeProjectsList.setCellFactory(e -> new ListCell<>() {
+            @Override
+            protected void updateItem(Project project, boolean empty) {
+                super.updateItem(project, empty);
+
+                if (empty || project == null) {
+                    setGraphic(null);
+                } else {
+                    Text name = new Text(project.getName());
+                    name.setStyle("-fx-font: 20 arial; ");
+
+                    Button showButton = new Button("Projekt anzeigen");
+                    showButton.setPrefHeight(20);
+                    showButton.setPrefWidth(200);
+                    showButton.setCenterShape(true);
+                    showButton.setOnMouseClicked(e -> {
+                        KanBanViewController kanBanViewController = new KanBanViewController(stackPane, virtualKanbanController, project);
+                        stackPane.getChildren().get(0).setVisible(false);
+                        stackPane.getChildren().add(kanBanViewController);
+
+                    });
+                    Text deadline = new Text("Deadline: "+project.getDeadline().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
+                    deadline.setStyle("-fx-font: 20 arial; ");
+                    BorderPane display = new BorderPane(name, null, showButton, null, deadline);
+
+                    setGraphic(display);
+                }
+            }
         });
+
+        refreshActiveProjectsList();
+
+        //list of archived projects
+        archivedProjectsList.setPlaceholder(new Label("Keine archivierten Projekte vorhanden"));
+        archivedProjectsList.setCellFactory(e -> new ListCell<>() {
+            @Override
+            protected void updateItem(Project project, boolean empty) {
+                super.updateItem(project, empty);
+
+                if (empty || project == null) {
+                    setGraphic(null);
+                } else {
+                    Text name = new Text(project.getName());
+                    name.setStyle("-fx-font: 20 arial; ");
+
+                    Button showButton = new Button("Projekt anzeigen");
+                    showButton.setPrefHeight(20);
+                    showButton.setPrefWidth(200);
+                    showButton.setCenterShape(true);
+                    showButton.setOnMouseClicked(e -> {
+                        KanBanViewController kanBanViewController = new KanBanViewController(stackPane, virtualKanbanController, project);
+                        stackPane.getChildren().get(0).setVisible(false);
+                        stackPane.getChildren().add(kanBanViewController);
+
+                    });
+                    BorderPane display = new BorderPane(name, null, showButton, null, null);
+                    setGraphic(display);
+                }
+            }
+        });
+
+        refreshArchivedProjectsList();
+
 
         //Binding
         IntegerBinding sizeProperty = Bindings.size(stackPane.getChildren());
         BooleanBinding multipleElemsProperty = sizeProperty.greaterThan(1);
     }
 
+    public void refreshActiveProjectsList() {
+        ArrayList<Project> activeProjects = new ArrayList<>();
+        for(Project project : virtualKanbanController.getVirtualKanban().getProject())
+            if(!project.isReadOnly()){
+                activeProjects.add(project);
+            }
+        ObservableList<Project> observableActiveProjectsList =
+                FXCollections.observableArrayList(activeProjects);
+        activeProjectsList.setItems(observableActiveProjectsList);
+    }
+
+    public void refreshArchivedProjectsList() {
+        ArrayList<Project> archivedProjects = new ArrayList<>();
+        for(Project project : virtualKanbanController.getVirtualKanban().getProject())
+            if(project.isReadOnly()){
+                archivedProjects.add(project);
+            }
+        ObservableList<Project> observableArchivedProjectsList =
+                FXCollections.observableArrayList(archivedProjects);
+        archivedProjectsList.setItems(observableArchivedProjectsList);
+    }
 
     /**
      * Opens the NewProject window
@@ -203,6 +322,7 @@ public class MainViewController extends BorderPane {
     @FXML
     void onShowRankingAction(ActionEvent event) {
         RankingViewController rankingViewController = new RankingViewController(stackPane, virtualKanbanController);
+        stackPane.getChildren().get(0).setVisible(false);
         stackPane.getChildren().add(rankingViewController);
     }
 
@@ -214,6 +334,7 @@ public class MainViewController extends BorderPane {
     @FXML
     void onShowStatistikAction(ActionEvent event) {
         ShowStatisticsViewController showStatisticsViewController = new ShowStatisticsViewController(stackPane, virtualKanbanController);
+        stackPane.getChildren().get(0).setVisible(false);
         stackPane.getChildren().add(showStatisticsViewController);
     }
 
