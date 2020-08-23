@@ -160,32 +160,6 @@ public class DeveloperListViewController {
 		developerListView.setItems(observableDeveloperList);
     }
     
-    
-//    public void addDeveloperToListView(ListView box, StageList stageList){
-//        stageList.getTask().forEach(task -> {
-//            MenuButton menuButton = new MenuButton();
-//            menuButton.setText(task.getName()+"\n"+task.getDescription()+"\nDeadline: "+task.getDeadline());
-//            menuButton.getItems().add(new MenuItem("Aufgabe anfangen"));
-//            menuButton.getItems().add(new MenuItem("Aufgabe zuruecklegen"));
-//            menuButton.getItems().add(new MenuItem("Aufgabe beenden"));
-//            menuButton.getItems().add(new MenuItem("Aufgabe bearbeiten?"));
-//            menuButton.getItems().add(new MenuItem("Kommentare anzeigen"));
-//            menuButton.getItems().add(new MenuItem("Kommentar hinzufuegen"));
-//            //TODO refresh if task is moved
-//            //menuButton.getItems().get(0).setOnAction(event -> );
-//            //menuButton.getItems().get(1).setOnAction(event -> );
-//            //menuButton.getItems().get(2).setOnAction(event -> );
-//            //menuButton.getItems().get(3).setOnAction(event -> );
-//            menuButton.getItems().get(4).setOnAction(event -> {
-//                readCommentController.showView();
-//            });
-//            menuButton.getItems().get(5).setOnAction(event -> {
-//                newCommentController.showView();
-//            });
-//            box.getChildren().add(menuButton);
-//        });
-//    }
-    
     /**
  	 *
  	 * Shows the NewDeveloperView when the button addDeveloper is clicked.
@@ -193,6 +167,7 @@ public class DeveloperListViewController {
  	 */
     @FXML
     void onAddDeveloperButtonClicked(MouseEvent event){
+    	newDeveloperViewController.updateTeamCombobox();
         newDeveloperViewController.showView();
     }
     

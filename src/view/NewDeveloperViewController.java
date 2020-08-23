@@ -14,10 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.Developer;
 import model.Team;
 
 import java.io.File;
@@ -114,9 +111,7 @@ public class NewDeveloperViewController {
 	@FXML
 	void initialize() {
 		
-		ArrayList<Team> teamList = virtualKanbanController.getTeamController().getTeamsList();
-		ObservableList<Team> observableTeamList = FXCollections.observableArrayList(teamList);
-		developerTeamComboBox.setItems(observableTeamList);
+		updateTeamCombobox();
 		
 		developerTeamComboBox.setCellFactory(e -> new ListCell<Team>() {
     		@Override
@@ -133,6 +128,16 @@ public class NewDeveloperViewController {
     	});
 		developerTeamComboBox.setButtonCell(developerTeamComboBox.getCellFactory().call(null));
 		
+	}
+	
+	/**
+	 * 
+	 */
+	public void updateTeamCombobox() {
+		//Update the combobox
+		ArrayList<Team> teamList = virtualKanbanController.getTeamController().getTeamsList();
+		ObservableList<Team> observableTeamList = FXCollections.observableArrayList(teamList);
+		developerTeamComboBox.setItems(observableTeamList);
 	}
 
     /**
