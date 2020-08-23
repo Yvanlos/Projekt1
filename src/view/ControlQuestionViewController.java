@@ -119,7 +119,11 @@ public class ControlQuestionViewController extends VBox {
             virtualKanbanController.getTaskController().deleteTask(project, task);
             closeView();
             kanBanViewController.refreshKanbanBoard();
-
+        }
+        if(this.event.equals("finishTaskButton")){
+            project.moveTaskForeward(task);
+            closeView();
+            kanBanViewController.refreshKanbanBoard();
         }
     }
 

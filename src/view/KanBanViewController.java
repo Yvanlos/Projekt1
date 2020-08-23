@@ -302,6 +302,14 @@ public class KanBanViewController extends BorderPane {
                 if (stageList.getStage() == Stage.COMPLETED) {
                     menuButton.getItems().get(0).setDisable(true);
                 }
+                if (stageList.getStage() == Stage.TEST_FINISHED){
+                    menuButton.getItems().get(0).setText("Aufgabe fertigstellen");
+                    menu.getItems().clear();
+                    menuButton.getItems().get(0).setOnAction(event -> {
+                        controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController, "finishTaskButton", project, task, stackPane, this);
+                        controlQuestionViewController.showView();
+                        });
+                }
             }
             //If deleteComment is chosen a confirm window is shown
             menuButton.getItems().get(3).setOnAction(event -> {
