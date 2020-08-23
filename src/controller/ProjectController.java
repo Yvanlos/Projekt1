@@ -40,6 +40,9 @@ public class ProjectController {
 				if (project.getName().equals(name)) {
 					throw new IllegalArgumentException("There is already a project called: " + name + ".");
 				}
+				if (project.getTeam().equals(team) && !project.isReadOnly()){
+					throw new IllegalArgumentException("There is already a project assigned to Team: " + team.getName() + ".");
+				}
 			}
 			Project project = new Project(name, description, deadline, team);
 			virtualKanbanController.getVirtualKanban().addProject(project);
