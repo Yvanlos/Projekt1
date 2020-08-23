@@ -1,6 +1,8 @@
 package application;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import view.MainViewController;
@@ -28,6 +30,14 @@ public class Main extends Application {
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.show();
+
+            primaryStage.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                @Override
+                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                    mainViewController.refreshActiveProjectsList();
+                    mainViewController.refreshArchivedProjectsList();
+                }
+            });
 
             Runtime.getRuntime().addShutdownHook(new Thread() {
                 public void run() {

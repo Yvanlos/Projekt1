@@ -17,15 +17,15 @@ public enum Stage implements Serializable {
     /**
      * an array containing the constants of the Stage type, in the order they are declared
      */
-    private final static Stage[] stages = values();
+    private final static Stage[] STAGES = values();
 
     /**
      * Provides the next Stage
      * @return Stage the next Stage, if the last stage is already reached returns null
      */
     public Stage next(){
-        if (this.ordinal() < stages.length-1){
-            return stages[this.ordinal()+1];
+        if (this.ordinal() < STAGES.length-1){
+            return STAGES[this.ordinal()+1];
         }
         return null;
     }
@@ -36,7 +36,7 @@ public enum Stage implements Serializable {
      */
     public Stage previous(){
         if (this.ordinal() > 0){
-            return stages[this.ordinal()-1];
+            return STAGES[this.ordinal()-1];
         }
         return null;
     }

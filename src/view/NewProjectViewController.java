@@ -117,12 +117,6 @@ public class NewProjectViewController extends VBox {
  	 */
     @FXML
     void onCancelButtonClick(MouseEvent event) {
-        //Clears all InputFields, if opened
-        nameInputField.setText("");
-        descriptionInputField.setText("");
-        deadlineInputField.getEditor().clear();
-        teamInputField.setValue(null);
-
         closeView();
     }
 
@@ -132,14 +126,24 @@ public class NewProjectViewController extends VBox {
  	 */
     @FXML
     void onConfirmButtonClick(MouseEvent event) {
-        if(nameInputField.getText()==""){
-            //TODO
-        }
         try{//create a new project with the given data
-            LocalDateTime deadline = null;
-            if(deadlineInputField.getValue() != null){
-                deadline= deadlineInputField.getValue().atStartOfDay();
+            if(nameInputField.getText().equals("")){
+                nameInputField.setPromptText("Bitte geben Sie einen Namen ein");
+                return;
             }
+            if(deadlineInputField.getValue() == null){
+                deadlineInputField.setPromptText("Bitte geben Sie eine Deadline ein");
+                return;
+            }
+            if(deadlineInputField.getValue() == null){
+                deadlineInputField.setPromptText("Bitte geben Sie eine Deadline ein");
+                return;
+            }
+            if(teamInputField.getValue() == null){
+                teamInputField.setPromptText("Bitte w\u00E4hlen Sie ein Team aus");
+                return;
+            }
+            LocalDateTime deadline= deadlineInputField.getValue().atStartOfDay();
             virtualKanbanController.getProjectController().createProject(nameInputField.getText(), deadline , teamInputField.getValue(),descriptionInputField.getText());
             closeView();
         }
@@ -161,6 +165,12 @@ public class NewProjectViewController extends VBox {
      * Hides this View.
      */
     public void closeView() {
-    	stage.hide();
+        //Clears all InputFields, if opened
+        nameInputField.setText("");
+        descriptionInputField.setText("");
+        deadlineInputField.getEditor().clear();
+        teamInputField.setValue(null);
+
+        stage.hide();
     }
 }

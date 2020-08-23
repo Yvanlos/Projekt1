@@ -11,6 +11,20 @@ import java.util.NoSuchElementException;
  * ths class allows to add, delete start, drop or finish tasks as well as add notes to a task
  */
 public class TaskController {
+
+	/**
+ 	 * The VirtualKanbanController object
+ 	 */
+    private VirtualKanbanController virtualKanbanController;
+
+	/**
+	 * The TaskController constructor.
+	 * @param virtualKanbanController reference to the main-controller
+	 */
+    public TaskController(VirtualKanbanController virtualKanbanController) {
+    	this.virtualKanbanController= virtualKanbanController;
+    }
+
 	/**
 	 * get this VirtualKanbanController
 	 * @return virtualKanbanController
@@ -27,19 +41,6 @@ public class TaskController {
 	public void setVirtualKanbanController(VirtualKanbanController virtualKanbanController) {
 		this.virtualKanbanController = virtualKanbanController;
 	}
-
-	/**
- 	 * The VirtualKanbanController object
- 	 */
-    private VirtualKanbanController virtualKanbanController;
-
-	/**
-	 * The TaskController constructor.
-	 * @param virtualKanbanController reference to the main-controller
-	 */
-    public TaskController(VirtualKanbanController virtualKanbanController) {
-    	this.virtualKanbanController= virtualKanbanController;
-    }
 
     /**
  	 * delete an existing task from a project
@@ -66,36 +67,51 @@ public class TaskController {
  	 * @param name the name of the Task
  	 * @param description The description of The Task
  	 * @param deadline the Time for The Task to be done
- 	 * @throws NoSuchElementException
+ 	 * @throws IllegalArgumentException
  	 *	 	 	is thrown if a task should be added which already exists inside the project
  	 */
-    public void addTask(Project project, String name, String description, LocalDateTime deadline) throws NoSuchElementException {
-    	Task t= new Task(name,description,deadline);
-		for(StageList list : project.getStageList())
-		{
-			if(list.getStage()== Stage.NEW && !list.getTask().contains(t))
-			{
-				list.addTask(t);
-				return ;
+    public void addTask(Project project, String name, String description, LocalDateTime deadline) throws IllegalArgumentException {
+    	Task task= new Task(name,description,deadline);
+//		for(StageList list : project.getStageList())
+//		{
+//			if(list.getStage()== Stage.NEW && !list.getTask().contains(t))
+//			{
+//				list.addTask(t);
+//				return ;
+//			}
+//			else {
+//				throw new IllegalArgumentException("Task already exist or Stage not found");
+//			}
+//		}
+		for(StageList list : project.getStageList()){
+			boolean containsTask = false;
+			for(Task listTask : list.getTask()){
+				if(listTask.getName().equals(name)) {
+					containsTask = true;
+					break;
+				}
 			}
-
+			if(list.getStage()== Stage.NEW && !containsTask){
+				list.addTask(task);
+				return;
+			}
 		}
-			throw new NoSuchElementException("Task already exist or Stage not found");
+		throw new IllegalArgumentException("Task already exist or Stage not found");
     }
 
     /**
  	 * add a new Note to an existing Task
  	 * @param task where the Note will be add
  	 * @param note to add
- 	 * @throws NoSuchElementException
+ 	 * @throws IllegalArgumentException
  	 *	 	 	is thrown if a note should be added to a task which already has such note
  	 */
-    public void addNote(Task task, Note note) throws NoSuchElementException {
+    public void addNote(Task task, Note note) throws IllegalArgumentException {
     	if(!task.getNote().contains(note)){
     		task.getNote().add(note);
 		}
     	else {
-			throw new NoSuchElementException("Note already exist");
+			throw new IllegalArgumentException("Note already exist");
 		}
     }
 
@@ -104,19 +120,19 @@ public class TaskController {
  	 * @param task to start
  	 * @param project The project where the Task  start
  	 * @param developer The developer who start the Task
- 	 * @throws NoSuchElementException
+ 	 * @throws IllegalArgumentException
  	 *	 	 	is thrown if a task which is already in work should be started
  	 */
-    public void startTask(Task task, Project project, Developer developer) throws NoSuchElementException {
+    public void startTask(Task task, Project project, Developer developer) throws IllegalArgumentException {
     	if(!task.isInProgress())
 		{
 			task.setDeveloper(developer);
 			developer.setAtWork(true);
-			CompletedStage cs = new CompletedStage(task,getStageFromTask(task,project).next());
-			developer.setCurrentTaskStage(cs);
+			CompletedStage completedStage = new CompletedStage(task,getStageFromTask(task,project).next());
+			developer.setCurrentTaskStage(completedStage);
 			project.moveTaskForeward(task);
 		} else {
-			throw new NoSuchElementException("task already in work");
+			throw new IllegalArgumentException("task already in work");
 		}
     }
 
@@ -141,10 +157,10 @@ public class TaskController {
  	 *task to finish
  	 * @param task The task to be finish
  	 * @param project the Project of the Task
- 	 * @throws NoSuchElementException
+ 	 * @throws IllegalArgumentException
  	 *	 	 	is thrown if task which is not in work should be finished
  	 */
-    public void finishTask(Task task, Project project) throws NoSuchElementException {
+    public void finishTask(Task task, Project project) throws IllegalArgumentException {
     	if(task.isInProgress())
 		{
 			task.getDeveloper().addCompletedStage();
@@ -154,7 +170,7 @@ public class TaskController {
 			project.moveTaskForeward(task);
 		}
     	else {
-			throw new NoSuchElementException("task can't be finished");
+			throw new IllegalArgumentException("task can't be finished");
 		}
     }
 
@@ -185,7 +201,6 @@ public class TaskController {
 	 * @return ArrayList of notes
  	 */
     public ArrayList<Note> showNotes(Task task) {
-
     	 return task.getNote();
     }
 }
