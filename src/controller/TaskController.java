@@ -11,6 +11,20 @@ import java.util.NoSuchElementException;
  * ths class allows to add, delete start, drop or finish tasks as well as add notes to a task
  */
 public class TaskController {
+
+	/**
+ 	 * The VirtualKanbanController object
+ 	 */
+    private VirtualKanbanController virtualKanbanController;
+
+	/**
+	 * The TaskController constructor.
+	 * @param virtualKanbanController reference to the main-controller
+	 */
+    public TaskController(VirtualKanbanController virtualKanbanController) {
+    	this.virtualKanbanController= virtualKanbanController;
+    }
+
 	/**
 	 * get this VirtualKanbanController
 	 * @return virtualKanbanController
@@ -27,19 +41,6 @@ public class TaskController {
 	public void setVirtualKanbanController(VirtualKanbanController virtualKanbanController) {
 		this.virtualKanbanController = virtualKanbanController;
 	}
-
-	/**
- 	 * The VirtualKanbanController object
- 	 */
-    private VirtualKanbanController virtualKanbanController;
-
-	/**
-	 * The TaskController constructor.
-	 * @param virtualKanbanController reference to the main-controller
-	 */
-    public TaskController(VirtualKanbanController virtualKanbanController) {
-    	this.virtualKanbanController= virtualKanbanController;
-    }
 
     /**
  	 * delete an existing task from a project
@@ -127,8 +128,8 @@ public class TaskController {
 		{
 			task.setDeveloper(developer);
 			developer.setAtWork(true);
-			CompletedStage cs = new CompletedStage(task,getStageFromTask(task,project).next());
-			developer.setCurrentTaskStage(cs);
+			CompletedStage completedStage = new CompletedStage(task,getStageFromTask(task,project).next());
+			developer.setCurrentTaskStage(completedStage);
 			project.moveTaskForeward(task);
 		} else {
 			throw new IllegalArgumentException("task already in work");

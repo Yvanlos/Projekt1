@@ -42,14 +42,14 @@ public class DeveloperController {
 	 */
 	public void createDeveloper(Team team, String name, URI picture) throws IllegalArgumentException {
 		if (!name.isEmpty()) {
-			int i = 0;
+			int counter = 0;
 			for (Developer dev : team.getDevelopers()) {
 				if (dev.getName().equals(name)) {
-					i++;
+					counter++;
 				}
 			}
-			if(i>0){
-				name = name + i;
+			if(counter >0){
+				name = name + counter;
 			}
 			Developer developer = new Developer(name, picture);
 			team.addDeveloper(developer);

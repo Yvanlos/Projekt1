@@ -4,7 +4,6 @@ import model.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * This class allows it to create, remove and archive projects
@@ -65,24 +64,12 @@ public class ProjectController {
 		ArrayList<Task> tasksAnalysisFinished = null;
 		ArrayList<Task> tasksImplementationFinished = null;
 		for (StageList list : project.getStageList()){
-			if(list.getStage()== Stage.ANALYSE_IN_PROGRESS){
-				tasksAnalysis = list.getTask();
-			}
-			if(list.getStage()==Stage.IMPLEMENTATION_IN_PROGRESS){
-				tasksImplementation = list.getTask();
-			}
-			if(list.getStage()==Stage.TEST_IN_PROGRESS){
-				tasksTests = list.getTask();
-			}
-			if(list.getStage()==Stage.NEW){
-				tasksNew = list.getTask();
-			}
-			if(list.getStage()==Stage.ANALYSE_FINISHED){
-				tasksAnalysisFinished = list.getTask();
-			}
-			if(list.getStage()==Stage.IMPLEMENTATION_FINISHED){
-				tasksImplementationFinished = list.getTask();
-			}
+			if(list.getStage()== Stage.ANALYSE_IN_PROGRESS){ tasksAnalysis = list.getTask(); }
+			if(list.getStage()==Stage.IMPLEMENTATION_IN_PROGRESS){ tasksImplementation = list.getTask(); }
+			if(list.getStage()==Stage.TEST_IN_PROGRESS){ tasksTests = list.getTask(); }
+			if(list.getStage()==Stage.NEW){ tasksNew = list.getTask(); }
+			if(list.getStage()==Stage.ANALYSE_FINISHED){ tasksAnalysisFinished = list.getTask(); }
+			if(list.getStage()==Stage.IMPLEMENTATION_FINISHED){ tasksImplementationFinished = list.getTask(); }
 		}
 
 		//Cancels all tasks
