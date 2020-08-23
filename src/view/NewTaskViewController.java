@@ -86,6 +86,7 @@ public class NewTaskViewController extends VBox {
             }
             virtualKanbanController.getTaskController().addTask(kanBanViewController.getProject(), nameInputField.getText(), descriptionInputField.getText(), date);
             closeView();
+            kanBanViewController.refreshKanbanBoard();
         }
     }
 

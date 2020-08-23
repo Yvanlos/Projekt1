@@ -123,35 +123,24 @@ public class KanBanViewController extends BorderPane {
         //Show project name
         projectNameLabel.setText(project.getName());
 
-        //Getting the first stageList
-        StageList stageList = null;
-        for (StageList list : project.getStageList()) {
-            if (list.getStage() == Stage.NEW) {
-                stageList = list;
-            }
-        }
+        //Adds all unassigned developers to the unassigned List
+        addUnassignedDeveloperToListView();
 
         //If project is not archived enable all buttons
         if(!project.isReadOnly()){
-            //Adds all tasks in a stageList in the specific Box, starting from new
-            addTasksToStageBox(newStageBox, stageList);
-            stageList = project.getNextStage(stageList);
-            addTasksToStageBox(analysisInProgressBox, stageList);
-            stageList = project.getNextStage(stageList);
-            addTasksToStageBox(analysisFinishedBox, stageList);
-            stageList = project.getNextStage(stageList);
-            addTasksToStageBox(implementationInProgressBox, stageList);
-            stageList = project.getNextStage(stageList);
-            addTasksToStageBox(implementationFinishedBox, stageList);
-            stageList = project.getNextStage(stageList);
-            addTasksToStageBox(testInProgressBox, stageList);
-            stageList = project.getNextStage(stageList);
-            addTasksToStageBox(testFinishedBox, stageList);
-            stageList = project.getNextStage(stageList);
-            addTasksToStageBox(finishedStageBox, stageList);
+            //Refreshes the KanbanBoard, adding all tasks to the specific panes
+            refreshKanbanBoard();
         }else{//If project is archived, disable all buttons that edit a project
             addTaskButton.setDisable(true);
             archiveButton.setDisable(true);
+
+            //Getting the first stageList
+            StageList stageList = null;
+            for (StageList list : project.getStageList()) {
+                if (list.getStage() == Stage.NEW) {
+                    stageList = list;
+                }
+            }
             //Adds all tasks in a stageList in the specific Box, starting from new, enables only read comments
             addTasksToStageBoxProjectArchived(newStageBox, stageList);
             stageList = project.getNextStage(stageList);
@@ -169,17 +158,11 @@ public class KanBanViewController extends BorderPane {
             stageList = project.getNextStage(stageList);
             addTasksToStageBoxProjectArchived(finishedStageBox, stageList);
 
-
+            //Adds all developers to the listview
+            refreshDeveloperList();
         }
-
-        //Adds all unassigned developers to the unassigned List
-        addUnassignedDeveloperToListView();
-        //unassignedList.setCellFactory();
-
-
-
-
     }
+
     @FXML
     public void addUnassignedDeveloperToListView(){
         unassignedList.setOrientation(Orientation.HORIZONTAL);
@@ -212,6 +195,44 @@ public class KanBanViewController extends BorderPane {
                     }
                 }
         );
+    }
+
+    public void refreshKanbanBoard(){
+        //Clears all boxes
+        newStageBox.getChildren().clear();
+        analysisInProgressBox.getChildren().clear();
+        analysisFinishedBox.getChildren().clear();
+        implementationInProgressBox.getChildren().clear();
+        implementationFinishedBox.getChildren().clear();
+        testInProgressBox.getChildren().clear();
+        testFinishedBox.getChildren().clear();
+        finishedStageBox.getChildren().clear();
+
+        //Gets the first stageList
+        StageList stageList = null;
+        for (StageList list : project.getStageList()) {
+            if (list.getStage() == Stage.NEW) {
+                stageList = list;
+            }
+        }
+        //Adds all tasks in a stageList in the specific Box, starting from new
+        addTasksToStageBox(newStageBox, stageList);
+        stageList = project.getNextStage(stageList);
+        addTasksToStageBox(analysisInProgressBox, stageList);
+        stageList = project.getNextStage(stageList);
+        addTasksToStageBox(analysisFinishedBox, stageList);
+        stageList = project.getNextStage(stageList);
+        addTasksToStageBox(implementationInProgressBox, stageList);
+        stageList = project.getNextStage(stageList);
+        addTasksToStageBox(implementationFinishedBox, stageList);
+        stageList = project.getNextStage(stageList);
+        addTasksToStageBox(testInProgressBox, stageList);
+        stageList = project.getNextStage(stageList);
+        addTasksToStageBox(testFinishedBox, stageList);
+        stageList = project.getNextStage(stageList);
+        addTasksToStageBox(finishedStageBox, stageList);
+
+        //Refreshes the developer list
         refreshDeveloperList();
     }
 
@@ -266,9 +287,11 @@ public class KanBanViewController extends BorderPane {
                 menuButton.getItems().get(0).setDisable(true);
                 menuButton.getItems().get(1).setOnAction(event -> {
                     virtualKanbanController.getTaskController().dropTask(task, project);
+                    refreshKanbanBoard();
                 });
                 menuButton.getItems().get(2).setOnAction(event -> {
                     virtualKanbanController.getTaskController().finishTask(task, project);
+                    refreshKanbanBoard();
                 });
             }
             //If the task is not currently worked on, the buttons for finishing and droping are disabled but start task can be chosen
@@ -282,7 +305,7 @@ public class KanBanViewController extends BorderPane {
             }
             //If deleteComment is chosen a confirm window is shown
             menuButton.getItems().get(3).setOnAction(event -> {
-                controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController, "deleteTaskButton", project, task,stackPane);
+                controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController, "deleteTaskButton", project, task,stackPane, this);
                 controlQuestionViewController.showView();
             });
             //If readComment is chosen all other comment windows are closed and the readCommentView is shown
@@ -363,6 +386,7 @@ public class KanBanViewController extends BorderPane {
                 MenuItem menuItem = new MenuItem(developer.getName());
                 menuItem.setOnAction(event -> {
                     virtualKanbanController.getTaskController().startTask(task, project, developer);
+                    refreshKanbanBoard();
                 });
                 menu.getItems().add(menuItem);
             }
@@ -390,7 +414,7 @@ public class KanBanViewController extends BorderPane {
      */
     @FXML
     void onArchiveButtonMouseClick(MouseEvent event) {
-        controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController, "archiveButton", project, null, stackPane);
+        controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController, "archiveButton", project, null, stackPane, this);
         controlQuestionViewController.showView();
     }
 
@@ -407,7 +431,7 @@ public class KanBanViewController extends BorderPane {
 
     @FXML
     void onDeleteButtonClicked(MouseEvent event) {
-        controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController, "deleteProjectButton", project, null, stackPane);
+        controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController, "deleteProjectButton", project, null, stackPane, this);
         controlQuestionViewController.showView();
     }
 

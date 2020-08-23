@@ -53,16 +53,19 @@ public class ControlQuestionViewController extends VBox {
 
     private StackPane stackPane;
 
+    private KanBanViewController kanBanViewController;
+
     /**
      *
      * @param virtualKanbanController
      */
-    public ControlQuestionViewController(VirtualKanbanController virtualKanbanController, String event, Project project, Task task, StackPane stackPane){
+    public ControlQuestionViewController(VirtualKanbanController virtualKanbanController, String event, Project project, Task task, StackPane stackPane, KanBanViewController kanBanViewController){
         this.virtualKanbanController = virtualKanbanController;
         this.event = event;
         this.project = project;
         this.task = task;
         this.stackPane = stackPane;
+        this.kanBanViewController = kanBanViewController;
 
         //Load view
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ControlQuestionView.fxml"));
@@ -115,6 +118,8 @@ public class ControlQuestionViewController extends VBox {
         if(this.event.equals("deleteTaskButton")){
             virtualKanbanController.getTaskController().deleteTask(project, task);
             closeView();
+            kanBanViewController.refreshKanbanBoard();
+
         }
     }
 
