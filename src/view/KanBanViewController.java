@@ -398,11 +398,11 @@ public class KanBanViewController extends BorderPane {
                 });
                 menu.getItems().add(menuItem);
             }
-            if(menu.getItems().isEmpty()){
-                MenuItem menuNoDevAvailable = new MenuItem("Alle Entwickler aktuell zugewiesen");
-                menu.getItems().add(menuNoDevAvailable);
-            }
         });
+        if(menu.getItems().isEmpty() || project.getTeam().getDevelopers().isEmpty()){
+            MenuItem menuNoDevAvailable = new MenuItem("Alle Entwickler aktuell zugewiesen");
+            menu.getItems().add(menuNoDevAvailable);
+        }
     }
 
     /**
