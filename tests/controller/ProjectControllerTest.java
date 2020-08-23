@@ -48,7 +48,17 @@ public class ProjectControllerTest {
     public void testCreateProjectUnsuccessfulAlreadyExisting() {
         pc.createProject("testName", LocalDateTime.now(), new Team("testTeam"), "testDescription");
         pc.createProject("testName", LocalDateTime.now(), new Team("secondTeam"), "testDescription");
-        pc.createProject("testName", LocalDateTime.now(), new Team("testTeam"), "testDescription");
+        pc.createProject("testName1", LocalDateTime.now(), new Team("testTeam"), "testDescription");
+    }
+
+    /**
+     * Tests the createProject() method with a project that has the same team assigned
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateProjectUnsuccessfulTeamAlreadyAssigned() {
+        Team testTeam = new Team("testTeam");
+        pc.createProject("testName", LocalDateTime.now(),testTeam, "testDescription");
+        pc.createProject("testName1", LocalDateTime.now(), testTeam, "testDescription");
     }
 
     /**
