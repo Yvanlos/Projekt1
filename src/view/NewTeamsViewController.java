@@ -3,6 +3,7 @@ package view;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -76,7 +77,7 @@ public class NewTeamsViewController {
     	Scene scene = new Scene(root);
     	scene.getStylesheets().add(Main.class.getResource("application.css").toExternalForm());
     	stage = new Stage();
-    	//stage.initModality(Modality.APPLICATION_MODAL); // Blockiert alle anderen Fenster im Hintergrund.
+    	stage.initModality(Modality.APPLICATION_MODAL); // Blockiert alle anderen Fenster im Hintergrund.
     	stage.setScene(scene);
     	stage.setTitle("Neues Team anlegen");
     	stage.getIcons().add(new Image(getClass().getResourceAsStream("ressources/team.png")));

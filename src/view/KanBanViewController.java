@@ -236,14 +236,16 @@ public class KanBanViewController extends BorderPane {
      * Sets the unassigned developerList to a list of all currently unassigned developers.
      */
     public void refreshDeveloperList() {
-        ArrayList<Developer> developerList = new ArrayList<>();
-        project.getTeam().getDevelopers().forEach(developer -> {
-            if(!developer.isAtWork()){
-                developerList.add(developer);
-            }
-        });
-        ObservableList<Developer> observableDeveloperList = FXCollections.observableArrayList(developerList);
-        unassignedList.setItems(observableDeveloperList);
+        if (project.getTeam() != null) {
+                ArrayList<Developer> developerList = new ArrayList<>();
+            project.getTeam().getDevelopers().forEach(developer -> {
+                if (!developer.isAtWork()) {
+                    developerList.add(developer);
+                }
+            });
+            ObservableList<Developer> observableDeveloperList = FXCollections.observableArrayList(developerList);
+            unassignedList.setItems(observableDeveloperList);
+        }
     }
 
 
@@ -384,19 +386,21 @@ public class KanBanViewController extends BorderPane {
      * @param task the task, the menu belongs to
      */
     public void addUnassignedDevelopersAsSubMenu(Menu menu, Task task) {
-        project.getTeam().getDevelopers().forEach(developer -> {
-            if (!developer.isAtWork()) {
-                MenuItem menuItem = new MenuItem(developer.getName());
-                menuItem.setOnAction(event -> {
-                    virtualKanbanController.getTaskController().startTask(task, project, developer);
-                    refreshKanbanBoard();
-                });
-                menu.getItems().add(menuItem);
+        if (project.getTeam() != null) {
+            project.getTeam().getDevelopers().forEach(developer -> {
+                if (!developer.isAtWork()) {
+                    MenuItem menuItem = new MenuItem(developer.getName());
+                    menuItem.setOnAction(event -> {
+                        virtualKanbanController.getTaskController().startTask(task, project, developer);
+                        refreshKanbanBoard();
+                    });
+                    menu.getItems().add(menuItem);
+                }
+            });
+            if (menu.getItems().isEmpty() || project.getTeam().getDevelopers().isEmpty()) {
+                MenuItem menuNoDevAvailable = new MenuItem("Alle Entwickler aktuell zugewiesen");
+                menu.getItems().add(menuNoDevAvailable);
             }
-        });
-        if(menu.getItems().isEmpty() || project.getTeam().getDevelopers().isEmpty()){
-            MenuItem menuNoDevAvailable = new MenuItem("Alle Entwickler aktuell zugewiesen");
-            menu.getItems().add(menuNoDevAvailable);
         }
     }
 

@@ -10,6 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Project;
@@ -95,7 +97,12 @@ public class ProjectInfoViewController extends VBox {
         }
 
         projectNameLabel.setText(project.getName());
-        assignedTeamLabel.setText(project.getTeam().getName());
+        if(project.getTeam()==null) {
+            assignedTeamLabel.setText("gel\u00f6schtes Team");
+            assignedTeamLabel.setFont(Font.font("Arial", FontPosture.ITALIC, 16));
+        } else {
+            assignedTeamLabel.setText(project.getTeam().getName());
+        }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         creationdateLabel.setText(project.getStartDate().format(formatter));
         deadlineLabel.setText(project.getDeadline().format(formatter));

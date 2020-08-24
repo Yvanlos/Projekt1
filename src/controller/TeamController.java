@@ -46,10 +46,9 @@ public class TeamController {
     	ArrayList<Team> teamList = getTeamsList();
     	ArrayList<Project> projectList = virtualKanbanController.getVirtualKanban().getProject();
         if(teamList.contains(team)) {
-			Iterator<Project> iterator = projectList.iterator();
-			while (iterator.hasNext()) {
-				if(iterator.next().getTeam().equals(team)) {
-					iterator.remove();
+			for(Project project : projectList) {
+				if(team.equals(project.getTeam())) {
+					project.setTeam(null);
 				}
 			}
         	teamList.remove(team);

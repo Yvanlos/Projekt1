@@ -68,9 +68,12 @@ public class TeamsViewController {
      * A NewDeveloperViewController object for showing the NewDeveloperView
      */
     private NewTeamsViewController newTeamsViewController;
+
+    private TeamsViewController instance;
     
     public TeamsViewController(VirtualKanbanController virtualKanbanController) {
     	this.virtualKanbanController = virtualKanbanController;
+    	this.instance = this;
     	
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TeamsView.fxml"));
     	fxmlLoader.setController(this);
@@ -122,10 +125,10 @@ public class TeamsViewController {
                     deleteButton.setGraphic(imageView);
                     deleteButton.setCenterShape(true);
                     deleteButton.setOnMouseClicked(e -> {
-                        //TODO: Sicherheitsabfrage
-                        //Deleting the team
-                        virtualKanbanController.getTeamController().deleteTeam(team);
-                        refreshTeamList();
+                        TeamControlQuestionViewController teamControlQuestionViewController = new TeamControlQuestionViewController(virtualKanbanController, instance, team);
+                        teamControlQuestionViewController.showView();
+                        //virtualKanbanController.getTeamController().deleteTeam(team);
+                        //refreshTeamList();
                     });
 
                     Circle circle = new Circle();
