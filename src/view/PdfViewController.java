@@ -8,8 +8,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import application.Main;
@@ -17,7 +20,9 @@ import controller.VirtualKanbanController;
 import model.Project;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 
 public class PdfViewController extends BorderPane {
@@ -40,6 +45,15 @@ public class PdfViewController extends BorderPane {
     @FXML
     private Label errorLabel;
 
+    @FXML
+    private Label fileErrorLabel;
+
+    @FXML
+    private Label fileChosenLabel;
+
+    @FXML
+    private Button fileChooserButton;
+
 
     ToggleGroup group = new ToggleGroup();
 
@@ -47,7 +61,7 @@ public class PdfViewController extends BorderPane {
 
     private VirtualKanbanController virtualKanbanController;
 
-    private static final File DEST = new File("KanbanBoard");
+    private File DEST;
 
     public PdfViewController(VirtualKanbanController virtualKanbanController) {
         this.virtualKanbanController = virtualKanbanController;
@@ -74,39 +88,7 @@ public class PdfViewController extends BorderPane {
     }
 
     @FXML
-    void onCancelButtonClicked(MouseEvent event) {
-        closeView();
-    }
-
-    @FXML
-    void onExportButtonClicked(MouseEvent event) throws IOException, DocumentException {
-        errorLabel.setVisible(false);
-        if(allProjectsButton.isSelected()) {
-                virtualKanbanController.getIOController().exportAllTable(DEST, virtualKanbanController.getVirtualKanban().getProject());
-        }
-        else if(projectComboBox.getValue()==null) {
-            errorLabel.setVisible(true);
-        } else {
-            virtualKanbanController.getIOController().createPdfTable(projectComboBox.getValue());
-        }
-    }
-
-    public void showView() {
-        stage.show();
-        errorLabel.setVisible(false);
-        getData();
-    }
-
-    //
-    public void closeView() {
-        projectComboBox.setValue(null);
-        stage.hide();
-    }
-
-    public void getData() {
-        ObservableList<Project> observableProjectList =
-                FXCollections.observableArrayList(virtualKanbanController.getVirtualKanban().getProject());
-        projectComboBox.setItems(observableProjectList);
+    void initialize() {
         projectComboBox.setCellFactory(e -> new ListCell<Project>() {
             @Override
             protected void updateItem(Project project, boolean empty) {
@@ -120,5 +102,67 @@ public class PdfViewController extends BorderPane {
             }
         });
         projectComboBox.setButtonCell(projectComboBox.getCellFactory().call(null));
+    }
+
+    @FXML
+    void onCancelButtonClicked(MouseEvent event) {
+        closeView();
+    }
+
+    @FXML
+    void onExportButtonClicked(MouseEvent event) throws IOException, DocumentException {
+        if(oneProjectButton.isSelected() && projectComboBox.getValue() == null) {
+            errorLabel.setVisible(true);
+        }
+        else {
+            if (DEST != null) {
+                errorLabel.setVisible(false);
+                if (allProjectsButton.isSelected()) {
+                    virtualKanbanController.getIOController().exportAllTable(DEST, virtualKanbanController.getVirtualKanban().getProject());
+                    closeView();
+                } else if(oneProjectButton.isSelected()){
+                    virtualKanbanController.getIOController().exportATable(DEST, projectComboBox.getValue());
+                    closeView();
+                }
+            }
+        }
+    }
+
+    @FXML
+    void onFileChooserButtonClicked(MouseEvent event) {
+        fileChosenLabel.setText(null);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF", ".pdf"));
+        DEST = fileChooser.showSaveDialog(stage);
+        try {
+            fileChosenLabel.setText(DEST.getAbsolutePath());
+            fileErrorLabel.setVisible(false);
+            fileChosenLabel.setVisible(true);
+        }
+        catch (Exception e) {
+        throw new RuntimeException(e);
+    }
+    }
+
+    public void showView() {
+        stage.show();
+        errorLabel.setVisible(false);
+        fileErrorLabel.setVisible(true);
+        fileChosenLabel.setText(null);
+        fileChosenLabel.setVisible(false);
+        DEST = null;
+        refreshProjects();
+    }
+
+    //
+    public void closeView() {
+        projectComboBox.setValue(null);
+        stage.hide();
+    }
+
+    public void refreshProjects() {
+        ObservableList<Project> observableProjectList =
+                FXCollections.observableArrayList(virtualKanbanController.getVirtualKanban().getProject());
+        projectComboBox.setItems(observableProjectList);
     }
 }
