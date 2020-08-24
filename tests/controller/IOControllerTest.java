@@ -16,16 +16,27 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 
+/**
+ * Tests the IOController class
+ */
 public class IOControllerTest{
 
    VirtualKanbanController vkc;
     IOController io;
     private static final File DEST = new File("KanbanBoard.pdf");
+
+    /**
+     * Creates a new IOControllerTest with a new VirtualKanbanController and new IOController
+     */
     public IOControllerTest(){
         vkc = new VirtualKanbanController();
         io = new IOController(vkc);
     }
 
+    /**
+     * Tests the exportATable() method
+     * @throws Exception Gets thrown if exporting was unsuccessful.
+     */
     @Test
     public void testExportATable() throws Exception {
         LocalDateTime dateTimeP1 = LocalDateTime.of(2020, Month.AUGUST, 23, 16, 15, 15) ;

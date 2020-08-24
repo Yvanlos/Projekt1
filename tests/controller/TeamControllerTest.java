@@ -11,10 +11,17 @@ import org.junit.Test;
 import model.Project;
 import model.Team;
 
+/**
+ * Tests the TeamController class
+ */
 public class TeamControllerTest {
 
 	VirtualKanbanController virtualKanbanController;
-	
+
+	/**
+	 * Sets up a clean testing environment before every test.
+	 * @throws Exception Gets thrown if setting up clean environment was unsuccessful.
+	 */
 	@Before
 	public void setUp() throws Exception {
 		virtualKanbanController = new VirtualKanbanController();

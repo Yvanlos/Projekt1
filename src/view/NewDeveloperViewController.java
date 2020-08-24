@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Team;
 
@@ -23,8 +24,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.ArrayList;
-
-import javax.swing.JFileChooser;
 
 import application.Main;
 import controller.VirtualKanbanController;
@@ -97,14 +96,10 @@ public class NewDeveloperViewController {
     	    throw new RuntimeException(e);
     	}
 
-    	// TODO hier kann die View weiter initialisiert werden (aequivalent zu initialize-Methode bei Komponenten)
-    	
-
     	// init Scene and Stage
     	Scene scene = new Scene(root);
     	scene.getStylesheets().add(Main.class.getResource("application.css").toExternalForm());
     	stage = new Stage();
-    	//stage.initModality(Modality.APPLICATION_MODAL); // Blockiert alle anderen Fenster im Hintergrund.
     	stage.setScene(scene);
 	}
     
@@ -131,10 +126,9 @@ public class NewDeveloperViewController {
 	}
 	
 	/**
-	 * 
+	 * Updates the team list for the team combobox.
 	 */
 	public void updateTeamCombobox() {
-		//Update the combobox
 		ArrayList<Team> teamList = virtualKanbanController.getTeamController().getTeamsList();
 		ObservableList<Team> observableTeamList = FXCollections.observableArrayList(teamList);
 		developerTeamComboBox.setItems(observableTeamList);
@@ -157,48 +151,37 @@ public class NewDeveloperViewController {
     }
 
     /**
- 	 *
- 	 * TODO: create JavaDoc. 
- 	 * @param event
+ 	 * Opens a FileChooser to select a picture.
+ 	 * @param event the mouse event
  	 */
     @FXML
     void onFileChooserButtonEvent(MouseEvent event){
     	
-    	Runnable fileChooserThreadRunnable = new Runnable() {
-    		@Override
-			public void run() {
-    			JFileChooser chooser = new JFileChooser("../");
-    	    	
-    			int rueckgabeWert = chooser.showOpenDialog(null);
-    			
-    	        if(!(rueckgabeWert == JFileChooser.APPROVE_OPTION)) return;
-    	        
-    	        try {
-    	        	
-    	        	File selectedFile = chooser.getSelectedFile();
-    	        	InputStream imageStream = new FileInputStream(selectedFile);
-    	        	
-    	        	Image image = new Image(imageStream);
-    	        	
-    	        	selectedImage.setImage(image);
-    	        	
-    	        	selectedURI = selectedFile.toURI();
-    	        }
-    	        catch(IOException e) {
-    	        	e.printStackTrace();
-    	        }
-    		}
-    	};
+    	FileChooser fileChooser = new FileChooser();
+    	fileChooser.getExtensionFilters().add(
+    			new FileChooser.ExtensionFilter("Images", "*.png",
+    					"*.jpg", "*.gif", "*.tiff", "*.bmp", "*.swf", "*.svg"));
     	
-    	Thread fileChooserThread = new Thread(fileChooserThreadRunnable);
+    	try {
+        	
+        	File selectedFile = fileChooser.showOpenDialog(stage);
+        	InputStream imageStream = new FileInputStream(selectedFile);
+        	
+        	Image image = new Image(imageStream);
+        	
+        	selectedImage.setImage(image);
+        	
+        	selectedURI = selectedFile.toURI();
+        }
+        catch(IOException e) {
+        	e.printStackTrace();
+        }
     	
-    	fileChooserThread.start();
     }
 
     /**
- 	 *
- 	 * TODO: create JavaDoc. 
- 	 * @param event
+ 	 * Creates a new developer based on the users input.
+ 	 * @param event the mouse event
  	 */
     @FXML
     void onSaveButtonEvent(MouseEvent event){

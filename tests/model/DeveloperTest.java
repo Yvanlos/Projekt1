@@ -8,10 +8,17 @@ import java.time.LocalDateTime;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Tests the Developer class
+ */
 public class DeveloperTest {
 	
 	private URI profilePicture;
 
+	/**
+	 * Sets up a clean testing environment before every test.
+	 * @throws Exception Gets thrown if setting up clean environment was unsuccessful.
+	 */
 	@Before
 	public void setUp() throws Exception {
 		profilePicture = URI.create("testURI");
