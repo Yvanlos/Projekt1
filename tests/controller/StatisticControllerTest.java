@@ -12,12 +12,18 @@ import java.util.HashMap;
 
 import static org.junit.Assert.*;
 
+/**
+ * Tests the StatistiController class
+ */
 public class StatisticControllerTest {
 
     private VirtualKanbanController virtualKanbanController;
     private StatisticController testClass;
     private Team team1;
 
+    /**
+     * Sets up a clean testing environment before every test.
+     */
     @Before
     public void setUp() {
         virtualKanbanController = new VirtualKanbanController();
@@ -97,16 +103,22 @@ public class StatisticControllerTest {
 
     }
 
+    /**
+     * Tests the showStats() method
+     */
     @Test
     public void testShowStats() {
         HashMap<String, double[]> map = testClass.showStats(team1);
         assertNotEquals(map.get("TestDev1")[2], 0);
     }
 
+    /**
+     * Tests the showRanking() method
+     */
     @Test
     public void testShowRanking() {
-        String[][] array = testClass.showRanking();
-        assertEquals(array[0][0], "TestDev1");
-        assertEquals(array[1][0], "3");
+        HashMap<String,Integer> map = testClass.showRanking();
+        assertEquals(map.get("TestDev3").intValue(),2);
+        assertEquals(map.get("TestDev1").intValue(),3);
     }
 }

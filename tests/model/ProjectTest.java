@@ -9,6 +9,9 @@ import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
 
+/**
+ * Tests the Project class
+ */
 public class ProjectTest {
 
     Project project;
