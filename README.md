@@ -17,7 +17,7 @@ In diesem Repository entsteht euer erstes Projekt im Sopra. Für Planung, Modell
 
 ### [Testdoc](https://sopra-ci.cs.tu-dortmund.de/group06/project1/testjavadoc/)
 
-Hier könnt ihr auch eure Produktbeschreibung verlinken.
+### [Produktbeschreibung](https://sopra-gitlab.cs.tu-dortmund.de/sopra20C/gruppe06/projekt1/-/wikis/uploads/b539763d6fb3f7e0b28838a4889665e8/Produktbeschreibung.pdf)
 
 
 ## PMD-Bericht
