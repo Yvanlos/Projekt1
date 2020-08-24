@@ -59,8 +59,6 @@ public class TeamControllerTest {
 		teamController.deleteTeam(newTeam);
 		
 		assertTrue(virtualKanbanController.getVirtualKanban().getTeam().isEmpty());
-		
-		assertTrue(testProject.getTeam() == null);
 	}
 	
 	/**
