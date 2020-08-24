@@ -25,11 +25,15 @@ public class DeveloperControllerTest {
         Team testTeam = new Team("testTeam");
         vkc.getVirtualKanban().getTeam().add(testTeam);
         developerController.createDeveloper(testTeam, "testdev", null);
+        developerController.createDeveloper(testTeam, "testdev", null);
+        developerController.createDeveloper(testTeam, "testdev", null);
         developerController.createDeveloper(testTeam, "testdev1", null);
         developerController.createDeveloper(testTeam, "testdev1", null);
-
+        developerController.createDeveloper(testTeam, "difftestdev", null);
         assertFalse(testTeam.getDevelopers().isEmpty());
         assertNotEquals(testTeam.getDevelopers().get(0).getName(),testTeam.getDevelopers().get(1).getName());
+        assertNotEquals(testTeam.getDevelopers().get(0).getName(),testTeam.getDevelopers().get(2).getName());
+        assertNotEquals(testTeam.getDevelopers().get(1).getName(),testTeam.getDevelopers().get(3).getName());
     }
 
     /**
@@ -42,6 +46,20 @@ public class DeveloperControllerTest {
         Team testTeam = new Team("testTeam");
         vkc.getVirtualKanban().getTeam().add(testTeam);
         developerController.createDeveloper(testTeam, "", null);
+    }
+
+    /**
+     * tests the method nameAlreadyExists
+     */
+    @Test
+    public void testNameAlreadyExists() {
+        VirtualKanbanController vkc = new VirtualKanbanController();
+        DeveloperController developerController = vkc.getDeveloperController();
+        Team testTeam = new Team("testTeam");
+        assertFalse(developerController.nameAlreadyExists(testTeam,"testdev"));
+        developerController.createDeveloper(testTeam, "testdev", null);
+        assertTrue(developerController.nameAlreadyExists(testTeam,"testdev"));
+        assertFalse(developerController.nameAlreadyExists(testTeam,"testdev1"));
     }
 
     /**

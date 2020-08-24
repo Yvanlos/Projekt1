@@ -42,21 +42,40 @@ public class DeveloperController {
 	 */
 	public void createDeveloper(Team team, String name, URI picture) throws IllegalArgumentException {
 		if (!name.isEmpty()) {
-			int counter = 0;
-			for (Developer dev : team.getDevelopers()) {
-				if (dev.getName().equals(name)) {
+			int counter = 1;
+			if(nameAlreadyExists(team,name)){
+				while(nameAlreadyExists(team,name + counter)){
 					counter++;
 				}
+				Developer developer = new Developer(name + counter, picture);
+				team.addDeveloper(developer);
 			}
-			if(counter >0){
-				name = name + counter;
+			else {
+				Developer developer = new Developer(name, picture);
+				team.addDeveloper(developer);
 			}
-			Developer developer = new Developer(name, picture);
-			team.addDeveloper(developer);
 		}
 		else {
 			throw new IllegalArgumentException("The developer must have a name!");
 		}
+	}
+
+	/**
+	 * checks if there is already a developer with the same name in the team
+	 *
+	 * @param team team which is checked
+	 * @param name name of the developer
+	 * @return true if there is already a developer with that name in that team
+	 */
+	public boolean nameAlreadyExists(Team team, String name) {
+		boolean exists = false;
+		for(Developer developer : team.getDevelopers()) {
+			if(developer.getName().equals(name)){
+				exists = true;
+				break;
+			}
+		}
+		return exists;
 	}
 
 	/**
