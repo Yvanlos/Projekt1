@@ -10,14 +10,20 @@ import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
 
-
+/**
+ * This class is responsible for gathering statistics and preparing them for further usage.
+ */
 public class StatisticController {
 
     /**
  	 * reference to the main-controller
  	 */
     private VirtualKanbanController virtualKanbanController;
-    private final int MAXIMUM_TIME_PASSED=7;
+
+	/**
+	 * Maximum number of days since a task was finished, for it to remain relevant for the stats
+	 */
+	private final int MAXIMUM_TIME_PASSED=7;
 
     public StatisticController(VirtualKanbanController virtualKanbanController) {
     	this.virtualKanbanController = virtualKanbanController;
