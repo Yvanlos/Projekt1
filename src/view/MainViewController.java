@@ -154,30 +154,6 @@ public class MainViewController extends BorderPane {
      */
     @FXML
     public void initialize() {
-        //Test project
-        virtualKanbanController.getVirtualKanban().addProject(new Project("Testprojekt", "Testbeschreibung", LocalDateTime.now(), new Team("Testteam")));
-
-        //Test tasks
-        Project testProject = virtualKanbanController.getVirtualKanban().getProject().get(0);
-        for (StageList list : testProject.getStageList()){
-            if (list.getStage() == Stage.NEW){
-                list.addTask(new Task("testName","testDescription",LocalDateTime.now()));
-            }
-        }
-        for (StageList list : testProject.getStageList()){
-            if (list.getStage() == Stage.IMPLEMENTATION_FINISHED){
-                list.addTask(new Task("testName1","testDescription1",LocalDateTime.now()));
-            }
-        }
-        for (StageList list : testProject.getStageList()){
-            if (list.getStage() == Stage.COMPLETED){
-                list.addTask(new Task("testName2","testDescription2",LocalDateTime.now()));
-            }
-        }
-
-        //Test developer
-        testProject.getTeam().addDeveloper(new Developer("TestDev",null));
-
         //list of active projects
         activeProjectsList.setPlaceholder(new Label("Keine aktiven Projekte vorhanden"));
         activeProjectsList.setCellFactory(e -> new ListCell<>() {

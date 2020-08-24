@@ -68,9 +68,6 @@ public class DeveloperListViewController {
     public DeveloperListViewController(VirtualKanbanController virtualKanbanController) {
     	this.virtualKanbanController = virtualKanbanController;
     	this.instance = this;
-    	//Test
-    	
-    	virtualKanbanController.getTeamController().createTeam("Test Team");
     	
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("DeveloperListView.fxml"));
     	fxmlLoader.setController(this);
@@ -81,9 +78,7 @@ public class DeveloperListViewController {
     	    throw new RuntimeException(e);
     	}
 
-    	// TODO hier kann die View weiter initialisiert werden (aequivalent zu initialize-Methode bei Komponenten)
     	newDeveloperViewController = new NewDeveloperViewController(virtualKanbanController, this);
-    	
 
     	// init Scene and Stage
     	Scene scene = new Scene(root);
