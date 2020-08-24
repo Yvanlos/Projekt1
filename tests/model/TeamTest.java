@@ -7,7 +7,9 @@ import java.net.URI;
 
 import static org.junit.Assert.*;
 
-
+/**
+ * Tests the Team class
+ */
 public class TeamTest {
 
     private Team team;

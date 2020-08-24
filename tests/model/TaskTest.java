@@ -8,11 +8,17 @@ import java.time.LocalDateTime;
 
 import static org.junit.Assert.*;
 
+/**
+ * Tests the Task class
+ */
 public class TaskTest {
     Task task;
     private URI profilePicture;
 
-
+    /**
+     * Sets up a clean testing environment before every test.
+     * @throws Exception Gets thrown if setting up clean environment was unsuccessful.
+     */
     @Before
     public void setUp() throws Exception {
         task = new Task("testTask","testDescription", LocalDateTime.now());
@@ -66,6 +72,9 @@ public class TaskTest {
         assertEquals(not ,task.getNote());
     }
 
+    /**
+     * Tests the getDeveloper() method
+     */
     @Test
     public void testGetDeveloper() {
         Developer dev= new Developer("yo",URI.create("testURI"));
@@ -73,10 +82,16 @@ public class TaskTest {
         assertEquals(dev,task.getDeveloper());
     }
 
+    /**
+     * Tests the setDeveloper() method
+     */
     @Test
     public void setDeveloper() {
     }
 
+    /**
+     * Tests the isInProgress() method
+     */
     @Test
     public void isInProgress() {
         Developer dev = new Developer("TestIsAtWork", profilePicture);
@@ -88,6 +103,9 @@ public class TaskTest {
         assertEquals(task.isInProgress(), false);
     }
 
+    /**
+     * Tests the addNote() method
+     */
     @Test
     public void addNote() {
         Note note = new Note("testAddNote", "TestContent", LocalDateTime.now());
@@ -95,6 +113,9 @@ public class TaskTest {
         assertTrue(task.getNote().contains(note));
     }
 
+    /**
+     * Tests the removeNote() method
+     */
     @Test
     public void removeNote() {
         Note note = new Note("test", "TestContent", LocalDateTime.now());
