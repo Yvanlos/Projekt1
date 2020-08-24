@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.net.URI;
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 import static org.junit.Assert.*;
@@ -59,6 +60,9 @@ public class TaskTest {
 
     @Test
     public void testGetCreationDate() {
+    	LocalDateTime creationDate = task.getCreationDate();
+    	Duration duration = Duration.between(creationDate, LocalDateTime.now());
+    	assertTrue(duration.getSeconds() < 2);
     }
 
     /**
@@ -67,9 +71,9 @@ public class TaskTest {
 
     @Test
     public void testGetNote() {
-        Note not = new Note("test", "TestContent", LocalDateTime.now());
-        task.addNote(not);
-        assertEquals(not ,task.getNote());
+        Note note = new Note("test", "TestContent", LocalDateTime.now());
+        task.addNote(note);
+        assertEquals(note, task.getNote().get(0));
     }
 
     /**

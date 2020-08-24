@@ -62,5 +62,14 @@ public class StageListTest {
         testClass.setTask(c);
         assertEquals(c, testClass.getTask());
     }
+    
+    /**
+     * Tests the setStage() method
+     */
+    @Test
+    public void testSetStage() {
+        testClass.setStage(Stage.ANALYSE_FINISHED);
+        assertEquals(testClass.getStage(), Stage.ANALYSE_FINISHED);
+    }
 
 }

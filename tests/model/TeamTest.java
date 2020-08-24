@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.net.URI;
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -30,9 +31,10 @@ public class TeamTest {
      */
     @Test
     public void addDeveloper() {
-        URI testPicture2=URI.create("test2");
-        Developer testDeveloper2=new Developer("name2",testPicture2);
+        URI testPicture2 = URI.create("test2");
+        Developer testDeveloper2 = new Developer("name2",testPicture2);
         team.addDeveloper(testDeveloper2);
+        assertTrue(team.getDevelopers().contains(testDeveloper2));
     }
 
     /**
@@ -44,6 +46,19 @@ public class TeamTest {
         Developer testDeveloper1=new Developer("name2",testPicture1);
         team.addDeveloper(testDeveloper1);
         team.removeDeveloper(testDeveloper1);
+        assertFalse(team.getDevelopers().contains(testDeveloper1));
+    }
+    
+    /**
+     * tests setDevelopers
+     */
+    @Test
+    public void testSetDevelopers() {
+        Developer testDeveloper = new Developer("TestDev",null);
+        ArrayList<Developer> newDevelopersList = new ArrayList<Developer>();
+        newDevelopersList.add(testDeveloper);
+        team.setDevelopers(newDevelopersList);
+        assertTrue(team.getDevelopers().contains(testDeveloper));
     }
 
 
