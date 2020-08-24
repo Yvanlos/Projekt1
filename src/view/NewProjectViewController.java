@@ -115,7 +115,7 @@ public class NewProjectViewController extends VBox {
 
         for(Team team : virtualKanbanController.getVirtualKanban().getTeam()){
             for(Project project : virtualKanbanController.getVirtualKanban().getProject()){
-                if(project.getTeam().equals(team)){
+                if(project.getTeam().equals(team) && !project.isReadOnly()){
                     isAlreadyAssigned = true;
                 }
             }
