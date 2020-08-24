@@ -7,6 +7,9 @@ import java.io.*;
 import java.util.ArrayList;
 //import sandbox.WrapToTest;
 
+/**
+ * controller to save, load and export data
+ */
 public class IOController {
 
 	/**
@@ -14,10 +17,6 @@ public class IOController {
 	 */
 	private static final File SAVE_FILE = new File("save");
 
-	/**
-	 * the file in which the PDF exports are saved
-	 */
-	//private static final File DEST = new File("KanbanBoard");
 
 	/**
 	 * Reference to the VirtualKanbanController, that every controller has
@@ -64,6 +63,15 @@ public class IOController {
 			ioex.printStackTrace();
 		}
 	}
+
+	/**
+	 *exports all projects to a PDF
+	 *
+	 * @param dest destination file for the pdf
+	 * @param projects list of projects which are exported
+	 * @throws IOException occurs if FileOutputStream could not be created
+	 * @throws DocumentException occurs if could not get instance of a PdfWriter
+	 */
 	public void exportAllTable(File dest,ArrayList<Project> projects) throws IOException, DocumentException {
 		Document document = new Document(PageSize.A4,0,0,0,0 );
 		PdfWriter.getInstance(document, new FileOutputStream(dest));
@@ -80,6 +88,15 @@ public class IOController {
 
 		document.close();
 	}
+
+	/**
+	 * exports a single project as PDF
+	 *
+	 * @param dest destination file for the pdf
+	 * @param project project which is exported
+	 * @throws IOException occurs if FileOutputStream could not be created
+	 * @throws DocumentException occurs if could not get instance of a PdfWriter
+	 */
 	public void exportATable(File dest,Project project) throws IOException, DocumentException {
 		Document document = new Document(PageSize.A4,0,0,0,0 );
 		PdfWriter.getInstance(document, new FileOutputStream(dest));
@@ -93,6 +110,12 @@ public class IOController {
 		document.close();
 	}
 
+	/**
+	 * converts a project into a PdfPTable
+	 *
+	 * @param project the converted project
+	 * @return a PdfPTable which contains the Kanban-Status of the project
+	 */
 	public PdfPTable createPdfTable(Project project) {
 		PdfPTable table = new PdfPTable(8);
 		table.setWidthPercentage(100);
@@ -124,6 +147,12 @@ public class IOController {
 		return table;
 	}
 
+	/**
+	 * searches for the stagelist with the most tasks and returns the count of tasks in that stageList
+	 *
+	 * @param proect project from which the longest stage is returned
+	 * @return the highest number of tasks in one stage
+	 */
 	public int findLongestStage(Project proect) {
 		int max = 0;
 		for(StageList stageList : proect.getStageList()) {
@@ -134,6 +163,12 @@ public class IOController {
 		return max;
 	}
 
+	/**
+	 * creates for every Stagelist one name as a String and returns that
+	 *
+	 * @param stageList list whose name is converted to a string
+	 * @return a string of the name of a stage
+	 */
 	public String getStageName(StageList stageList) {
 		if(stageList.getStage().equals(Stage.NEW)) {
 			return "Neu";
