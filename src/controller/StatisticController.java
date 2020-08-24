@@ -18,6 +18,7 @@ public class StatisticController {
  	 * reference to the main-controller
  	 */
     private VirtualKanbanController virtualKanbanController;
+    private int MAXIMUM_TIME_PASSED=7;
 
     public StatisticController(VirtualKanbanController virtualKanbanController) {
     	this.virtualKanbanController = virtualKanbanController;
@@ -26,15 +27,15 @@ public class StatisticController {
     /**
  	 *
  	 */
-    public HashMap<String, Integer> showStats(Project project) {
+    /*public HashMap<String, Integer> showStats(Project project) {
     	HashMap<String, Integer> result = new HashMap<>();
     	for(StageList stagelist : project.getStageList()) {
     		for(Task task : stagelist.getTask()) {
-    			//TODO
+
 			}
 		}
 		return null;
-    }
+    }*/
 
     /**
  	 * returns a map, which holds the developer names + min, max and avg time for the finished tasks
@@ -43,7 +44,11 @@ public class StatisticController {
     	HashMap<String, double[]> result = new HashMap<>();
     	ArrayList<Developer> devs = team.getDevelopers();
     	for(Developer dev : devs) {
-			Supplier<IntStream> streamSupplier = () -> dev.getCompletedStageList().stream().filter(cs -> ChronoUnit.DAYS.between(cs.getCompletionDate().toLocalDate(), LocalDate.now()) <= 7).mapToInt(cs -> (int)ChronoUnit.MINUTES.between(cs.getStartDate(), cs.getCompletionDate()));
+			Supplier<IntStream> streamSupplier = () -> dev.getCompletedStageList().stream()
+					.filter(currentStage -> ChronoUnit.DAYS.between(currentStage.getCompletionDate()
+							.toLocalDate(), LocalDate.now()) <= MAXIMUM_TIME_PASSED)
+					.mapToInt(currentStage -> (int)ChronoUnit.MINUTES
+							.between(currentStage.getStartDate(), currentStage.getCompletionDate()));
 			double[] value = new double[] {0, 0, 0};
 			if(streamSupplier.get().min().isPresent()) value[0] = streamSupplier.get().min().getAsInt();
 			if(streamSupplier.get().average().isPresent()) value[1] = streamSupplier.get().average().getAsDouble();
@@ -57,43 +62,16 @@ public class StatisticController {
 	 * shows a ranking of all developers, ordered by the number of tasks completed within the last seven days.
 	 * @return a two-dimensional String array with every developer and the number of tasks they completed within the last seven days
 	 */
-	public String[][] showRanking(){
-    	int numberOfDevelopers=0;
+	public HashMap<String,Integer> showRanking(){
 
-    	ArrayList<Team> teamArrayList=virtualKanbanController.getVirtualKanban().getTeam();
-
-    	for(Team currentTeam:teamArrayList)
-		{
-			ArrayList<Developer> developerArrayList= currentTeam.getDevelopers();
-			for(Developer currentDeveloper:developerArrayList) {
-				numberOfDevelopers++;
+    	HashMap<String,Integer> rankingTable= new HashMap<>();
+    	for(Team currentTeam:virtualKanbanController.getVirtualKanban().getTeam()) {
+			for(Developer currentDeveloper:currentTeam.getDevelopers()){
+				rankingTable.put(currentDeveloper.getName(),(int)currentDeveloper.getCompletedStageList().stream()
+						.filter(currentStage->ChronoUnit.DAYS.between(currentStage.getCompletionDate()
+								.toLocalDate(),LocalDate.now())<=7).count());
 			}
 		}
-    	String[][] unsortedTable=new String[2][numberOfDevelopers];
-    	int arrayIndex=0;
-    	for(Team currentTeam:teamArrayList) {
-			ArrayList<Developer> DeveloperArrayList= currentTeam.getDevelopers();
-			for(Developer currentDeveloper:DeveloperArrayList){
-				Integer numberOfCompletions=0;
-				ArrayList<CompletedStage> completedStageArrayList=currentDeveloper.getCompletedStageList();
-				for(CompletedStage currentCompletedStage:completedStageArrayList){
-
-					LocalDateTime completionDate=currentCompletedStage.getCompletionDate();
-					LocalDateTime currentDate=LocalDateTime.now();
-					long timePassed=completionDate.until(currentDate,DAYS);
-					if(timePassed<=7)
-					{
-						numberOfCompletions++;
-					}
-				}
-				String nocToString=numberOfCompletions.toString();
-				unsortedTable[0][arrayIndex]=currentDeveloper.getName();
-				unsortedTable[1][arrayIndex]=nocToString;
-				arrayIndex++;
-			}
-		}
-
-
-        return unsortedTable;
+        return rankingTable;
     }
 }
