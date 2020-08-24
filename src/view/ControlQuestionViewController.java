@@ -2,24 +2,17 @@ package view;
 
 import application.Main;
 import controller.VirtualKanbanController;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Project;
 import model.Task;
-
-import java.awt.*;
-import java.lang.UnsupportedOperationException;
 
 public class ControlQuestionViewController extends VBox {
 
@@ -35,29 +28,22 @@ public class ControlQuestionViewController extends VBox {
     @FXML
     private Button cancelButton;
 
-    /**
-     *
-     */
-    private VirtualKanbanController virtualKanbanController;
+    private final VirtualKanbanController virtualKanbanController;
+
+    private final Stage stage;
+
+    private final String event;
+
+    private final Project project;
+
+    private final Task task;
+
+    private final StackPane stackPane;
+
+    private final KanBanViewController kanBanViewController;
 
     /**
      *
-     */
-    private Stage stage;
-
-    private String event;
-
-    private Project project;
-
-    private Task task;
-
-    private StackPane stackPane;
-
-    private KanBanViewController kanBanViewController;
-
-    /**
-     *
-     * @param virtualKanbanController
      */
     public ControlQuestionViewController(VirtualKanbanController virtualKanbanController, String event, Project project, Task task, StackPane stackPane, KanBanViewController kanBanViewController){
         this.virtualKanbanController = virtualKanbanController;
@@ -102,7 +88,6 @@ public class ControlQuestionViewController extends VBox {
  	 */
     @FXML
     void onContinueButtonEvent(MouseEvent event){
-        //TODO when refreshing is working, test if it works
         if(this.event.equals("archiveButton")){
             virtualKanbanController.getProjectController().archiveProject(project);
             closeView();

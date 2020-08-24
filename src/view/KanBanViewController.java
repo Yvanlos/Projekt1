@@ -3,7 +3,6 @@ package view;
 import controller.VirtualKanbanController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
@@ -12,7 +11,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -74,21 +72,21 @@ public class KanBanViewController extends BorderPane {
     private ListView<Developer> unassignedList;
 
     @FXML
-    private StackPane stackPane;
+    private final StackPane stackPane;
 
-    private Project project;
+    private final Project project;
 
-    private VirtualKanbanController virtualKanbanController;
+    private final VirtualKanbanController virtualKanbanController;
 
     private ReadCommentController readCommentController;
 
     private NewCommentController newCommentController;
 
-    private NewTaskViewController newTaskViewController;
+    private final NewTaskViewController newTaskViewController;
 
     private ControlQuestionViewController controlQuestionViewController;
 
-    private ProjectInfoViewController projectInfoViewController;
+    private final ProjectInfoViewController projectInfoViewController;
 
     public KanBanViewController(StackPane stackPane, VirtualKanbanController virtualKanbanController, Project project) {
         this.stackPane = stackPane;
@@ -107,7 +105,6 @@ public class KanBanViewController extends BorderPane {
 
         //Generate the ViewController
         newTaskViewController = new NewTaskViewController(virtualKanbanController, this);
-        //controlQuestionViewController = new ControlQuestionViewController(virtualKanbanController);
         projectInfoViewController = new ProjectInfoViewController(virtualKanbanController, project);
     }
 
@@ -166,22 +163,21 @@ public class KanBanViewController extends BorderPane {
     @FXML
     public void addUnassignedDeveloperToListView(){
         unassignedList.setOrientation(Orientation.HORIZONTAL);
-        unassignedList.setCellFactory(e -> new ListCell<Developer>() {
+        unassignedList.setCellFactory(e -> new ListCell<>() {
                     @Override
                     protected void updateItem(Developer developer, boolean empty) {
                         super.updateItem(developer, empty);
                         if (empty || developer == null) {
                             setGraphic(null);
-                        } else{
+                        } else {
                             ImageView imageView = new ImageView();
-                            if(developer.getPicture() != null) {
+                            if (developer.getPicture() != null) {
                                 try {
                                     File imageFile = new File(developer.getPicture());
                                     InputStream imageStream = new FileInputStream(imageFile);
                                     Image image = new Image(imageStream);
                                     imageView.setImage(image);
-                                }
-                                catch(IOException e) {
+                                } catch (IOException e) {
                                     System.out.println("Could not load picture.");
                                 }
                             }
@@ -240,7 +236,7 @@ public class KanBanViewController extends BorderPane {
      * Sets the unassigned developerList to a list of all currently unassigned developers.
      */
     public void refreshDeveloperList() {
-        ArrayList<Developer> developerList = new ArrayList<Developer>();
+        ArrayList<Developer> developerList = new ArrayList<>();
         project.getTeam().getDevelopers().forEach(developer -> {
             if(!developer.isAtWork()){
                 developerList.add(developer);
@@ -280,7 +276,6 @@ public class KanBanViewController extends BorderPane {
             menuButton.getItems().add(new MenuItem("Aufgabe l\u00f6schen"));
             menuButton.getItems().add(new MenuItem("Kommentare anzeigen"));
             menuButton.getItems().add(new MenuItem("Kommentar hinzuf\u00fcgen"));
-            //TODO refresh if task is moved
 
             //If the task is worked on, the button for starting a task is disabled but finishing and droping a task can be chosen
             if (stageList.getStage() == Stage.ANALYSE_IN_PROGRESS || stageList.getStage() == Stage.IMPLEMENTATION_IN_PROGRESS || stageList.getStage() == Stage.TEST_IN_PROGRESS) {
