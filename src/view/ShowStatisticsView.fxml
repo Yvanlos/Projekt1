@@ -11,10 +11,10 @@
    <center>
       <TableView fx:id="tableViewStatsTable" prefHeight="200.0" prefWidth="200.0">
         <columns>
-            <TableColumn fx:id="tableColumnName" prefWidth="480.0" text="Name" />
-          <TableColumn fx:id="tableColumnMin" minWidth="0.0" prefWidth="480.0" text="Minimale Bearbeitungsdauer" />
-          <TableColumn fx:id="tableColumnMax" minWidth="0.0" prefWidth="480.0" text="Maximale Bearbeitungsdauer" />
-            <TableColumn fx:id="tableColumnAvg" minWidth="0.0" prefWidth="480.0" text="Durchschnittliche Bearbeitungsdauer" />
+            <TableColumn fx:id="tableColumnName" prefWidth="425.0" text="Name" />
+          <TableColumn fx:id="tableColumnMin" minWidth="0.0" prefWidth="425.0" text="Minimale Bearbeitungsdauer" />
+          <TableColumn fx:id="tableColumnMax" minWidth="0.0" prefWidth="425.0" text="Maximale Bearbeitungsdauer" />
+            <TableColumn fx:id="tableColumnAvg" minWidth="0.0" prefWidth="425.0" text="Durchschnittliche Bearbeitungsdauer" />
         </columns>
       </TableView>
    </center>
