@@ -90,9 +90,7 @@ public class NewProjectViewController extends VBox {
         nameAlreadyAssignedViewController = new NameAlreadyAssignedViewController(virtualKanbanController);
 
         //Link the combobox with all existing teams
-        ArrayList<Team> teamList = virtualKanbanController.getTeamController().getTeamsList();
-        ObservableList<Team> observableTeamList = FXCollections.observableArrayList(teamList);
-        teamInputField.setItems(observableTeamList);
+        updateTeamCombobox();
 
         teamInputField.setCellFactory(e -> new ListCell<Team>() {
             @Override
@@ -109,6 +107,12 @@ public class NewProjectViewController extends VBox {
         });
         teamInputField.setButtonCell(teamInputField.getCellFactory().call(null));
 	}
+    
+    public void updateTeamCombobox() {
+    	ArrayList<Team> teamList = virtualKanbanController.getTeamController().getTeamsList();
+        ObservableList<Team> observableTeamList = FXCollections.observableArrayList(teamList);
+        teamInputField.setItems(observableTeamList);
+    }
 
     /**
  	 *
