@@ -105,8 +105,8 @@ public class StatisticControllerTest {
 
     @Test
     public void testShowRanking() {
-        String[][] array = testClass.showRanking();
-        assertEquals(array[0][0], "TestDev1");
-        assertEquals(array[1][0], "3");
+        HashMap<String,Integer> map = testClass.showRanking();
+        assertEquals(map.get("TestDev3").intValue(),2);
+        assertEquals(map.get("TestDev1").intValue(),3);
     }
 }
