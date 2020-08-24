@@ -1,5 +1,7 @@
 package view;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -91,6 +93,12 @@ public class TeamsViewController {
     	stage.setScene(scene);
     	stage.setTitle("Teamliste");
         stage.getIcons().add(new Image(getClass().getResourceAsStream("ressources/team.png")));
+        stage.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                refreshTeamList();
+            }
+        });
 	}
 
     @FXML
