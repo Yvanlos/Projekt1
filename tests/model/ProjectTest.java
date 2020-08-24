@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
@@ -132,7 +133,7 @@ public class ProjectTest {
      */
     @Test
     public void testGetStartDate() {
-        assertEquals(LocalDateTime.now(), project.getStartDate());
+        assertEquals(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")), project.getStartDate().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
     }
 
     /**
@@ -148,7 +149,7 @@ public class ProjectTest {
      */
     @Test
     public void testGetDeadline() {
-        assertEquals(LocalDateTime.now(), project.getDeadline());
+        assertEquals(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")), project.getDeadline().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
     }
 
     /**
