@@ -1,5 +1,6 @@
 package view;
 
+import com.itextpdf.text.DocumentException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,6 +15,9 @@ import javafx.stage.Stage;
 import application.Main;
 import controller.VirtualKanbanController;
 import model.Project;
+
+import java.io.File;
+import java.io.IOException;
 
 
 public class PdfViewController extends BorderPane {
@@ -42,6 +46,8 @@ public class PdfViewController extends BorderPane {
     private Stage stage;
 
     private VirtualKanbanController virtualKanbanController;
+
+    private static final File DEST = new File("KanbanBoard");
 
     public PdfViewController(VirtualKanbanController virtualKanbanController) {
         this.virtualKanbanController = virtualKanbanController;
@@ -73,15 +79,15 @@ public class PdfViewController extends BorderPane {
     }
 
     @FXML
-    void onExportButtonClicked(MouseEvent event) {
+    void onExportButtonClicked(MouseEvent event) throws IOException, DocumentException {
         errorLabel.setVisible(false);
         if(allProjectsButton.isSelected()) {
-            //virtualKanbanController.getIOController().exportPdf(virtualKanbanController.getVirtualKanban().getProject());
+                virtualKanbanController.getIOController().exportAllTable(DEST, virtualKanbanController.getVirtualKanban().getProject());
         }
         else if(projectComboBox.getValue()==null) {
             errorLabel.setVisible(true);
         } else {
-            //virtualKanbanController.getIOController().exportPdf(projectComboBox.getValue());
+            virtualKanbanController.getIOController().createPdfTable(projectComboBox.getValue());
         }
     }
 

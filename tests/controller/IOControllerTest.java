@@ -112,23 +112,22 @@ public class IOControllerTest{
         ArrayList<StageList> stageListsP2 = p2.getStageList();
         ArrayList<StageList> stageListsP3 = p3.getStageList();
         ArrayList<StageList> stageListsP4 = p4.getStageList();
-        int stageIndex = 0;
-        for(int i = 0 ; i < tasks.length ; i++) {
-            stageListsP1.get(stageIndex).addTask(tasks[i]);
+        for(int i = 0 ; i < 20 ; i++) {
+            stageListsP1.get(0).addTask(tasks[i]);
         }
-        for(int i = 0 ; i < tasks.length ; i++) {
-            stageListsP2.get(stageIndex).addTask(tasks[i]);
+        for(int i = 20 ; i < 30 ; i++) {
+            stageListsP1.get(3).addTask(tasks[i]);
         }
-        for(int i = 0 ; i < tasks.length ; i++) {
-            stageListsP3.get(stageIndex).addTask(tasks[i]);
+        for(int i = 20 ; i < 40 ; i++) {
+            stageListsP2.get(0).addTask(tasks[i]);
         }
-        for(int i = 0 ; i < tasks.length ; i++) {
-            stageListsP4.get(stageIndex).addTask(tasks[i]);
-        }
+
         // in ein ArrayList...
-        Project [] projectArrayList = {p1,p2,p3,p4} ;
+        ArrayList<Project> projectArrayList = new ArrayList<>() ;
+        projectArrayList.add(p1);
+        projectArrayList.add(p2);
         File file = new File(String.valueOf(DEST));
-        io.exportATable(DEST,p4);
-        //io.exportAllTable(DEST,projectArrayList);
+//        io.exportATable(DEST,p4);
+        io.exportAllTable(DEST,projectArrayList);
     }
 }
