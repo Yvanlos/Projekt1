@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import model.Project;
@@ -45,11 +46,12 @@ public class TeamController {
     	ArrayList<Team> teamList = getTeamsList();
     	ArrayList<Project> projectList = virtualKanbanController.getVirtualKanban().getProject();
         if(teamList.contains(team)) {
-        	for(Project project : projectList) {
-        		if(project.getTeam().equals(team)) {
-        			project.setTeam(null);
-        		}
-        	}
+			Iterator<Project> iterator = projectList.iterator();
+			while (iterator.hasNext()) {
+				if(iterator.next().getTeam().equals(team)) {
+					iterator.remove();
+				}
+			}
         	teamList.remove(team);
         }
         else {
