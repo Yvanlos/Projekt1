@@ -16,6 +16,7 @@ import java.lang.UnsupportedOperationException;
 
 import application.Main;
 import controller.VirtualKanbanController;
+import model.Team;
 
 public class NewTeamsViewController {
 
@@ -53,9 +54,12 @@ public class NewTeamsViewController {
 	 */
 	private TeamsViewController teamsViewController;
 
+	private NameAlreadyAssignedViewController nameAlreadyAssignedViewController;
+
 	public NewTeamsViewController(VirtualKanbanController virtualKanbanController, TeamsViewController teamsViewController) {
     	this.virtualKanbanController = virtualKanbanController;
     	this.teamsViewController = teamsViewController;
+    	this.nameAlreadyAssignedViewController = new NameAlreadyAssignedViewController(virtualKanbanController);
     	
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("NewTeamsView.fxml"));
     	fxmlLoader.setController(this);
@@ -66,8 +70,7 @@ public class NewTeamsViewController {
     	    throw new RuntimeException(e);
     	}
 
-    	// TODO hier kann die View weiter initialisiert werden (aequivalent zu initialize-Methode bei Komponenten)
-    	
+
 
     	// init Scene and Stage
     	Scene scene = new Scene(root);
@@ -101,6 +104,12 @@ public class NewTeamsViewController {
     @FXML
     void onConfirmButtonEvent(MouseEvent event){
 		String name = nameInputField.getText();
+		for(Team team : virtualKanbanController.getTeamController().getTeamsList()) {
+			if(team.getName().equals(name)) {
+				nameAlreadyAssignedViewController.showView();
+				name = "";
+			}
+		}
 		if(name.equals(""))
 		{
 			nameInputField.setPromptText("Bitte geben Sie einen Namen ein");
