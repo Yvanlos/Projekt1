@@ -94,6 +94,7 @@ public class IOController {
 		for(StageList stageList : project.getStageList()) {
 			PdfPTable table_column = new PdfPTable(1);
 			//table_new.addCell(stageList.getStage().toString());
+			table_column.addCell(getStageName(stageList));
 			int columnsFilled = 0;
 			for (Task task : stageList.getTask()) {
 				table_column.addCell(task.getName());
@@ -118,6 +119,32 @@ public class IOController {
 			}
 		}
 		return max;
+	}
+
+	public String getStageName(StageList stageList) {
+		if(stageList.getStage().equals(Stage.NEW)) {
+			return "Neu";
+		}
+		if(stageList.getStage().equals(Stage.ANALYSE_IN_PROGRESS)) {
+			return "Ana. Arbeit";
+		}
+		if(stageList.getStage().equals(Stage.ANALYSE_FINISHED)) {
+			return "Ana. fertig";
+		}
+		if(stageList.getStage().equals(Stage.IMPLEMENTATION_IN_PROGRESS)) {
+			return "Impl. Arbeit";
+		}
+		if(stageList.getStage().equals(Stage.IMPLEMENTATION_FINISHED)) {
+			return "Impl. fertig";
+		}
+		if(stageList.getStage().equals(Stage.TEST_IN_PROGRESS)) {
+			return "Test Arbeit";
+		}
+		if(stageList.getStage().equals(Stage.TEST_FINISHED)) {
+			return "Test fertig";
+		}
+		else return "Abgeschl.";
+
 	}
 }
 
