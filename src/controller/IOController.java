@@ -64,10 +64,21 @@ public class IOController {
 			ioex.printStackTrace();
 		}
 	}
-	public void exportAllTable(File dest,Project [] projects) throws IOException, DocumentException {
+	public void exportAllTable(File dest,ArrayList<Project> projects) throws IOException, DocumentException {
+		Document document = new Document(PageSize.A4,0,0,0,0 );
+		PdfWriter.getInstance(document, new FileOutputStream(dest));
+		document.open();
+
+		document.setPageSize(PageSize.A4);
+		document.newPage();
+
 		for(Project project : projects ) {
-			exportATable(dest, project);
+			PdfPTable table = createPdfTable(project);
+			document.newPage();
+			document.add(table);
 		}
+
+		document.close();
 	}
 	public void exportATable(File dest,Project project) throws IOException, DocumentException {
 		Document document = new Document(PageSize.A4,0,0,0,0 );
@@ -77,6 +88,12 @@ public class IOController {
 		document.setPageSize(PageSize.A4);
 		document.newPage();
 
+		PdfPTable table = createPdfTable(project);
+		document.add(table);
+		document.close();
+	}
+
+	public PdfPTable createPdfTable(Project project) {
 		PdfPTable table = new PdfPTable(8);
 		table.setWidthPercentage(100);
 		table.setSpacingBefore(0f);
@@ -104,9 +121,7 @@ public class IOController {
 			}
 			table.addCell(tableColumn);
 		}
-
-		document.add(table);
-		document.close();
+		return table;
 	}
 
 	public int findLongestStage(Project proect) {
