@@ -90,20 +90,34 @@ public class IOController {
 		cell.setBackgroundColor(new BaseColor(144, 221, 8));
 		table.addCell(cell);
 		//projects = virtualKanbanController.getVirtualKanban().getProject() ;
-		ArrayList<StageList> stages = project.getStageList() ;
-		for (int aw = 0; aw < stages.size(); aw++) {
-			table.addCell(stages.get(aw).getStage().name());
+		int longestStage = findLongestStage(project);
+		for(StageList stageList : project.getStageList()) {
+			PdfPTable table_column = new PdfPTable(1);
+			//table_new.addCell(stageList.getStage().toString());
+			int columnsFilled = 0;
+			for (Task task : stageList.getTask()) {
+				table_column.addCell(task.getName());
+				columnsFilled++;
 			}
-		for(StageList stageslist : stages) {
-			ArrayList<Task> tasks = stageslist.getTask();
-			for(Task task : tasks){
-				table.addCell(task.getName());
+			while(columnsFilled<longestStage) {
+				table_column.addCell("");
+				columnsFilled++;
 			}
-
+			table.addCell(table_column);
 		}
 
 		document.add(table);
 		document.close();
+	}
+
+	public int findLongestStage(Project proect) {
+		int max = 0;
+		for(StageList stageList : proect.getStageList()) {
+			if(stageList.getTask().size()>max) {
+				max = stageList.getTask().size();
+			}
+		}
+		return max;
 	}
 }
 
