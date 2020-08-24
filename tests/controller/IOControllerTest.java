@@ -20,7 +20,7 @@ public class IOControllerTest{
 
    VirtualKanbanController vkc;
     IOController io;
-    private static final File DEST = new File("KanbanBoard");
+    private static final File DEST = new File("KanbanBoard.pdf");
     public IOControllerTest(){
         vkc = new VirtualKanbanController();
         io = new IOController(vkc);
@@ -114,6 +114,7 @@ public class IOControllerTest{
         for(int i = 0 ; i < tasks.length ; i++) {
             stageListsP4.get(stageIndex).addTask(tasks[i]);
         }
+        // in ein ArrayList...
         Project [] projectArrayList = {p1,p2,p3,p4} ;
         File file = new File(String.valueOf(DEST));
         io.exportATable(DEST,p4);

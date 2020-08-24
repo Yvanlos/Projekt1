@@ -14,7 +14,7 @@ public class IOController {
 	 * the file in which the status is saved
 	 */
 	private static final File SAVE_File = new File("save");
-	private static final File src = new File("KanbanBoard");
+	private static final File src = new File("KanbanBoard.pdf");
 
 	/**
 	 * the file in which the PDF exports are saved
