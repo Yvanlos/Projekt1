@@ -57,6 +57,8 @@ public class DeveloperListViewController {
      */
     private Stage stage;
     
+    private DeveloperListViewController instance;
+    
     
     /**
      * A NewDeveloperViewController object for showing the NewDeveloperView
@@ -65,7 +67,7 @@ public class DeveloperListViewController {
 
     public DeveloperListViewController(VirtualKanbanController virtualKanbanController) {
     	this.virtualKanbanController = virtualKanbanController;
-    	
+    	this.instance = this;
     	//Test
     	
     	virtualKanbanController.getTeamController().createTeam("Test Team");
@@ -129,12 +131,9 @@ public class DeveloperListViewController {
     	        	deleteButton.setPrefWidth(80);
     	        	deleteButton.setCenterShape(true);
     	        	deleteButton.setOnMouseClicked(e -> {
-    	        		//TODO: Sicherheitsabfrage
-    	        		
-    	        		
-    	        		//Deleting the developer
-    	        		virtualKanbanController.getDeveloperController().deleteDeveloper(developer);
-    	        		refreshDeveloperList();
+    	        		//Sicherheitsabfrage
+    	        		DeveloperControlQuestionViewController controlQuestionView = new DeveloperControlQuestionViewController(virtualKanbanController, instance, developer);
+    	        		controlQuestionView.showView();
     	        	});
     	        	
     	        	BorderPane display = new BorderPane(name, null, deleteButton, null, imageView);
