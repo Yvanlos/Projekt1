@@ -3,14 +3,13 @@ package controller;
 import model.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
-import static java.time.temporal.ChronoUnit.DAYS;
+
 
 public class StatisticController {
 
@@ -18,15 +17,13 @@ public class StatisticController {
  	 * reference to the main-controller
  	 */
     private VirtualKanbanController virtualKanbanController;
-    private int MAXIMUM_TIME_PASSED=7;
+    private final int MAXIMUM_TIME_PASSED=7;
 
     public StatisticController(VirtualKanbanController virtualKanbanController) {
     	this.virtualKanbanController = virtualKanbanController;
     }
 
-    /**
- 	 *
- 	 */
+
     /*public HashMap<String, Integer> showStats(Project project) {
     	HashMap<String, Integer> result = new HashMap<>();
     	for(StageList stagelist : project.getStageList()) {
@@ -69,7 +66,7 @@ public class StatisticController {
 			for(Developer currentDeveloper:currentTeam.getDevelopers()){
 				rankingTable.put(currentDeveloper.getName(),(int)currentDeveloper.getCompletedStageList().stream()
 						.filter(currentStage->ChronoUnit.DAYS.between(currentStage.getCompletionDate()
-								.toLocalDate(),LocalDate.now())<=7).count());
+								.toLocalDate(),LocalDate.now())<=MAXIMUM_TIME_PASSED).count());
 			}
 		}
         return rankingTable;
