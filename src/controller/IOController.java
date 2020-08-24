@@ -3,7 +3,6 @@ package controller;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 import model.*;
-
 import java.io.*;
 import java.util.ArrayList;
 //import sandbox.WrapToTest;
@@ -13,8 +12,7 @@ public class IOController {
 	/**
 	 * the file in which the status is saved
 	 */
-	private static final File SAVE_File = new File("save");
-	private static final File src = new File("KanbanBoard.pdf");
+	private static final File SAVE_FILE = new File("save");
 
 	/**
 	 * the file in which the PDF exports are saved
@@ -36,9 +34,9 @@ public class IOController {
 	 * @throws IOException is thrown if an error occurs while loading
 	 */
 	public VirtualKanban load() throws IOException {
-		if (SAVE_File.exists()) {
+		if (SAVE_FILE.exists()) {
 			try {
-				ObjectInputStream stream = new ObjectInputStream(new FileInputStream(SAVE_File));
+				ObjectInputStream stream = new ObjectInputStream(new FileInputStream(SAVE_FILE));
 				VirtualKanban virtualKanban = (VirtualKanban) stream.readObject();
 				stream.close();
 				return virtualKanban;
@@ -58,7 +56,7 @@ public class IOController {
 	 */
 	public void save() throws IOException {
 		try {
-			ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(SAVE_File));
+			ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(SAVE_FILE));
 			stream.writeObject(virtualKanbanController.getVirtualKanban());
 			stream.close();
 		} catch (IOException ioex) {
@@ -92,19 +90,19 @@ public class IOController {
 		//projects = virtualKanbanController.getVirtualKanban().getProject() ;
 		int longestStage = findLongestStage(project);
 		for(StageList stageList : project.getStageList()) {
-			PdfPTable table_column = new PdfPTable(1);
+			PdfPTable tableColumn = new PdfPTable(1);
 			//table_new.addCell(stageList.getStage().toString());
-			table_column.addCell(getStageName(stageList));
+			tableColumn.addCell(getStageName(stageList));
 			int columnsFilled = 0;
 			for (Task task : stageList.getTask()) {
-				table_column.addCell(task.getName());
+				tableColumn.addCell(task.getName());
 				columnsFilled++;
 			}
 			while(columnsFilled<longestStage) {
-				table_column.addCell("");
+				tableColumn.addCell("");
 				columnsFilled++;
 			}
-			table.addCell(table_column);
+			table.addCell(tableColumn);
 		}
 
 		document.add(table);
