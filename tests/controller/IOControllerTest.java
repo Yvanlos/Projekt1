@@ -38,7 +38,7 @@ public class IOControllerTest{
      * @throws Exception Gets thrown if exporting was unsuccessful.
      */
     @Test
-    public void testExportATable() throws Exception {
+    public void testExportTable() throws Exception {
         LocalDateTime dateTimeP1 = LocalDateTime.of(2020, Month.AUGUST, 23, 16, 15, 15) ;
         LocalDateTime dateTimeP2 = LocalDateTime.of(2020, Month.AUGUST, 24, 16, 15, 15) ;
         LocalDateTime dateTimeP3 = LocalDateTime.of(2020, Month.AUGUST, 25, 16, 15, 15) ;
@@ -50,16 +50,12 @@ public class IOControllerTest{
 
         Team team1 = new Team("a");
         Team team2 = new Team("b");
-        Team team3 = new Team("c");
         Team team4 = new Team("d");
         Project p1 = new Project("vacation","gone trip",dateTimeP1,team1) ;
         Project p2 = new Project("game","fun",dateTimeP2,team2) ;
-        Project p3 = new Project("work out","healthy",dateTimeP3,team3) ;
         Project p4 = new Project("end","back trip",dateTimeP4,team4) ;
         ArrayList<Project> projects = new ArrayList<>();
         projects.add(p1);
-        projects.add(p2);
-        projects.add(p3);
         projects.add(p4);
 
         // 4 Task pro projekte .
@@ -110,8 +106,6 @@ public class IOControllerTest{
                         t27,t28,t29,t30,t31,t32,t33,t34,t35,t36,t37,t38,t39,t40};
         ArrayList<StageList> stageListsP1 = p1.getStageList();
         ArrayList<StageList> stageListsP2 = p2.getStageList();
-        ArrayList<StageList> stageListsP3 = p3.getStageList();
-        ArrayList<StageList> stageListsP4 = p4.getStageList();
         for(int i = 0 ; i < 20 ; i++) {
             stageListsP1.get(0).addTask(tasks[i]);
         }
@@ -121,13 +115,13 @@ public class IOControllerTest{
         for(int i = 20 ; i < 40 ; i++) {
             stageListsP2.get(0).addTask(tasks[i]);
         }
+        for(int i = 0 ; i < 40 ; i++) {
+            p4.getStageList().get(0).addTask(tasks[i]);
+        }
 
-        // in ein ArrayList...
-        ArrayList<Project> projectArrayList = new ArrayList<>() ;
-        projectArrayList.add(p1);
-        projectArrayList.add(p2);
+
         File file = new File(String.valueOf(DEST));
-//        io.exportATable(DEST,p4);
-        io.exportAllTable(DEST,projectArrayList);
+        io.exportATable(DEST,p4);
+        io.exportAllTable(DEST,projects);
     }
 }
