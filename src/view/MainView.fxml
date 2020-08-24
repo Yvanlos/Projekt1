@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.Menu?>
 <fx:root id="root" type="BorderPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <StackPane fx:id="stackPane">
@@ -20,10 +21,10 @@
                         <Button fx:id="createProjectButton" mnemonicParsing="false" onMouseClicked="#onCreateProjectButtonClick" prefHeight="150.0" prefWidth="150.0" text="Projekt anlegen" textAlignment="CENTER" wrapText="true" />
                         <Button fx:id="teamsButton" mnemonicParsing="false" onMouseClicked="#onTeamsButtonClick" prefHeight="150.0" prefWidth="150.0" text="Teams" textAlignment="CENTER" />
                         <Button fx:id="developersButton" mnemonicParsing="false" onMouseClicked="#onDevelopersButtonClick" prefHeight="150.0" prefWidth="150.0" text="Entwickler" textAlignment="CENTER" />
-                        <MenuButton mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="            Statistiken">
+                        <MenuButton mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" onMouseClicked="#onStatsClick" text="            Statistiken">
                           <items>
                             <MenuItem fx:id="showRankingButton" mnemonicParsing="false" onAction="#onShowRankingAction" text="Ranking" />
-                            <MenuItem fx:id="showStatisticButton" mnemonicParsing="false" onAction="#onShowStatistikAction" text="Bearbeitungszeiten" />
+                            <Menu fx:id="showStatisticButton" mnemonicParsing="false" onAction="#onShowStatistikAction" text="Bearbeitungszeiten" />
                           </items>
                         </MenuButton>
                         <Button fx:id="exportPDFButton" mnemonicParsing="false" onMouseClicked="#onExportPDFButtonClick" prefHeight="150.0" prefWidth="150.0" text="PDF exportieren" textAlignment="CENTER" wrapText="true" />

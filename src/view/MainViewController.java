@@ -73,7 +73,7 @@ public class MainViewController extends BorderPane {
      *
      */
     @FXML
-    private MenuItem showStatisticButton;
+    private Menu showStatisticButton;
 
     /**
      *
@@ -243,6 +243,7 @@ public class MainViewController extends BorderPane {
 
         refreshArchivedProjectsList();
 
+        refreshTeamsToMenu(showStatisticButton);
 
         //Binding
         IntegerBinding sizeProperty = Bindings.size(stackPane.getChildren());
@@ -334,9 +335,23 @@ public class MainViewController extends BorderPane {
      */
     @FXML
     void onShowStatistikAction(ActionEvent event) {
-        ShowStatisticsViewController showStatisticsViewController = new ShowStatisticsViewController(stackPane, virtualKanbanController);
+        /*ShowStatisticsViewController showStatisticsViewController = new ShowStatisticsViewController(stackPane, virtualKanbanController);
         stackPane.getChildren().get(0).setVisible(false);
-        stackPane.getChildren().add(showStatisticsViewController);
+        stackPane.getChildren().add(showStatisticsViewController);*/
+    }
+
+    public void refreshTeamsToMenu(Menu menu) {
+        menu.getItems().clear();
+        ArrayList<Team> teams = virtualKanbanController.getVirtualKanban().getTeam();
+        for(Team team : teams) {
+            MenuItem menuItem = new MenuItem(team.getName());
+            menuItem.setOnAction(event -> {
+                ShowStatisticsViewController sSVC = new ShowStatisticsViewController(stackPane, virtualKanbanController, team);
+                stackPane.getChildren().get(0).setVisible(false);
+                stackPane.getChildren().add(sSVC);
+            });
+            menu.getItems().add(menuItem);
+        }
     }
 
     /**
@@ -347,6 +362,11 @@ public class MainViewController extends BorderPane {
     @FXML
     void onTeamsButtonClick(MouseEvent event) {
         teamsViewController.showView();
+    }
+
+    @FXML
+    void onStatsClick(MouseEvent event) {
+        refreshTeamsToMenu(showStatisticButton);
     }
 
 }
