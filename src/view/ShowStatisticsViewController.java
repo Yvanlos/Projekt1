@@ -1,6 +1,7 @@
 package view;
 
 import controller.VirtualKanbanController;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -20,20 +21,22 @@ import java.util.HashMap;
 
 public class ShowStatisticsViewController extends BorderPane {
 
-    @FXML
-    private TableView<?> tableViewStatsTable;
+    private Team team;
 
     @FXML
-    private TableColumn<?, ?> tableColumnName;
+    private TableView<StatisticViewData> tableViewStatsTable;
 
     @FXML
-    private TableColumn<?, ?> tableColumnMin;
+    private TableColumn<StatisticViewData, String> tableColumnName;
 
     @FXML
-    private TableColumn<?, ?> tableColumnMax;
+    private TableColumn<StatisticViewData, Double> tableColumnMin;
 
     @FXML
-    private TableColumn<?, ?> tableColumnAvg;
+    private TableColumn<StatisticViewData, Double> tableColumnMax;
+
+    @FXML
+    private TableColumn<StatisticViewData, Double> tableColumnAvg;
 
     @FXML
     private Button backButton;
@@ -43,6 +46,7 @@ public class ShowStatisticsViewController extends BorderPane {
     private VirtualKanbanController virtualKanbanController;
 
     public ShowStatisticsViewController(StackPane stackPane, VirtualKanbanController virtualKanbanController, Team team){
+        this.team = team;
         this.stackPane = stackPane;
         this.virtualKanbanController = virtualKanbanController;
 
@@ -59,15 +63,25 @@ public class ShowStatisticsViewController extends BorderPane {
 
     public class StatisticViewData {
         public SimpleStringProperty name;
-        public SimpleIntegerProperty min;
-        public SimpleIntegerProperty avg;
-        public SimpleIntegerProperty max;
-        public StatisticViewData(String name, int min, int avg, int max) {
+        public SimpleDoubleProperty min;
+        public SimpleDoubleProperty avg;
+        public SimpleDoubleProperty max;
+        public StatisticViewData(String name, double min, double avg, double max) {
             this.name = new SimpleStringProperty(name);
-            this.min = new SimpleIntegerProperty(min);
-            this.min = new SimpleIntegerProperty(avg);
-            this.min = new SimpleIntegerProperty(max);
+            this.min = new SimpleDoubleProperty(min);
+            this.avg = new SimpleDoubleProperty(avg);
+            this.max = new SimpleDoubleProperty(max);
         }
+
+        public String getName() {return name.get();}
+        public double getMin() {return min.get();}
+        public double getMax() {return max.get();}
+        public double getAvg() {return avg.get();}
+
+        public void setName(String name) {this.name.set(name);}
+        public void setMin(double min) {this.min.set(min);}
+        public void setMax(double max) {this.min.set(max);}
+        public void setAvg(double avg) {this.min.set(avg);}
     }
 
     @FXML
@@ -75,19 +89,20 @@ public class ShowStatisticsViewController extends BorderPane {
         this.minWidthProperty().bind(stackPane.widthProperty());
         this.minHeightProperty().bind(stackPane.heightProperty());
 
-        /*HashMap<String, double[]> map = virtualKanbanController.getStatisticController().showStats();
-        RankingViewController.RankingViewData[] data = new RankingViewController.RankingViewData[map.keySet().size()];
+        HashMap<String, double[]> map = virtualKanbanController.getStatisticController().showStats(team);
+        StatisticViewData[] data = new StatisticViewData[map.keySet().size()];
         int index = 0;
         for(String name : map.keySet()) {
-            data[index] = new RankingViewController.RankingViewData(name, map.get(name));
+            data[index] = new StatisticViewData(name, map.get(name)[0], map.get(name)[1], map.get(name)[2]);
             index++;
-            //System.out.println(name + " " + map.get(name));
         }
-        ObservableList<RankingViewController.RankingViewData> list = FXCollections.observableArrayList(data);
-        tableColumnName.setCellValueFactory(new PropertyValueFactory<RankingViewController.RankingViewData, String>("name"));
-        tableColumnLast7Days.setCellValueFactory(new PropertyValueFactory<RankingViewController.RankingViewData, Integer>("completedTasks"));
-        tableViewRanking.setItems(list);
-        tableViewRanking.refresh();*/
+        ObservableList<StatisticViewData> list = FXCollections.observableArrayList(data);
+        tableColumnName.setCellValueFactory(new PropertyValueFactory<StatisticViewData, String>("name"));
+        tableColumnMin.setCellValueFactory(new PropertyValueFactory<StatisticViewData, Double>("min"));
+        tableColumnAvg.setCellValueFactory(new PropertyValueFactory<StatisticViewData, Double>("avg"));
+        tableColumnMax.setCellValueFactory(new PropertyValueFactory<StatisticViewData, Double>("max"));
+        tableViewStatsTable.setItems(list);
+        tableViewStatsTable.refresh();
     }
 
     @FXML
