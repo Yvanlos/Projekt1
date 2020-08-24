@@ -6,8 +6,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import view.MainViewController;
-import view.SampleViewController;
-import java.lang.UnsupportedOperationException;
 
 import controller.VirtualKanbanController;
 

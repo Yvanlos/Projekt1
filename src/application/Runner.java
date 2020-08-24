@@ -1,7 +1,5 @@
 package application;
 
-import java.lang.UnsupportedOperationException;
-
 public class Runner {
 
     /**
