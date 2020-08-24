@@ -130,14 +130,14 @@ public class TeamsViewController {
 
                     Circle circle = new Circle();
                     circle.setRadius(12);
-                    boolean hasProject = false;
+                    boolean hasActiveProject = false;
                     for(Project project : virtualKanbanController.getVirtualKanban().getProject()) {
-                        if(project.getTeam() == team) {
-                            hasProject = true;
+                        if(project.getTeam() == team && !project.isReadOnly()) {
+                            hasActiveProject = true;
                         }
                     }
 
-                    if(hasProject) {
+                    if(hasActiveProject) {
                         circle.setFill(new Color(0,1,0,1));
                     } else {
                         circle.setFill(new Color(1,0,0,1));

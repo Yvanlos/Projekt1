@@ -3,7 +3,6 @@ package controller;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 import model.*;
-
 import java.io.*;
 import java.util.ArrayList;
 //import sandbox.WrapToTest;
@@ -13,8 +12,7 @@ public class IOController {
 	/**
 	 * the file in which the status is saved
 	 */
-	private static final File SAVE_File = new File("save");
-	private static final File src = new File("KanbanBoard.pdf");
+	private static final File SAVE_FILE = new File("save");
 
 	/**
 	 * the file in which the PDF exports are saved
@@ -36,9 +34,9 @@ public class IOController {
 	 * @throws IOException is thrown if an error occurs while loading
 	 */
 	public VirtualKanban load() throws IOException {
-		if (SAVE_File.exists()) {
+		if (SAVE_FILE.exists()) {
 			try {
-				ObjectInputStream stream = new ObjectInputStream(new FileInputStream(SAVE_File));
+				ObjectInputStream stream = new ObjectInputStream(new FileInputStream(SAVE_FILE));
 				VirtualKanban virtualKanban = (VirtualKanban) stream.readObject();
 				stream.close();
 				return virtualKanban;
@@ -58,7 +56,7 @@ public class IOController {
 	 */
 	public void save() throws IOException {
 		try {
-			ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(SAVE_File));
+			ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(SAVE_FILE));
 			stream.writeObject(virtualKanbanController.getVirtualKanban());
 			stream.close();
 		} catch (IOException ioex) {
@@ -66,10 +64,21 @@ public class IOController {
 			ioex.printStackTrace();
 		}
 	}
-	public void exportAllTable(File dest,Project [] projects) throws IOException, DocumentException {
+	public void exportAllTable(File dest,ArrayList<Project> projects) throws IOException, DocumentException {
+		Document document = new Document(PageSize.A4,0,0,0,0 );
+		PdfWriter.getInstance(document, new FileOutputStream(dest));
+		document.open();
+
+		document.setPageSize(PageSize.A4);
+		document.newPage();
+
 		for(Project project : projects ) {
-			exportATable(dest, project);
+			PdfPTable table = createPdfTable(project);
+			document.newPage();
+			document.add(table);
 		}
+
+		document.close();
 	}
 	public void exportATable(File dest,Project project) throws IOException, DocumentException {
 		Document document = new Document(PageSize.A4,0,0,0,0 );
@@ -79,6 +88,12 @@ public class IOController {
 		document.setPageSize(PageSize.A4);
 		document.newPage();
 
+		PdfPTable table = createPdfTable(project);
+		document.add(table);
+		document.close();
+	}
+
+	public PdfPTable createPdfTable(Project project) {
 		PdfPTable table = new PdfPTable(8);
 		table.setWidthPercentage(100);
 		table.setSpacingBefore(0f);
@@ -90,20 +105,59 @@ public class IOController {
 		cell.setBackgroundColor(new BaseColor(144, 221, 8));
 		table.addCell(cell);
 		//projects = virtualKanbanController.getVirtualKanban().getProject() ;
-		ArrayList<StageList> stages = project.getStageList() ;
-		for (int aw = 0; aw < stages.size(); aw++) {
-			table.addCell(stages.get(aw).getStage().name());
+		int longestStage = findLongestStage(project);
+		for(StageList stageList : project.getStageList()) {
+			PdfPTable tableColumn = new PdfPTable(1);
+			//table_new.addCell(stageList.getStage().toString());
+			tableColumn.addCell(getStageName(stageList));
+			int columnsFilled = 0;
+			for (Task task : stageList.getTask()) {
+				tableColumn.addCell(task.getName());
+				columnsFilled++;
 			}
-		for(StageList stageslist : stages) {
-			ArrayList<Task> tasks = stageslist.getTask();
-			for(Task task : tasks){
-				table.addCell(task.getName());
+			while(columnsFilled<longestStage) {
+				tableColumn.addCell("");
+				columnsFilled++;
 			}
-
+			table.addCell(tableColumn);
 		}
+		return table;
+	}
 
-		document.add(table);
-		document.close();
+	public int findLongestStage(Project proect) {
+		int max = 0;
+		for(StageList stageList : proect.getStageList()) {
+			if(stageList.getTask().size()>max) {
+				max = stageList.getTask().size();
+			}
+		}
+		return max;
+	}
+
+	public String getStageName(StageList stageList) {
+		if(stageList.getStage().equals(Stage.NEW)) {
+			return "Neu";
+		}
+		if(stageList.getStage().equals(Stage.ANALYSE_IN_PROGRESS)) {
+			return "Ana. Arbeit";
+		}
+		if(stageList.getStage().equals(Stage.ANALYSE_FINISHED)) {
+			return "Ana. fertig";
+		}
+		if(stageList.getStage().equals(Stage.IMPLEMENTATION_IN_PROGRESS)) {
+			return "Impl. Arbeit";
+		}
+		if(stageList.getStage().equals(Stage.IMPLEMENTATION_FINISHED)) {
+			return "Impl. fertig";
+		}
+		if(stageList.getStage().equals(Stage.TEST_IN_PROGRESS)) {
+			return "Test Arbeit";
+		}
+		if(stageList.getStage().equals(Stage.TEST_FINISHED)) {
+			return "Test fertig";
+		}
+		else return "Abgeschl.";
+
 	}
 }
 

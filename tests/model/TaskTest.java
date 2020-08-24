@@ -51,7 +51,9 @@ public class TaskTest {
 
     @Test
     public void testGetDeadline() {
-        assertEquals(LocalDateTime.now(),task.getDeadline());
+    	LocalDateTime creationDate = task.getDeadline();
+    	Duration duration = Duration.between(creationDate, LocalDateTime.now());
+    	assertTrue(duration.getSeconds() < 2);
     }
 
     /**
