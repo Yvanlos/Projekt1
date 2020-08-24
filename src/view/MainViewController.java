@@ -278,6 +278,7 @@ public class MainViewController extends BorderPane {
      */
     @FXML
     void onCreateProjectButtonClick(MouseEvent event) {
+    	newProjectViewController.updateTeamCombobox();
         newProjectViewController.showView();
     }
 
