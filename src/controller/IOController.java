@@ -23,6 +23,10 @@ public class IOController {
 	 */
 	private VirtualKanbanController virtualKanbanController;
 
+	/**
+	 * teh IOController constructor
+	 * @param virtualKanbanController reference to the main-controller
+	 */
 	public IOController(VirtualKanbanController virtualKanbanController) {
 		this.virtualKanbanController = virtualKanbanController;
 	}

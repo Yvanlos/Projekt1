@@ -25,6 +25,10 @@ public class StatisticController {
 	 */
 	private final int MAXIMUM_TIME_PASSED=7;
 
+	/**
+	 * the StatisticController constructor
+	 * @param virtualKanbanController reference to the main-controller
+	 */
     public StatisticController(VirtualKanbanController virtualKanbanController) {
     	this.virtualKanbanController = virtualKanbanController;
     }
