@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import application.Main;
 import controller.VirtualKanbanController;
+import model.Project;
 import model.Team;
 
 public class NewProjectViewController extends VBox {
@@ -109,7 +110,20 @@ public class NewProjectViewController extends VBox {
 	}
     
     public void updateTeamCombobox() {
-    	ArrayList<Team> teamList = virtualKanbanController.getTeamController().getTeamsList();
+    	ArrayList<Team> teamList = new ArrayList<>();
+    	boolean isAlreadyAssigned = false;
+
+        for(Team team : virtualKanbanController.getVirtualKanban().getTeam()){
+            for(Project project : virtualKanbanController.getVirtualKanban().getProject()){
+                if(project.getTeam().equals(team) && !project.isReadOnly()){
+                    isAlreadyAssigned = true;
+                }
+            }
+            if(!isAlreadyAssigned){
+                teamList.add(team);
+            }
+            isAlreadyAssigned = false;
+        }
         ObservableList<Team> observableTeamList = FXCollections.observableArrayList(teamList);
         teamInputField.setItems(observableTeamList);
     }
@@ -173,7 +187,7 @@ public class NewProjectViewController extends VBox {
         nameInputField.setText("");
         descriptionInputField.setText("");
         deadlineInputField.getEditor().clear();
-        teamInputField.setValue(null);
+        teamInputField.getSelectionModel().clearSelection();
 
         stage.hide();
     }
