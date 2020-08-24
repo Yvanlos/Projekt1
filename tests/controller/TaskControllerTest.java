@@ -51,6 +51,16 @@ public class TaskControllerTest {
     }
 
     /**
+     * tests the method deleteTask(project, task) with not allowed task
+     */
+    @Test (expected = NoSuchElementException.class)
+    public void deleteTaskUnsuccessful() {
+        Project p = new Project("testController","descriptionController", LocalDateTime.now(), new Team("testname"));
+        Task t= new Task("testController","descriptionController",LocalDateTime.now());
+        tc.deleteTask(p,t);
+    }
+
+    /**
      * tests teh method addTask(project, name , description, deadline)
      */
     @Test
@@ -225,5 +235,15 @@ public class TaskControllerTest {
         Task t= new Task("testController","descriptionController",LocalDateTime.now());
         tc.getStageFromTask(t,p);
 
+    }
+
+    /**
+     * tests the setVirtualKanbanController method
+     */
+    @Test
+    public void testSetVirtualKanbanController(){
+        VirtualKanbanController virtualKanbanController = new VirtualKanbanController();
+        tc.setVirtualKanbanController(virtualKanbanController);
+        assertEquals(tc.getVirtualKanbanController(),virtualKanbanController);
     }
 }
