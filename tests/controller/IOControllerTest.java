@@ -1,17 +1,20 @@
 package controller;
 
-import com.itextpdf.text.DocumentException;
+import model.Developer;
+import model.Note;
 import model.Project;
 import model.StageList;
 import model.Task;
 import model.Team;
-import org.junit.Assert;
+import model.VirtualKanban;
+
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URISyntaxException;
+import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
@@ -31,6 +34,122 @@ public class IOControllerTest{
     public IOControllerTest(){
         vkc = new VirtualKanbanController();
         io = new IOController(vkc);
+    }
+    
+    /**
+     * Tests the methods load() and save()
+     */
+    @Test
+    public void testLoadSave() {
+    	
+    	URI testURI = URI.create("test");
+    	String testDeveloperName = "TestDeveloper";
+    	
+    	String testTeamName = "TestTeam";
+    	
+    	String testProjectName = "TestProject";
+    	String testProjectDescription = "Test Project Description";
+    	LocalDateTime testProjectDeadline = LocalDateTime.of(2020, 8, 31, 13, 5);
+    	
+    	String testTaskName = "TestTask";
+    	String testTaskDescription = "Test Task Description";
+    	LocalDateTime testTaskDeadline = LocalDateTime.of(2020, 8, 29, 11, 3);
+    	
+    	String testCompletedTaskName = "TestCompletedTask";
+    	String testCompletedTaskDescription = "Test Completed Task Description";
+    	LocalDateTime testCompletedTaskDeadline = LocalDateTime.of(2020, 8, 30, 12, 15);
+    	
+    	
+    	LocalDateTime testNoteDeadline = LocalDateTime.of(2020, 8, 31, 2, 30);
+    	Note testNote = new Note("TestKommentar", "Test Kommentar Beschreibung", testNoteDeadline);
+    	
+    	
+    	//create testTeam
+    	vkc.getTeamController().createTeam(testTeamName);
+    	
+    	//get testTeam
+    	Team testTeam = vkc.getVirtualKanban().getTeam().get(0);
+    	
+    	//create testDeveloper
+    	vkc.getDeveloperController().createDeveloper(vkc.getVirtualKanban().getTeam().get(0), testDeveloperName, testURI);
+    	
+    	//get testDeveloper
+    	Developer testDeveloper = testTeam.getDevelopers().get(0);
+    	
+    	//create testProject with team testTeam
+    	vkc.getProjectController().createProject(testProjectName, testProjectDeadline, vkc.getVirtualKanban().getTeam().get(0), testProjectDescription);
+    	
+    	//get testProject
+    	Project testProject = vkc.getVirtualKanban().getProject().get(0);
+    	
+    	//add testTask and testCompletedTask to testProject
+    	vkc.getTaskController().addTask(testProject, testTaskName, testTaskDescription, testTaskDeadline);
+    	vkc.getTaskController().addTask(testProject, testCompletedTaskName, testCompletedTaskDescription, testCompletedTaskDeadline);
+    	
+    	//get testTask and testCompletedTask
+    	Task testTask = testProject.getStageList().get(0).getTask().get(0);
+    	Task testCompletedTask = testProject.getStageList().get(0).getTask().get(1);
+    	
+    	//add testNote to testTask
+    	vkc.getTaskController().addNote(testTask, testNote);
+    	
+    	//Complete the testCompletedTask with testDeveloper
+    	vkc.getTaskController().startTask(testCompletedTask, testProject, testDeveloper);
+    	vkc.getTaskController().finishTask(testCompletedTask, testProject);
+    	
+    	//assign testDeveloper to testTask
+    	vkc.getTaskController().startTask(testTask, testProject, testDeveloper);
+    	
+    	
+    	try {
+			vkc.getIOController().save();
+			try {
+				VirtualKanban loadedVirtualKanban = vkc.getIOController().load();
+				
+				Team loadedTeam = loadedVirtualKanban.getTeam().get(0);
+				Project loadedProject = loadedVirtualKanban.getProject().get(0);
+				Developer loadedDeveloper = loadedTeam.getDevelopers().get(0);
+				Task loadedCompletedTask = loadedDeveloper.getCompletedStageList().get(0).getTask();
+				Task loadedCurrentTask = loadedDeveloper.getCurrentTaskStage().getTask();
+				Note loadedNote = loadedCurrentTask.getNote().get(0);
+				
+				//Test all names
+				assertEquals(loadedTeam.getName(), testTeamName);
+				assertEquals(loadedProject.getName(), testProjectName);
+				assertEquals(loadedDeveloper.getName(), testDeveloperName);
+				assertEquals(loadedCompletedTask.getName(), testCompletedTaskName);
+				assertEquals(loadedCurrentTask.getName(), testTaskName);
+				assertEquals(loadedNote.getName(), testNote.getName());
+				
+				//Test all descriptions
+				assertEquals(loadedProject.getDescription(), testProjectDescription);
+				assertEquals(loadedCompletedTask.getDescription(), testCompletedTaskDescription);
+				assertEquals(loadedCurrentTask.getDescription(), testTaskDescription);
+				assertEquals(loadedNote.getContent(), testNote.getContent());
+				
+				//Test user picture
+				assertEquals(loadedDeveloper.getPicture(), testURI);
+				
+				//Test deadlines
+				assertEquals(loadedProject.getDeadline(), testProjectDeadline);
+				assertEquals(loadedCompletedTask.getDeadline(), testCompletedTaskDeadline);
+				assertEquals(loadedCurrentTask.getDeadline(), testTaskDeadline);
+				
+				//Test creation dates
+				assertEquals(loadedNote.getCreationDate(), testNote.getCreationDate());
+				
+				
+				
+				
+			} catch (IOException e) {
+				assertTrue("Failed loading the save file.", false);
+			} catch (NullPointerException e) {
+				assertTrue("Data was not loaded correctly.", false);
+			}
+		} catch (IOException e1) {
+			assertTrue("Failed saving.", false);
+		}
+    	
     }
 
     /**
