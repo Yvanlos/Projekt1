@@ -64,7 +64,7 @@
                      <center>
                         <ScrollPane fx:id="analysisProcessPane" prefHeight="200.0" prefWidth="340.0" BorderPane.alignment="CENTER">
                            <content>
-                              <VBox fx:id="analysisInProgressBox" prefHeight="408.0" prefWidth="489.0" />
+                              <VBox fx:id="analysisInProgressBox" />
                            </content></ScrollPane>
                      </center>
                      <top>
@@ -75,7 +75,7 @@
                      <center>
                         <ScrollPane fx:id="implementationProcessPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <content>
-                              <VBox fx:id="implementationInProgressBox" prefHeight="414.0" prefWidth="498.0" />
+                              <VBox fx:id="implementationInProgressBox" />
                            </content></ScrollPane>
                      </center>
                      <top>
@@ -86,7 +86,7 @@
                      <center>
                         <ScrollPane fx:id="testProcessPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <content>
-                              <VBox fx:id="testInProgressBox" prefHeight="412.0" prefWidth="497.0" />
+                              <VBox fx:id="testInProgressBox" />
                            </content></ScrollPane>
                      </center>
                      <top>
@@ -97,7 +97,7 @@
                      <center>
                         <ScrollPane fx:id="analysisFinishedPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <content>
-                              <VBox fx:id="analysisFinishedBox" prefHeight="410.0" prefWidth="497.0" />
+                              <VBox fx:id="analysisFinishedBox" />
                            </content></ScrollPane>
                      </center>
                      <top>
@@ -108,7 +108,7 @@
                      <center>
                         <ScrollPane fx:id="implementationFinishedPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <content>
-                              <VBox fx:id="implementationFinishedBox" prefHeight="412.0" prefWidth="496.0" />
+                              <VBox fx:id="implementationFinishedBox" />
                            </content></ScrollPane>
                      </center>
                      <top>
@@ -119,7 +119,7 @@
                      <center>
                         <ScrollPane fx:id="testFinishedPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <content>
-                              <VBox fx:id="testFinishedBox" prefHeight="407.0" prefWidth="496.0" />
+                              <VBox fx:id="testFinishedBox" />
                            </content></ScrollPane>
                      </center>
                      <top>
