@@ -6,11 +6,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -259,7 +261,7 @@ public class KanBanViewController extends BorderPane {
         stageList.getTask().forEach(task -> {
             //A MenuButton with 6 MenuItems for managing tasks is added for each task in this stage
             MenuButton menuButton = new MenuButton();
-            menuButton.setPrefSize(300,90);
+            menuButton.setPrefSize(300, 90);
             String deadline = "";
             if(task.getDeadline() != null){ deadline = task.getDeadline().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));}
 
@@ -335,8 +337,30 @@ public class KanBanViewController extends BorderPane {
                 newCommentController = new NewCommentController(virtualKanbanController, task);
                 newCommentController.showView();
             });
-            //the menuButton is added to the VBox
-            box.getChildren().add(menuButton);
+            //create taskPane and add it to the VBox
+            if(task.getDeveloper()!=null) {
+                ImageView imageView = new ImageView();
+                if (task.getDeveloper().getPicture() != null) {
+                    try {
+                        File imageFile = new File(task.getDeveloper().getPicture());
+                        InputStream imageStream = new FileInputStream(imageFile);
+                        Image image = new Image(imageStream);
+                        imageView.setImage(image);
+                    } catch (IOException e) {
+                        System.out.println("Could not load picture.");
+                    }
+                    menuButton.setPrefSize(210, 90);
+                }
+                imageView.setFitHeight(90);
+                imageView.setFitWidth(90);
+                BorderPane.setAlignment(imageView, Pos.CENTER_LEFT);
+                BorderPane taskPane = new BorderPane(imageView,null, null,null,menuButton);
+                box.getChildren().add(taskPane);
+            }
+            else {
+                BorderPane taskPane = new BorderPane(null,null,null,null,menuButton);
+                box.getChildren().add(taskPane);
+            }
         });
     }
 
