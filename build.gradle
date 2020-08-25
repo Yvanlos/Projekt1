@@ -139,6 +139,9 @@ shadowDistZip {
         from '.'
         include 'Produktbeschreibung.pdf'
         include 'save'
-        include 'Testbilder'
+        include 'Testbilder/blue.png'
+        include 'Testbilder/yellow.png'
+        include 'Testbilder/green.png'
+        include 'Testbilder/grey.png'
     }
 }
