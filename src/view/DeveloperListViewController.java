@@ -1,5 +1,7 @@
 package view;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -86,8 +88,13 @@ public class DeveloperListViewController {
     	stage = new Stage();
     	//stage.initModality(Modality.APPLICATION_MODAL); // Blockiert alle anderen Fenster im Hintergrund.
     	stage.setScene(scene);
-    	
-    	
+
+		stage.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				refreshDeveloperList();
+			}
+		});
 	}
     
     @FXML
@@ -140,8 +147,8 @@ public class DeveloperListViewController {
     		
     	}
     	);
-        
-    	
+
+
 		refreshDeveloperList();
     }
     
