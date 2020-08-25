@@ -96,7 +96,7 @@ public class KanBanViewController extends BorderPane {
         this.project = project;
 
         //Load view
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/KanbanView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/KanBanView.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try {
