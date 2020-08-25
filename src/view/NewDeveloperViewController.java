@@ -165,13 +165,15 @@ public class NewDeveloperViewController {
     	try {
         	
         	File selectedFile = fileChooser.showOpenDialog(stage);
-        	InputStream imageStream = new FileInputStream(selectedFile);
+        	if (selectedFile != null){
+        		InputStream imageStream = new FileInputStream(selectedFile);
         	
-        	Image image = new Image(imageStream);
+        		Image image = new Image(imageStream);
         	
-        	selectedImage.setImage(image);
+        		selectedImage.setImage(image);
         	
-        	selectedURI = selectedFile.toURI();
+        		selectedURI = selectedFile.toURI();
+        	}
         }
         catch(IOException e) {
         	e.printStackTrace();
