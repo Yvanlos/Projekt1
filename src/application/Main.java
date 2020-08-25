@@ -27,6 +27,9 @@ public class Main extends Application {
             Scene scene = new Scene(mainViewController, 1600, 800);
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             primaryStage.setScene(scene);
+            
+            primaryStage.setTitle("VirtualKanban");
+            
             primaryStage.show();
 
             primaryStage.focusedProperty().addListener(new ChangeListener<Boolean>() {
