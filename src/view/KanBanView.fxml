@@ -39,13 +39,13 @@
          <left>
             <ScrollPane fx:id="newTaskPane" prefHeight="880.0" prefWidth="300.0" BorderPane.alignment="CENTER">
                <content>
-                  <VBox fx:id="newStageBox" prefHeight="600.0" prefWidth="296.0" />
+                  <VBox fx:id="newStageBox" />
                </content></ScrollPane>
          </left>
          <right>
             <ScrollPane fx:id="taskFinishedPane" prefHeight="880.0" prefWidth="300.0" BorderPane.alignment="CENTER">
                <content>
-                  <VBox fx:id="finishedStageBox" prefHeight="860.0" prefWidth="283.0" />
+                  <VBox fx:id="finishedStageBox" />
                </content></ScrollPane>
          </right>
          <center>
