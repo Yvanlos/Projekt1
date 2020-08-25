@@ -139,5 +139,6 @@ shadowDistZip {
         from '.'
         include 'Produktbeschreibung.pdf'
         include 'save'
+        include 'Testbilder'
     }
 }
