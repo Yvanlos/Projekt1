@@ -88,7 +88,7 @@ public class DeveloperListViewController {
     	stage = new Stage();
     	//stage.initModality(Modality.APPLICATION_MODAL); // Blockiert alle anderen Fenster im Hintergrund.
     	stage.setScene(scene);
-
+    	stage.setTitle("Entwicklerliste");
 		stage.focusedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {

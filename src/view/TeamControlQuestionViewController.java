@@ -59,6 +59,7 @@ public class TeamControlQuestionViewController extends VBox {
         scene.getStylesheets().add(Main.class.getResource("application.css").toExternalForm());
         stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL); // Blocks all windows in the background
+        stage.setTitle("Sicherheitsabfrage");
         stage.setScene(scene);
         cancelButton.requestFocus();
         teamName = new Text(team.getName());

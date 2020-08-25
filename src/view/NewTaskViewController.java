@@ -59,6 +59,7 @@ public class NewTaskViewController extends VBox {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(Main.class.getResource("application.css").toExternalForm());
         stage = new Stage();
+        stage.setTitle("Neue Aufgabe anlegen");
         stage.setScene(scene);
     }
 

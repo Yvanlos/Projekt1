@@ -85,6 +85,7 @@ public class NewProjectViewController extends VBox {
     	Scene scene = new Scene(this);
     	scene.getStylesheets().add(Main.class.getResource("application.css").toExternalForm());
     	stage = new Stage();
+    	stage.setTitle("Neues Projekt erstellen");
     	stage.setScene(scene);
 
     	//Generate the ViewController

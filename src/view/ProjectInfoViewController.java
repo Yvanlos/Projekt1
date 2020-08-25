@@ -117,6 +117,7 @@ public class ProjectInfoViewController extends VBox {
         Scene scene = new Scene(this);
         scene.getStylesheets().add(Main.class.getResource("application.css").toExternalForm());
         stage = new Stage();
+        stage.setTitle("Infos zu: " + project.getName());
         stage.initModality(Modality.APPLICATION_MODAL); // Blocks all windows in the background
         stage.setScene(scene);
     }

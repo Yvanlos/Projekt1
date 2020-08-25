@@ -55,6 +55,7 @@ public class ReadCommentController extends SplitPane {
         Scene scene = new Scene(this);
         scene.getStylesheets().add(Main.class.getResource("application.css").toExternalForm());
         stage = new Stage();
+        stage.setTitle("Kommentare zu: " + task.getName());
         stage.setScene(scene);
     }
 

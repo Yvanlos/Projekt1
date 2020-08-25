@@ -100,6 +100,7 @@ public class NewDeveloperViewController {
     	Scene scene = new Scene(root);
     	scene.getStylesheets().add(Main.class.getResource("application.css").toExternalForm());
     	stage = new Stage();
+    	stage.setTitle("Neuen Entwickler anlegen");
     	stage.setScene(scene);
 	}
     

@@ -57,6 +57,7 @@ public class NewCommentController extends BorderPane {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(Main.class.getResource("application.css").toExternalForm());
         stage = new Stage();
+        stage.setTitle("Neuer Kommentar zu Aufgabe: " + task.getName());
         stage.setScene(scene);
     }
 

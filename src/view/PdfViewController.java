@@ -83,7 +83,7 @@ public class PdfViewController extends BorderPane {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(Main.class.getResource("application.css").toExternalForm());
         stage = new Stage();
-        //stage.initModality(Modality.APPLICATION_MODAL); // Blockiert alle anderen Fenster im Hintergrund.
+        stage.setTitle("PDF-Export");
         stage.setScene(scene);
     }
 

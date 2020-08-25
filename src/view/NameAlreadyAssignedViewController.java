@@ -45,6 +45,7 @@ public class NameAlreadyAssignedViewController extends VBox {
         scene.getStylesheets().add(Main.class.getResource("application.css").toExternalForm());
         stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL); // Blocks all windows in the background
+        stage.setTitle("Meldung");
         stage.setScene(scene);
     }
 
