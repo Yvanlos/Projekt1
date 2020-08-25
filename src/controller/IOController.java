@@ -15,7 +15,7 @@ public class IOController {
 	/**
 	 * the file in which the status is saved
 	 */
-	private static final File SAVE_FILE = new File("save");
+	private static final File SAVE_FILE = new File("../save");
 
 
 	/**
