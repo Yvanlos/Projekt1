@@ -1,9 +1,84 @@
 /* JavaFX CSS - Leave this comment until you have at least created one rule which uses -fx-Property */
 
+#root {
+    -fx-background-color: #e6e6e6;
+}
+
+.root-pane {
+    -fx-border-color: #000;
+    -fx-border-width: 1px;
+}
+
+.choice-box,
+.menu-button,
+.button {
+    -fx-background-color: #8fdce3;
+    -fx-background-radius: 3px;
+    -fx-cursor: hand;
+    -fx-border-color: #70b4ba;
+    -fx-border-width: 1px;
+    -fx-border-radius: 3px;
+}
+
+.choice-box:hover,
+.menu-button:hover,
+.button:hover {
+    -fx-background-color: #70b4ba;
+}
+
+.button--large {
+    -fx-font-size: 2.3em;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-padding: 2em 5em;
+}
+
+.button--round {
+    -fx-background-radius: 100%;
+    -fx-border-radius: 100%;
+}
+
+.border-pane {
+    -fx-padding: 10;
+}
+
 .text-area *.text {
+    -fx-text-alignment: left;
+}
+
+.text-field *.text {
     -fx-text-alignment: left;
 }
 
 .text-field {
     -fx-prompt-text-fill: red;
+    -fx-background-color: #dedede;
 }
+
+.text-area .content {
+    -fx-background-color: #dedede;
+}
+
+.text-area {
+    -fx-border-color: #dedede;
+}
+
+.list-cell {
+    -fx-background-color: #e6e6e6;
+}
+
+.table-view .table-cell{
+    -fx-background-color: #e6e6e6;
+}
+
+.combo-box{
+    -fx-background-color: #dedede;
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color: #b8b8b8;
+}
+
+
+
+
