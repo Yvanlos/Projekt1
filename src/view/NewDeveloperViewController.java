@@ -188,18 +188,19 @@ public class NewDeveloperViewController {
     	
     	String name = nameInputField.getText();
     	Team selectedTeam = developerTeamComboBox.getValue();
-    	
-    	virtualKanbanController.getDeveloperController().createDeveloper(selectedTeam, name, selectedURI);
-    	
-    	developerListViewController.refreshDeveloperList();
-    	
-    	//Reset all fields
-    	nameInputField.setText("");
-    	selectedURI = null;
-    	selectedImage.setImage(null);
-    	developerTeamComboBox.setValue(null);
-    	
-    	closeView();
+    	if(selectedTeam != null && !name.equals("")) {
+	    	virtualKanbanController.getDeveloperController().createDeveloper(selectedTeam, name, selectedURI);
+	    	
+	    	developerListViewController.refreshDeveloperList();
+	    	
+	    	//Reset all fields
+	    	nameInputField.setText("");
+	    	selectedURI = null;
+	    	selectedImage.setImage(null);
+	    	developerTeamComboBox.setValue(null);
+	    	
+	    	closeView();
+    	}
     }
     
     /**
